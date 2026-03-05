@@ -989,7 +989,7 @@
   <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
     var dOpts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
-    document.getElementById('dateStr').textContent = new Date().toLocaleDateString('ar-EG', dOpts);
+    document.getElementById('dateStr').textContent = new Date().toLocaleDateString('ar-EG-u-nu-latn', dOpts);
 
     var feed = document.getElementById('feed');
     var heroArea = document.getElementById('heroArea');
@@ -1061,7 +1061,7 @@
         .then(function(r){ if(!r.ok) throw new Error('err'); return r.json(); })
         .then(function(data){
           lastTimestamp = data.timestamp;
-          lastUpdateEl.textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-EG', { hour:'2-digit', minute:'2-digit' });
+          lastUpdateEl.textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-EG-u-nu-latn', { hour:'2-digit', minute:'2-digit' });
           var nw = data.articles.filter(function(a){ return !seenLinks.has(a.link); });
           nw.forEach(function(a){ seenLinks.add(a.link); sources.add(a.source); });
           if(initial){ articles=data.articles; renderFeed(); buildSourceFilters(); buildTicker(); }
@@ -1352,7 +1352,7 @@
       if(!d) return '';
       var date = new Date(d);
       if(isNaN(date.getTime())) return '';
-      return date.toLocaleDateString('ar-SA', { day:'2-digit', month:'long', year:'numeric' });
+      return date.toLocaleDateString('ar-SA-u-nu-latn', { day:'2-digit', month:'long', year:'numeric' });
     }
 
     function getOpinionAuthor(a) {
@@ -1555,7 +1555,7 @@
           data.stocks.forEach(function(s){
             var item=document.createElement('div'); item.className='stock-item';
             var name=document.createElement('span'); name.className='stock-name'; name.textContent=s.name;
-            var price=document.createElement('span'); price.className='stock-price'; price.textContent=s.price.toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2});
+            var price=document.createElement('span'); price.className='stock-price'; price.textContent=s.price.toLocaleString('ar-EG-u-nu-latn',{minimumFractionDigits:2,maximumFractionDigits:2});
             var change=document.createElement('span');
             var pct=s.changePercent;
             var dir=pct>0?'up':pct<0?'down':'flat';
