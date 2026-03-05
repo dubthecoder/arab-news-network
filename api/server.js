@@ -28,6 +28,17 @@ app.get('/news', async (req, res) => {
   }
 });
 
+app.get('/stocks', async (req, res) => {
+  try {
+    const raw = await redis.get('stocks:ar');
+    const stocks = raw ? JSON.parse(raw) : [];
+    res.json({ stocks });
+  } catch (err) {
+    console.error('Error reading stocks:', err);
+    res.status(500).json({ error: 'Failed to fetch stocks' });
+  }
+});
+
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'api' });
 });

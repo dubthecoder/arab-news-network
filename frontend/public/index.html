@@ -80,11 +80,17 @@
     .top-editions { min-height: 1rem; }
     .top-social { display: flex; align-items: center; gap: 0.55rem; }
 
-    .theme-btn {
+    .top-bar-controls {
       position: absolute;
       left: 1.5rem;
       top: 50%;
       transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-btn {
       background: transparent;
       border: none;
       color: var(--ink-mid);
@@ -98,6 +104,24 @@
     .theme-btn svg {
       width: 100%;
       height: 100%;
+    }
+
+    .text-size-btn {
+      background: transparent;
+      border: 1px solid var(--line-strong);
+      color: var(--ink-mid);
+      font-family: 'Noto Naskh Arabic', serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 0.15rem 0.4rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      line-height: 1;
+    }
+
+    .text-size-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
     }
 
     .theme-btn:hover {
@@ -123,23 +147,37 @@
     }
 
 
-    .logo {
-      font-family: var(--serif);
-      font-size: 3.2rem;
-      line-height: 0.88;
+    .logo-ar {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 1.8rem;
       font-weight: 700;
       color: var(--ink);
-      letter-spacing: 0.3px;
+      text-align: center;
+      line-height: 1.1;
+      margin-bottom: 0.1rem;
     }
 
-    .logo .red { color: var(--accent); }
+    .logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.6rem;
+      line-height: 1;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .logo .word-arab { font-weight: 500; }
+    .logo .word-news { color: var(--accent); font-weight: 700; }
+    .logo .word-network { font-weight: 500; color: var(--ink-mid); font-size: 0.65em; letter-spacing: 0.25em; }
 
     .logo-sub {
-      margin-top: 0.35rem;
-      color: var(--ink-light);
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+      margin-top: 0.25rem;
+      color: var(--accent);
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-align: center;
     }
 
@@ -275,8 +313,58 @@
 
     @keyframes ticker-scroll {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      100% { transform: translateX(50%); }
     }
+
+    .stock-ticker {
+      background: var(--ink);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+
+    .stock-ticker-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0.35rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      direction: rtl;
+    }
+
+    .stock-ticker-inner::-webkit-scrollbar { display: none; }
+
+    .stock-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-size: 0.72rem;
+    }
+
+    .stock-name {
+      color: rgba(255,255,255,0.6);
+      font-weight: 600;
+    }
+
+    .stock-price {
+      color: #fff;
+      font-weight: 700;
+      font-family: var(--sans);
+    }
+
+    .stock-change {
+      font-weight: 700;
+      font-size: 0.68rem;
+      direction: ltr;
+    }
+
+    .stock-change.up { color: #22c55e; }
+    .stock-change.down { color: #ef4444; }
+    .stock-change.flat { color: rgba(255,255,255,0.5); }
 
     .page {
       max-width: var(--max-w);
@@ -295,6 +383,7 @@
       margin-bottom: 2rem;
       display: grid;
       grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      grid-template-rows: 1fr;
       background: var(--panel);
       border: 1px solid var(--line);
       box-shadow: var(--shadow-strong);
@@ -306,7 +395,9 @@
       border-inline-start: 1px solid var(--line);
       display: flex;
       flex-direction: column;
-      min-height: 0;
+      overflow: hidden;
+      height: 0;
+      min-height: 100%;
     }
 
     .hero-live-header {
@@ -335,13 +426,13 @@
     .hero-live-item:hover { background: var(--panel-soft); }
 
     .hero-live-time {
-      font-size: 0.65rem;
+      font-size: 0.72rem;
       color: var(--ink-light);
       margin-bottom: 0.15rem;
     }
 
     .hero-live-source {
-      font-size: 0.6rem;
+      font-size: 0.68rem;
       color: var(--accent);
       font-weight: 700;
       text-transform: uppercase;
@@ -350,7 +441,7 @@
 
     .hero-live-title {
       font-family: var(--serif);
-      font-size: 0.88rem;
+      font-size: 1rem;
       line-height: 1.2;
       color: var(--ink);
       display: -webkit-box;
@@ -360,6 +451,15 @@
     }
 
     .hero-live-item:hover .hero-live-title { color: var(--accent-strong); }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(-100%); max-height: 0; }
+      to { opacity: 1; transform: translateY(0); max-height: 120px; }
+    }
+
+    .hero-live-item.new-item {
+      animation: slide-in 0.4s ease-out forwards;
+    }
 
     .hero-main {
       display: block;
@@ -432,7 +532,7 @@
 
     .hero-sub {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       border-top: 1px solid var(--line);
     }
 
@@ -445,7 +545,7 @@
       transition: background 0.15s;
     }
 
-    .hero-sub-item:nth-child(odd) { border-inline-start: none; }
+    .hero-sub-item:nth-child(3n+1) { border-inline-start: none; }
     .hero-sub-item:hover { background: var(--panel-soft); }
 
     .hero-sub-img {
@@ -520,6 +620,29 @@
       grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
       gap: 1rem;
       margin-bottom: 1rem;
+      align-items: stretch;
+    }
+
+    .card-feat-row > .card-big {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-feat-row > .card-big .card-img-wrap { flex: 1; min-height: 0; }
+    .card-feat-row > .card-big .card-img { height: 100%; }
+
+    .card-feat-row > div:last-child {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-feat-row > div:last-child .card-hz {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .card-feat-row > div:last-child .card-hz + .card-hz {
+      margin-top: 0.78rem;
     }
 
     .card-grid-3 {
@@ -594,7 +717,7 @@
       letter-spacing: 0.08em;
     }
 
-    .card-big .card-img { height: 290px; }
+    .card-big .card-img { height: 100%; min-height: 200px; }
     .card-big .card-title { font-size: 1.9rem; line-height: 0.98; }
 
     .card-hz {
@@ -821,7 +944,8 @@
       letter-spacing: 0.02em;
     }
 
-    .footer-logo .red { color: var(--accent); }
+    .footer-logo .word-news { color: var(--accent); }
+    .footer-logo .word-network { color: var(--ink-light); font-size: 0.75em; }
 
     @media (max-width: 1180px) {
       .content-grid { grid-template-columns: minmax(0, 1fr) 350px; gap: 1.5rem; }
@@ -879,7 +1003,11 @@
     <div class="top-bar-inner">
       <span class="header-date" id="dateStr"></span>
       <span id="lastUpdate"></span>
-      <button class="theme-btn" id="themeToggle" onclick="toggleTheme()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg></button>
+      <div class="top-bar-controls">
+        <button class="text-size-btn" onclick="adjustTextSize(1)">أ+</button>
+        <button class="text-size-btn" onclick="adjustTextSize(-1)">أ-</button>
+        <button class="theme-btn" id="themeToggle" onclick="toggleTheme()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg></button>
+      </div>
     </div>
   </div>
 
@@ -887,8 +1015,9 @@
   <div class="header">
     <div class="header-inner">
       <div>
-        <div class="logo">ARAB <span class="red">NEWS</span> NETWORK</div>
-        <div class="logo-sub">&#1589;&#1608;&#1578; &#1575;&#1604;&#1588;&#1585;&#1602; &#1575;&#1604;&#1571;&#1608;&#1587;&#1591;</div>
+        <div class="logo-ar">شبكة الأخبار العربية</div>
+        <div class="logo"><span class="word-arab">ARAB</span> <span class="word-news">NEWS</span> <span class="word-network">NETWORK</span></div>
+        <div class="logo-sub">مُجمّع الأخبار المباشر</div>
       </div>
     </div>
   </div>
@@ -914,14 +1043,9 @@
       <div class="nav-item" data-country="الأردن">الأردن</div>
       <div class="nav-item" data-country="اليمن">اليمن</div>
       <div class="nav-item" data-country="ليبيا">ليبيا</div>
-      <div class="nav-item" data-country="تونس">تونس</div>
-      <div class="nav-item" data-country="الجزائر">الجزائر</div>
-      <div class="nav-item" data-country="المغرب">المغرب</div>
-      <div class="nav-item" data-country="السودان">السودان</div>
       <div class="nav-item" data-country="الكويت">الكويت</div>
       <div class="nav-item" data-country="قطر">قطر</div>
       <div class="nav-item" data-country="البحرين">البحرين</div>
-      <div class="nav-item" data-country="عمان">عُمان</div>
     </div>
   </div>
 
@@ -933,6 +1057,11 @@
         <div class="ticker-track" id="tickerTrack"></div>
       </div>
     </div>
+  </div>
+
+  <!-- Stock Ticker -->
+  <div class="stock-ticker">
+    <div class="stock-ticker-inner" id="stockTicker"></div>
   </div>
 
   <!-- New articles banner -->
@@ -950,8 +1079,9 @@
   <!-- Footer -->
   <div class="footer">
     <div class="footer-inner">
-      <div class="footer-logo">ARAB <span class="red">NEWS</span> NETWORK</div>
+      <div class="footer-logo"><span class="word-arab">ARAB</span> <span class="word-news">NEWS</span> <span class="word-network">NETWORK</span></div>
       <span>&copy; <span id="yr"></span> &mdash; LIVE MIDDLE EAST NEWS AGGREGATOR</span>
+      <a href="mailto:hello@arabnews.network" style="color:var(--ink-light);font-size:0.75rem;">hello@arabnews.network</a>
     </div>
   </div>
 
@@ -982,15 +1112,10 @@
       'الإمارات': ['الإمارات','أبوظبي','دبي','الشارقة'],
       'الأردن': ['الأردن','عمان الأردن','الأردني'],
       'اليمن': ['اليمن','صنعاء','عدن','الحوثي','أنصار الله','مأرب'],
-      'ليبيا': ['ليبيا','طرابلس الغرب','بنغازي','حفتر','الدبيبة'],
-      'تونس': ['تونس','قيس سعيد','التونسي'],
-      'الجزائر': ['الجزائر','الجزائري','تبون'],
-      'المغرب': ['المغرب','الرباط','المغربي','الدار البيضاء'],
-      'السودان': ['السودان','الخرطوم','السوداني','الدعم السريع'],
+      'ليبيا': ['ليبيا','الليبي','الليبية','بنغازي','حفتر','الدبيبة','مصراتة','سرت','درنة','المنفي'],
       'الكويت': ['الكويت','الكويتي'],
       'قطر': ['قطر','الدوحة','القطري'],
-      'البحرين': ['البحرين','المنامة','البحريني'],
-      'عمان': ['عمان','مسقط','العماني','سلطنة عمان']
+      'البحرين': ['البحرين','المنامة','البحريني']
     };
     function matchesCountry(a, country) {
       if(country==='all') return true;
@@ -1044,8 +1169,7 @@
           else if(nw.length>0){
             articles=nw.concat(articles); buildSourceFilters(); buildTicker();
             updateHeroLive();
-            if(window.scrollY>200){ pendingNewCount+=nw.length; }
-            else renderFeed();
+            renderFeed();
           }
         })
         .catch(function(e){
@@ -1096,18 +1220,18 @@
       for(var i=0;i<candidates.length;i++){
         var a=candidates[i].a, src=a.source||'';
         if(!lead && a.image){ lead=a; heroSources[src]=1; }
-        else if(lead && subStories.length<4 && a.image){
+        else if(lead && subStories.length<6 && a.image){
           var uniqueCount=Object.keys(heroSources).length;
           if(!heroSources[src] || uniqueCount>=3){ subStories.push(a); heroSources[src]=(heroSources[src]||0)+1; }
           else { rest.push(a); }
         }
         else { rest.push(a); }
       }
-      // If we couldn't fill 4 sub-stories with diversity, do a second pass
-      if(subStories.length<4){
+      // If we couldn't fill 6 sub-stories with diversity, do a second pass
+      if(subStories.length<6){
         var rest2=[];
         for(var i=0;i<rest.length;i++){
-          if(subStories.length<4 && rest[i].image){ subStories.push(rest[i]); }
+          if(subStories.length<6 && rest[i].image){ subStories.push(rest[i]); }
           else { rest2.push(rest[i]); }
         }
         rest=rest2;
@@ -1115,9 +1239,14 @@
       if(!lead){ lead=filtered[0]; rest=filtered.slice(1); subStories=[]; }
       heroArea.appendChild(buildHero(lead, subStories));
 
-      // Sidebar: opinion-style stories
+      // Sidebar: opinion-style stories (diverse sources)
       var opinionSeed = rest.length ? rest : filtered.slice(1);
-      buildSidebar(opinionSeed.slice(0, 6));
+      var opinionPicks=[], opSources={};
+      for(var i=0;i<opinionSeed.length && opinionPicks.length<10;i++){
+        var os=opinionSeed[i].source||'';
+        if(!opSources[os] || Object.keys(opSources).length>=4){ opinionPicks.push(opinionSeed[i]); opSources[os]=(opSources[os]||0)+1; }
+      }
+      buildSidebar(opinionPicks);
 
       // Sections
       var secs = categorize(rest);
@@ -1205,27 +1334,73 @@
       return wrap;
     }
 
+    var liveFeedLinks = new Set();
+
+    function createLiveItem(a, animate) {
+      var item=document.createElement('a'); item.className='hero-live-item' + (animate ? ' new-item' : '');
+      item.href=a.link; item.target='_blank'; item.rel='noopener noreferrer';
+      item.dataset.link=a.link;
+      var top=document.createElement('div');
+      top.style.cssText='display:flex;justify-content:space-between;align-items:center;margin-bottom:0.15rem;';
+      var src=document.createElement('span'); src.className='hero-live-source'; src.textContent=a.source||'';
+      var time=document.createElement('span'); time.className='hero-live-time'; time.textContent=getTimeAgo(a.pubDate);
+      top.appendChild(src); top.appendChild(time);
+      item.appendChild(top);
+      var title=document.createElement('div'); title.className='hero-live-title'; title.textContent=a.title||'';
+      item.appendChild(title);
+      if(animate){
+        item.addEventListener('animationend', function(){ item.classList.remove('new-item'); });
+      }
+      return item;
+    }
+
     function updateHeroLive() {
       var list=document.getElementById('heroLiveList');
       if(!list) return;
-      populateLiveList(list);
+      var items=articles.slice(0, 20);
+      // Find new articles not yet in the live feed
+      var newItems=[];
+      items.forEach(function(a){
+        if(!liveFeedLinks.has(a.link)) newItems.push(a);
+      });
+      // Prepend new items with animation
+      for(var i=newItems.length-1;i>=0;i--){
+        var el=createLiveItem(newItems[i], true);
+        list.insertBefore(el, list.firstChild);
+        liveFeedLinks.add(newItems[i].link);
+      }
+      // Trim excess items from bottom
+      while(list.children.length>20){
+        var last=list.lastChild;
+        if(last.dataset && last.dataset.link) liveFeedLinks.delete(last.dataset.link);
+        list.removeChild(last);
+      }
+    }
+
+    function diversifyList(source, max) {
+      var picks=[], srcCount={};
+      for(var i=0;i<source.length && picks.length<max;i++){
+        var s=source[i].source||'';
+        var unique=Object.keys(srcCount).length;
+        if(!srcCount[s] || unique>=5){ picks.push(source[i]); srcCount[s]=(srcCount[s]||0)+1; }
+      }
+      // Second pass if not enough
+      if(picks.length<max){
+        var pickLinks=new Set(picks.map(function(a){return a.link;}));
+        for(var i=0;i<source.length && picks.length<max;i++){
+          if(!pickLinks.has(source[i].link)) picks.push(source[i]);
+        }
+      }
+      return picks;
     }
 
     function populateLiveList(list) {
       while(list.firstChild) list.removeChild(list.firstChild);
-      var items=articles.slice(0, 20);
+      liveFeedLinks.clear();
+      var items=diversifyList(articles, 20);
       items.forEach(function(a){
-        var item=document.createElement('a'); item.className='hero-live-item';
-        item.href=a.link; item.target='_blank'; item.rel='noopener noreferrer';
-        var top=document.createElement('div');
-        top.style.cssText='display:flex;justify-content:space-between;align-items:center;margin-bottom:0.15rem;';
-        var src=document.createElement('span'); src.className='hero-live-source'; src.textContent=a.source||'';
-        var time=document.createElement('span'); time.className='hero-live-time'; time.textContent=getTimeAgo(a.pubDate);
-        top.appendChild(src); top.appendChild(time);
-        item.appendChild(top);
-        var title=document.createElement('div'); title.className='hero-live-title'; title.textContent=a.title||'';
-        item.appendChild(title);
-        list.appendChild(item);
+        list.appendChild(createLiveItem(a, false));
+        liveFeedLinks.add(a.link);
       });
     }
 
@@ -1459,8 +1634,42 @@
       setThemeIcon(s);
     })();
 
+    var textSizeLevel = parseInt(localStorage.getItem('textSize') || '0');
+    function adjustTextSize(dir) {
+      textSizeLevel = Math.max(-2, Math.min(3, textSizeLevel + dir));
+      document.documentElement.style.fontSize = (100 + textSizeLevel * 8) + '%';
+      localStorage.setItem('textSize', textSizeLevel);
+    }
+    if(textSizeLevel !== 0) document.documentElement.style.fontSize = (100 + textSizeLevel * 8) + '%';
+
     fetchNews(true);
     setInterval(function(){fetchNews(false);},POLL_INTERVAL);
+
+    function fetchStocks() {
+      fetch('/api/stocks')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          var el=document.getElementById('stockTicker');
+          if(!el || !data.stocks || !data.stocks.length) return;
+          while(el.firstChild) el.removeChild(el.firstChild);
+          data.stocks.forEach(function(s){
+            var item=document.createElement('div'); item.className='stock-item';
+            var name=document.createElement('span'); name.className='stock-name'; name.textContent=s.name;
+            var price=document.createElement('span'); price.className='stock-price'; price.textContent=s.price.toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2});
+            var change=document.createElement('span');
+            var pct=s.changePercent;
+            var dir=pct>0?'up':pct<0?'down':'flat';
+            change.className='stock-change '+dir;
+            var arrow=pct>0?'▲':pct<0?'▼':'–';
+            change.textContent=arrow+' '+Math.abs(pct).toFixed(2)+'%';
+            item.appendChild(name); item.appendChild(price); item.appendChild(change);
+            el.appendChild(item);
+          });
+        })
+        .catch(function(e){ console.error('Stock fetch error:',e); });
+    }
+    fetchStocks();
+    setInterval(fetchStocks, 120000);
   </script>
 </body>
 </html>

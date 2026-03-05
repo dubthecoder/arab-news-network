@@ -117,6 +117,50 @@ async function updateFeeds() {
   }
 }
 
+// Arab stock exchange indices (Yahoo Finance symbols)
+const STOCK_INDICES = [
+  { symbol: '^TASI', name: 'تاسي', exchange: 'السعودية' },
+  { symbol: '^ADI', name: 'أبوظبي', exchange: 'الإمارات' },
+  { symbol: '^DFMGI', name: 'دبي', exchange: 'الإمارات' },
+  { symbol: '^EGX30', name: 'EGX 30', exchange: 'مصر' },
+  { symbol: '^QSI', name: 'قطر', exchange: 'قطر' },
+  { symbol: '^CASE30', name: 'مصر 30', exchange: 'مصر' },
+];
+
+async function fetchStocks() {
+  console.log('Fetching stock data...');
+  try {
+    const symbols = STOCK_INDICES.map(s => s.symbol).join(',');
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(
+      `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(symbols)}&fields=symbol,regularMarketPrice,regularMarketChange,regularMarketChangePercent`,
+      {
+        signal: controller.signal,
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; NewsBot/1.0)' },
+      }
+    );
+    clearTimeout(timeout);
+    if (!res.ok) { console.error(`Stock fetch failed: ${res.status}`); return; }
+    const data = await res.json();
+    const quotes = (data.quoteResponse?.result || []).map(q => {
+      const meta = STOCK_INDICES.find(s => s.symbol === q.symbol);
+      return {
+        symbol: q.symbol,
+        name: meta?.name || q.symbol,
+        exchange: meta?.exchange || '',
+        price: q.regularMarketPrice || 0,
+        change: q.regularMarketChange || 0,
+        changePercent: q.regularMarketChangePercent || 0,
+      };
+    });
+    await redis.set('stocks:ar', JSON.stringify(quotes), 'EX', TTL);
+    console.log(`Updated: ${quotes.length} stock indices`);
+  } catch (err) {
+    console.error('Stock fetch error:', err.message);
+  }
+}
+
 // Minimal HTTP server for Railway health checks
 const http = require('http');
 const PORT = process.env.PORT || 3002;
@@ -129,4 +173,6 @@ http.createServer((req, res) => {
 
 // Run immediately, then on interval
 updateFeeds();
+fetchStocks();
 setInterval(updateFeeds, FETCH_INTERVAL);
+setInterval(fetchStocks, FETCH_INTERVAL);
