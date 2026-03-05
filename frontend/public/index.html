@@ -7,7 +7,31 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <title>Arab News Network</title>
+  <title>شبكة الأخبار العربية | آخر أخبار الشرق الأوسط والعالم العربي</title>
+  <meta name="description" content="شبكة الأخبار العربية - آخر الأخبار والتحديثات من الشرق الأوسط والعالم العربي. سياسة، اقتصاد، رياضة، تكنولوجيا وثقافة من مصادر متعددة.">
+  <meta name="keywords" content="أخبار عربية, أخبار الشرق الأوسط, آخر الأخبار, أخبار اليوم, سياسة, اقتصاد, رياضة, تكنولوجيا, أخبار عاجلة">
+  <link rel="canonical" href="https://arabnews.network/">
+  <link rel="alternate" hreflang="ar" href="https://arabnews.network/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="شبكة الأخبار العربية | آخر أخبار الشرق الأوسط">
+  <meta property="og:description" content="مجمع أخبار عربي يقدم آخر الأخبار والتحديثات من الشرق الأوسط والعالم العربي. سياسة، اقتصاد، رياضة، تكنولوجيا وثقافة.">
+  <meta property="og:url" content="https://arabnews.network/">
+  <meta property="og:site_name" content="شبكة الأخبار العربية">
+  <meta property="og:locale" content="ar_AR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="شبكة الأخبار العربية | آخر أخبار الشرق الأوسط">
+  <meta name="twitter:description" content="مجمع أخبار عربي يقدم آخر الأخبار والتحديثات من الشرق الأوسط والعالم العربي.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "شبكة الأخبار العربية",
+    "alternateName": "Arab News Network",
+    "url": "https://arabnews.network/",
+    "inLanguage": "ar",
+    "description": "مجمع أخبار عربي يقدم آخر الأخبار من مصادر متعددة تشمل السياسة والاقتصاد والرياضة والتكنولوجيا والثقافة"
+  }
+  </script>
   <script defer src="https://umami.teclara.cloud/script.js" data-website-id="6e11251b-248b-4a62-b3e3-20b9da1dbc00"></script>
   <style>
     :root {
@@ -1022,7 +1046,7 @@
       return false;
     }
     var lastTimestamp = null;
-    var POLL_INTERVAL = 30000;
+    var POLL_INTERVAL = 1200000; // 20 minutes
     var sources = new Set();
 
     var SECTIONS = [
@@ -1169,7 +1193,7 @@
       var main=document.createElement('a'); main.className='hero-main';
       main.href=a.link; main.target='_blank'; main.rel='noopener noreferrer';
       if(a.image){
-        var img=document.createElement('img'); img.src=a.image; img.alt='';
+        var img=document.createElement('img'); img.src=a.image; img.alt=a.title||'';
         img.onerror=function(){this.style.display='none';};
         main.appendChild(img);
       }
@@ -1207,7 +1231,7 @@
           var item=document.createElement('a'); item.className='hero-sub-item';
           item.href=s.link; item.target='_blank'; item.rel='noopener noreferrer';
           if(s.image){
-            var si=document.createElement('img'); si.className='hero-sub-img'; si.src=s.image; si.alt=''; si.loading='lazy';
+            var si=document.createElement('img'); si.className='hero-sub-img'; si.src=s.image; si.alt=s.title||''; si.loading='lazy';
             si.onerror=function(){this.style.display='none';};
             item.appendChild(si);
           }
@@ -1362,7 +1386,7 @@
         var img=document.createElement('img');
         img.className='opinion-avatar';
         img.src=a.image;
-        img.alt='';
+        img.alt=a.title||'';
         img.loading='lazy';
         img.onerror=function(){ this.replaceWith(buildOpinionAvatarFallback(getOpinionAuthor(a))); };
         return img;
@@ -1433,7 +1457,7 @@
       el.href=a.link; el.target='_blank'; el.rel='noopener noreferrer';
       if(a.image){
         var wrap=document.createElement('div'); wrap.className='card-img-wrap';
-        var img=document.createElement('img'); img.className='card-img'; img.src=a.image; img.alt=''; img.loading='lazy';
+        var img=document.createElement('img'); img.className='card-img'; img.src=a.image; img.alt=a.title||''; img.loading='lazy';
         img.onerror=function(){this.parentElement.style.display='none';};
         wrap.appendChild(img); el.appendChild(wrap);
       }
@@ -1451,7 +1475,7 @@
       el.href=a.link; el.target='_blank'; el.rel='noopener noreferrer';
       if(a.image){
         var wrap=document.createElement('div'); wrap.className='card-img-wrap';
-        var img=document.createElement('img'); img.className='card-img'; img.src=a.image; img.alt=''; img.loading='lazy';
+        var img=document.createElement('img'); img.className='card-img'; img.src=a.image; img.alt=a.title||''; img.loading='lazy';
         img.onerror=function(){this.parentElement.style.display='none';};
         wrap.appendChild(img); el.appendChild(wrap);
       }
@@ -1566,7 +1590,14 @@
         .catch(function(e){ console.error('Stock fetch error:',e); });
     }
     fetchStocks();
-    setInterval(fetchStocks, 120000);
+    setInterval(fetchStocks, 1200000); // 20 minutes
   </script>
+  <noscript>
+    <div style="text-align:center;padding:4rem 2rem;font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;">
+      <h1>شبكة الأخبار العربية</h1>
+      <p>مجمع أخبار عربي يقدم آخر الأخبار والتحديثات من الشرق الأوسط والعالم العربي، يشمل أخبار السياسة والاقتصاد والرياضة والتكنولوجيا والثقافة من مصادر متعددة.</p>
+      <p>يرجى تفعيل JavaScript لعرض الأخبار.</p>
+    </div>
+  </noscript>
 </body>
 </html>

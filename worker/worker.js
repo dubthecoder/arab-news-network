@@ -10,8 +10,8 @@ const parser = new RSSParser({
   },
 });
 const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
-const FETCH_INTERVAL = 2 * 60 * 1000; // 2 minutes
-const TTL = 5 * 60; // 5 minutes
+const FETCH_INTERVAL = 20 * 60 * 1000; // 20 minutes
+const TTL = 25 * 60; // 25 minutes
 const OG_FETCH_TIMEOUT = 4000; // 4s timeout per article
 
 const RSS_FEEDS = [
