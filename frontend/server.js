@@ -1,23 +1,25 @@
 const express = require('express');
 const path = require('path');
-const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const API_URL = process.env.API_URL || 'http://localhost:3001';
+const API_INTERNAL = process.env.API_URL || 'http://localhost:3001';
 
-// Read index.html once and inject API_URL
-const htmlPath = path.join(__dirname, 'public', 'index.html');
-const rawHtml = fs.readFileSync(htmlPath, 'utf-8');
-const injectedHtml = rawHtml.replace(/__API_URL__/g, API_URL);
-
-// Serve static assets normally
-app.use(express.static(path.join(__dirname, 'public'), { index: false }));
-
-// Serve injected HTML for root
-app.get('/', (req, res) => {
-  res.type('html').send(injectedHtml);
+// Proxy /api/* to internal API service
+app.get('/api/*', async (req, res) => {
+  try {
+    const apiPath = req.originalUrl.replace(/^\/api/, '');
+    const apiRes = await fetch(`${API_INTERNAL}${apiPath}`);
+    const data = await apiRes.json();
+    res.status(apiRes.status).json(data);
+  } catch (err) {
+    console.error('API proxy error:', err.message);
+    res.status(502).json({ error: 'API unavailable' });
+  }
 });
+
+// Serve static assets
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(PORT, () => {
   console.log(`Frontend server running on port ${PORT}`);

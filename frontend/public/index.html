@@ -426,7 +426,6 @@
   </div>
 
   <script>
-    const API_URL = '__API_URL__';
     const feed = document.getElementById('feed');
     const lastUpdateEl = document.getElementById('lastUpdate');
     const newBanner = document.getElementById('newBanner');
@@ -445,7 +444,7 @@
       try {
         const params = new URLSearchParams({ lang: currentLang });
         if (lastTimestamp && !initial) params.set('since', lastTimestamp);
-        const url = API_URL + '/news?' + params;
+        const url = '/api/news?' + params;
 
         const res = await fetch(url);
         if (!res.ok) throw new Error('Network error');
