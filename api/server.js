@@ -12,10 +12,9 @@ app.use(cors({
 
 app.get('/news', async (req, res) => {
   try {
-    const lang = req.query.lang === 'ar' ? 'ar' : 'en';
     const since = req.query.since ? new Date(req.query.since) : null;
 
-    const raw = await redis.get(`news:${lang}`);
+    const raw = await redis.get('news:ar');
     let articles = raw ? JSON.parse(raw) : [];
 
     if (since) {

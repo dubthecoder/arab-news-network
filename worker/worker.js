@@ -15,15 +15,6 @@ const TTL = 5 * 60; // 5 minutes
 const OG_FETCH_TIMEOUT = 4000; // 4s timeout per article
 
 const RSS_FEEDS = [
-  { url: 'https://feeds.bbci.co.uk/news/world/middle_east/rss.xml', source: 'BBC' },
-  { url: 'https://www.aljazeera.com/xml/rss/all.xml', source: 'Al Jazeera' },
-  { url: 'https://www.theguardian.com/world/middleeast/rss', source: 'The Guardian' },
-  { url: 'https://www.al-monitor.com/rss', source: 'Al-Monitor' },
-  { url: 'https://www.middleeastmonitor.com/feed', source: 'Middle East Monitor' },
-  { url: 'https://english.aawsat.com/feed', source: 'Asharq Al-Awsat' },
-];
-
-const ARABIC_RSS_FEEDS = [
   { url: 'https://www.aljazeera.net/aljazeerarss/ar/rss.xml', source: '\u0627\u0644\u062c\u0632\u064a\u0631\u0629' },
   { url: 'https://feeds.bbci.co.uk/arabic/rss.xml', source: '\u0628\u064a \u0628\u064a \u0633\u064a \u0639\u0631\u0628\u064a' },
   { url: 'https://arabic.rt.com/rss/', source: '\u0622\u0631 \u062a\u064a \u0639\u0631\u0628\u064a' },
@@ -47,7 +38,6 @@ async function fetchOgImage(url) {
     });
     clearTimeout(timeout);
     if (!res.ok) return '';
-    // Read only first 30KB to find og:image quickly
     const reader = res.body.getReader();
     const decoder = new TextDecoder();
     let html = '';
@@ -55,7 +45,6 @@ async function fetchOgImage(url) {
       const { done, value } = await reader.read();
       if (done) break;
       html += decoder.decode(value, { stream: true });
-      // Check if we've passed </head> — no need to read further
       if (html.includes('</head>')) break;
     }
     reader.cancel();
@@ -96,7 +85,7 @@ async function fetchFeeds(feeds) {
     .flatMap((r) => r.value)
     .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
 
-  // Fetch og:image for articles missing images (in parallel, batched)
+  // Fetch og:image for articles missing images (in parallel)
   const needImage = articles.filter((a) => !a.image && a.link);
   if (needImage.length > 0) {
     console.log(`Fetching og:image for ${needImage.length} articles...`);
@@ -118,18 +107,12 @@ async function fetchFeeds(feeds) {
 async function updateFeeds() {
   console.log('Fetching feeds...');
   try {
-    const [enArticles, arArticles] = await Promise.all([
-      fetchFeeds(RSS_FEEDS),
-      fetchFeeds(ARABIC_RSS_FEEDS),
-    ]);
-
+    const articles = await fetchFeeds(RSS_FEEDS);
     await Promise.all([
-      redis.set('news:en', JSON.stringify(enArticles), 'EX', TTL),
-      redis.set('news:ar', JSON.stringify(arArticles), 'EX', TTL),
+      redis.set('news:ar', JSON.stringify(articles), 'EX', TTL),
       redis.set('news:lastUpdate', new Date().toISOString()),
     ]);
-
-    console.log(`Updated: ${enArticles.length} EN, ${arArticles.length} AR articles`);
+    console.log(`Updated: ${articles.length} articles`);
   } catch (err) {
     console.error('Feed update error:', err);
   }

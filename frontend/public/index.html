@@ -53,8 +53,7 @@
       background: var(--bg-main); color: var(--text-dark);
       min-height: 100vh; -webkit-font-smoothing: antialiased;
     }
-    body.arabic { direction: rtl; font-family: var(--sans-ar); }
-    body:not(.arabic) { direction: ltr; font-family: var(--sans-en); }
+    body { direction: rtl; font-family: var(--sans-ar); }
     a { color: inherit; text-decoration: none; }
     img { display: block; }
 
@@ -95,7 +94,7 @@
       letter-spacing: -0.5px; color: var(--text-dark);
     }
     .logo .red { color: var(--primary-red); }
-    body.arabic .logo { font-size: 2.6rem; }
+    .logo { font-size: 2.6rem; }
 
     .logo-sub {
       font-size: 0.55rem; text-transform: uppercase; letter-spacing: 3px;
@@ -115,13 +114,6 @@
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
     /* Controls */
-    .lang-toggle button {
-      background: none; border: 1px solid var(--border-mid); color: var(--text-mid);
-      padding: 0.2rem 0.5rem; font-size: 0.62rem; font-weight: 700;
-      cursor: pointer; border-radius: 2px; transition: all 0.15s;
-    }
-    .lang-toggle button.active { background: var(--text-dark); color: var(--bg-white); border-color: var(--text-dark); }
-    .lang-toggle button:hover:not(.active) { border-color: var(--text-dark); }
     .theme-btn {
       background: none; border: 1px solid var(--border-mid); cursor: pointer;
       font-size: 0.78rem; color: var(--text-mid); padding: 0.15rem 0.4rem;
@@ -173,16 +165,14 @@
     }
     .ticker-track {
       display: flex; gap: 2rem;
-      animation: tickerScroll 60s linear infinite;
+      animation: tickerScrollRTL 60s linear infinite;
     }
-    body.arabic .ticker-track { animation-name: tickerScrollRTL; }
     .ticker-item {
       font-size: 0.7rem; color: var(--text-mid); white-space: nowrap;
       cursor: pointer; transition: color 0.15s; flex-shrink: 0;
     }
     .ticker-item:hover { color: var(--primary-red); }
     .ticker-item::before { content: '\25CF'; margin-inline-end: 0.5rem; color: var(--primary-red); font-size: 0.4rem; vertical-align: middle; }
-    @keyframes tickerScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
     @keyframes tickerScrollRTL { 0%{transform:translateX(0)} 100%{transform:translateX(50%)} }
 
     /* ═══ PAGE LAYOUT ═══ */
@@ -234,7 +224,7 @@
       text-shadow: 0 1px 4px rgba(0,0,0,0.3);
       max-width: 70%;
     }
-    body.arabic .hero-headline { font-family: var(--serif-ar); font-size: 2.3rem; line-height: 1.4; }
+    .hero-headline { font-family: var(--serif-ar); font-size: 2.3rem; line-height: 1.4; }
     .hero-main:hover .hero-headline { color: #fff; }
     .hero-excerpt {
       font-size: 0.92rem; line-height: 1.7; color: rgba(255,255,255,0.85);
@@ -271,7 +261,7 @@
       display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
       transition: color 0.15s;
     }
-    body.arabic .hero-sub-title { font-family: var(--serif-ar); font-size: 0.82rem; line-height: 1.45; }
+    .hero-sub-title { font-family: var(--serif-ar); font-size: 0.82rem; line-height: 1.45; }
     .hero-sub-item:hover .hero-sub-title { color: var(--primary-red); }
 
     @media(max-width:960px) {
@@ -308,7 +298,7 @@
       font-family: var(--serif-en); font-size: 0.9rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 1px; color: var(--text-dark);
     }
-    body.arabic .section-title { font-family: var(--serif-ar); font-size: 1.05rem; letter-spacing: 0; text-transform: none; }
+    .section-title { font-family: var(--serif-ar); font-size: 1.05rem; letter-spacing: 0; text-transform: none; }
     .section-count {
       font-size: 0.58rem; color: var(--text-light); margin-inline-start: auto;
     }
@@ -334,7 +324,7 @@
     }
     .brief-list .brief { padding: 0.65rem 0; }
     .brief-list .brief-title { font-size: 0.88rem; }
-    body.arabic .brief-list .brief-title { font-size: 0.95rem; }
+    .brief-list .brief-title { font-size: 0.95rem; }
 
     /* ═══ STORY CARD ═══ */
     .card {
@@ -359,7 +349,7 @@
       line-height: 1.28; color: var(--text-dark); margin-bottom: 0.3rem;
       transition: color 0.15s;
     }
-    body.arabic .card-title { font-family: var(--serif-ar); font-size: 1.05rem; line-height: 1.45; }
+    .card-title { font-family: var(--serif-ar); font-size: 1.05rem; line-height: 1.45; }
     .card:hover .card-title { color: var(--primary-red-dark); }
     .card-excerpt {
       font-size: 0.76rem; line-height: 1.55; color: var(--text-mid);
@@ -371,7 +361,7 @@
     /* Big card variant */
     .card-big .card-img { height: 260px; }
     .card-big .card-title { font-size: 1.25rem; }
-    body.arabic .card-big .card-title { font-size: 1.2rem; }
+    .card-big .card-title { font-size: 1.2rem; }
 
     /* ═══ HORIZONTAL CARD ═══ */
     .card-hz {
@@ -386,7 +376,7 @@
     .card-hz .card-img { width: 130px; height: 90px; }
     .card-hz .card-body { padding: 0.5rem 0.6rem; flex: 1; display: flex; flex-direction: column; justify-content: center; }
     .card-hz .card-title { font-size: 0.85rem; }
-    body.arabic .card-hz .card-title { font-size: 0.9rem; }
+    .card-hz .card-title { font-size: 0.9rem; }
 
     /* ═══ BRIEF (text-only) ═══ */
     .brief {
@@ -404,7 +394,7 @@
       font-family: var(--serif-en); font-size: 0.95rem; font-weight: 700;
       line-height: 1.35; color: var(--text-dark); transition: color 0.15s;
     }
-    body.arabic .brief-title { font-family: var(--serif-ar); font-size: 1rem; line-height: 1.5; }
+    .brief-title { font-family: var(--serif-ar); font-size: 1rem; line-height: 1.5; }
     .brief:hover .brief-title { color: var(--primary-red-dark); }
     .brief-excerpt {
       font-size: 0.74rem; line-height: 1.5; color: var(--text-mid); margin-top: 0.15rem;
@@ -488,7 +478,7 @@
     }
   </style>
 </head>
-<body class="arabic">
+<body>
   <!-- Top dark bar -->
   <div class="top-bar">
     <div class="top-bar-inner">
@@ -496,10 +486,6 @@
         <span id="lastUpdate" style="color:rgba(255,255,255,0.5)"></span>
       </div>
       <div class="top-social">
-        <div class="lang-toggle">
-          <button id="btnEn" onclick="switchLang('en')">EN</button>
-          <button id="btnAr" class="active" onclick="switchLang('ar')">&#1593;&#1585;&#1576;&#1610;</button>
-        </div>
         <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">&#x1F319;</button>
       </div>
     </div>
@@ -511,7 +497,7 @@
       <div class="header-left">
         <div>
           <div class="logo">ARAB <span class="red">NEWS</span> NETWORK</div>
-          <div class="logo-sub">The Voice of the Middle East</div>
+          <div class="logo-sub">&#1589;&#1608;&#1578; &#1575;&#1604;&#1588;&#1585;&#1602; &#1575;&#1604;&#1571;&#1608;&#1587;&#1591;</div>
         </div>
       </div>
       <div class="header-right">
@@ -578,38 +564,27 @@
     var activeSource = 'all';
     var lastTimestamp = null;
     var pendingNewCount = 0;
-    var currentLang = 'ar';
     var POLL_INTERVAL = 30000;
     var sources = new Set();
 
-    var SECTIONS = {
-      ar: [
-        { id:'politics', title:'\u0633\u064a\u0627\u0633\u0629 \u0648\u0635\u0631\u0627\u0639\u0627\u062a', kw:['\u0633\u064a\u0627\u0633','\u062d\u0643\u0648\u0645','\u0631\u0626\u064a\u0633','\u0648\u0632\u064a\u0631','\u0628\u0631\u0644\u0645\u0627\u0646','\u0627\u0646\u062a\u062e\u0627\u0628','\u062f\u0628\u0644\u0648\u0645\u0627\u0633','\u0633\u0641\u064a\u0631','\u062d\u0631\u0628','\u0639\u0633\u0643\u0631','\u062c\u064a\u0634','\u0642\u0635\u0641','\u063a\u0627\u0631\u0629','\u0647\u062c\u0648\u0645','\u0635\u0627\u0631\u0648\u062e','\u062f\u0641\u0627\u0639','\u0623\u0645\u0646','\u0625\u0631\u0647\u0627\u0628','\u0627\u062d\u062a\u0644\u0627\u0644','\u0645\u0642\u0627\u0648\u0645','\u0639\u0642\u0648\u0628','\u062d\u0635\u0627\u0631','\u0642\u0645\u0629','\u0645\u0641\u0627\u0648\u0636','\u0627\u062a\u0641\u0627\u0642','\u0633\u0644\u0627\u0645','\u062d\u0632\u0628'] },
-        { id:'economy', title:'\u0627\u0642\u062a\u0635\u0627\u062f \u0648\u0623\u0639\u0645\u0627\u0644', kw:['\u0627\u0642\u062a\u0635\u0627\u062f','\u0645\u0627\u0644','\u0628\u0646\u0643','\u0628\u0648\u0631\u0635\u0629','\u0633\u0648\u0642','\u0646\u0641\u0637','\u0623\u0633\u0639\u0627\u0631','\u062a\u062c\u0627\u0631','\u0627\u0633\u062a\u062b\u0645\u0627\u0631','\u0634\u0631\u0643\u0629','\u0623\u0631\u0628\u0627\u062d','\u0639\u0645\u0644\u0629','\u062f\u0648\u0644\u0627\u0631','\u0631\u064a\u0627\u0644','\u062a\u0636\u062e\u0645','\u0645\u064a\u0632\u0627\u0646\u064a','\u0636\u0631\u064a\u0628'] },
-        { id:'sports', title:'\u0631\u064a\u0627\u0636\u0629', kw:['\u0631\u064a\u0627\u0636','\u0643\u0631\u0629','\u0644\u0627\u0639\u0628','\u0645\u0628\u0627\u0631\u0627\u0629','\u0628\u0637\u0648\u0644\u0629','\u062f\u0648\u0631\u064a','\u0641\u0631\u064a\u0642','\u0645\u062f\u0631\u0628','\u0647\u062f\u0641','\u0641\u0648\u0632','\u0643\u0623\u0633','\u0645\u0646\u062a\u062e\u0628','\u0646\u0627\u062f\u064a'] },
-        { id:'tech', title:'\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627 \u0648\u0639\u0644\u0648\u0645', kw:['\u062a\u0643\u0646\u0648\u0644\u0648\u062c','\u062a\u0642\u0646','\u0630\u0643\u0627\u0621 \u0627\u0635\u0637\u0646\u0627\u0639','\u0631\u0642\u0645','\u0625\u0646\u062a\u0631\u0646\u062a','\u062a\u0637\u0628\u064a\u0642','\u0647\u0627\u062a\u0641','\u0628\u0631\u0645\u062c','\u0628\u064a\u0627\u0646\u0627\u062a','\u0641\u0636\u0627\u0621','\u0646\u0627\u0633\u0627'] },
-        { id:'culture', title:'\u062b\u0642\u0627\u0641\u0629 \u0648\u0645\u062c\u062a\u0645\u0639', kw:['\u062b\u0642\u0627\u0641','\u0641\u0646','\u0633\u064a\u0646\u0645\u0627','\u0645\u0633\u0631\u062d','\u0645\u0648\u0633\u064a\u0642','\u0623\u062f\u0628','\u0631\u0648\u0627\u064a','\u0634\u0639\u0631','\u0645\u0639\u0631\u0636','\u0645\u0647\u0631\u062c\u0627\u0646','\u062a\u0631\u0627\u062b','\u062a\u0639\u0644\u064a\u0645','\u062c\u0627\u0645\u0639','\u0635\u062d\u0629','\u0645\u0633\u062a\u0634\u0641','\u0637\u0628','\u0648\u0641\u0627\u0629','\u0648\u0641\u064a'] },
-      ],
-      en: [
-        { id:'politics', title:'Politics & Conflict', kw:['politic','govern','president','minister','parliament','election','diplomat','war','military','army','strike','attack','missile','defense','security','terror','sanction','NATO','ceasefire','troops','peace','summit','treaty'] },
-        { id:'economy', title:'Business & Economy', kw:['econom','financ','bank','stock','market','oil','price','trade','invest','compan','profit','currency','dollar','inflat','budget','tax','OPEC'] },
-        { id:'sports', title:'Sports', kw:['sport','football','soccer','player','match','champion','league','team','coach','goal','win','cup','FIFA','tennis'] },
-        { id:'tech', title:'Technology & Science', kw:['technolog','tech','AI ','artificial intellig','digital','internet','software','data','cyber','space','NASA','robot'] },
-        { id:'culture', title:'Culture & Society', kw:['cultur','art','cinema','theater','music','literat','exhibit','festival','heritage','educat','health','hospital','death','died'] },
-      ]
-    };
+    var SECTIONS = [
+      { id:'politics', title:'\u0633\u064a\u0627\u0633\u0629 \u0648\u0635\u0631\u0627\u0639\u0627\u062a', kw:['\u0633\u064a\u0627\u0633','\u062d\u0643\u0648\u0645','\u0631\u0626\u064a\u0633','\u0648\u0632\u064a\u0631','\u0628\u0631\u0644\u0645\u0627\u0646','\u0627\u0646\u062a\u062e\u0627\u0628','\u062f\u0628\u0644\u0648\u0645\u0627\u0633','\u0633\u0641\u064a\u0631','\u062d\u0631\u0628','\u0639\u0633\u0643\u0631','\u062c\u064a\u0634','\u0642\u0635\u0641','\u063a\u0627\u0631\u0629','\u0647\u062c\u0648\u0645','\u0635\u0627\u0631\u0648\u062e','\u062f\u0641\u0627\u0639','\u0623\u0645\u0646','\u0625\u0631\u0647\u0627\u0628','\u0627\u062d\u062a\u0644\u0627\u0644','\u0645\u0642\u0627\u0648\u0645','\u0639\u0642\u0648\u0628','\u062d\u0635\u0627\u0631','\u0642\u0645\u0629','\u0645\u0641\u0627\u0648\u0636','\u0627\u062a\u0641\u0627\u0642','\u0633\u0644\u0627\u0645','\u062d\u0632\u0628'] },
+      { id:'economy', title:'\u0627\u0642\u062a\u0635\u0627\u062f \u0648\u0623\u0639\u0645\u0627\u0644', kw:['\u0627\u0642\u062a\u0635\u0627\u062f','\u0645\u0627\u0644','\u0628\u0646\u0643','\u0628\u0648\u0631\u0635\u0629','\u0633\u0648\u0642','\u0646\u0641\u0637','\u0623\u0633\u0639\u0627\u0631','\u062a\u062c\u0627\u0631','\u0627\u0633\u062a\u062b\u0645\u0627\u0631','\u0634\u0631\u0643\u0629','\u0623\u0631\u0628\u0627\u062d','\u0639\u0645\u0644\u0629','\u062f\u0648\u0644\u0627\u0631','\u0631\u064a\u0627\u0644','\u062a\u0636\u062e\u0645','\u0645\u064a\u0632\u0627\u0646\u064a','\u0636\u0631\u064a\u0628'] },
+      { id:'sports', title:'\u0631\u064a\u0627\u0636\u0629', kw:['\u0631\u064a\u0627\u0636','\u0643\u0631\u0629','\u0644\u0627\u0639\u0628','\u0645\u0628\u0627\u0631\u0627\u0629','\u0628\u0637\u0648\u0644\u0629','\u062f\u0648\u0631\u064a','\u0641\u0631\u064a\u0642','\u0645\u062f\u0631\u0628','\u0647\u062f\u0641','\u0641\u0648\u0632','\u0643\u0623\u0633','\u0645\u0646\u062a\u062e\u0628','\u0646\u0627\u062f\u064a'] },
+      { id:'tech', title:'\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627 \u0648\u0639\u0644\u0648\u0645', kw:['\u062a\u0643\u0646\u0648\u0644\u0648\u062c','\u062a\u0642\u0646','\u0630\u0643\u0627\u0621 \u0627\u0635\u0637\u0646\u0627\u0639','\u0631\u0642\u0645','\u0625\u0646\u062a\u0631\u0646\u062a','\u062a\u0637\u0628\u064a\u0642','\u0647\u0627\u062a\u0641','\u0628\u0631\u0645\u062c','\u0628\u064a\u0627\u0646\u0627\u062a','\u0641\u0636\u0627\u0621','\u0646\u0627\u0633\u0627'] },
+      { id:'culture', title:'\u062b\u0642\u0627\u0641\u0629 \u0648\u0645\u062c\u062a\u0645\u0639', kw:['\u062b\u0642\u0627\u0641','\u0641\u0646','\u0633\u064a\u0646\u0645\u0627','\u0645\u0633\u0631\u062d','\u0645\u0648\u0633\u064a\u0642','\u0623\u062f\u0628','\u0631\u0648\u0627\u064a','\u0634\u0639\u0631','\u0645\u0639\u0631\u0636','\u0645\u0647\u0631\u062c\u0627\u0646','\u062a\u0631\u0627\u062b','\u062a\u0639\u0644\u064a\u0645','\u062c\u0627\u0645\u0639','\u0635\u062d\u0629','\u0645\u0633\u062a\u0634\u0641','\u0637\u0628','\u0648\u0641\u0627\u0629','\u0648\u0641\u064a'] },
+    ];
 
     function categorize(list) {
-      var defs = SECTIONS[currentLang] || SECTIONS.en;
-      var buckets = {}; defs.forEach(function(s){ buckets[s.id]={title:s.title,items:[]}; });
-      buckets._other = {title: currentLang==='ar'?'\u0623\u062e\u0628\u0627\u0631 \u0645\u062a\u0646\u0648\u0639\u0629':'More News', items:[]};
+      var buckets = {}; SECTIONS.forEach(function(s){ buckets[s.id]={title:s.title,items:[]}; });
+      buckets._other = {title: '\u0623\u062e\u0628\u0627\u0631 \u0645\u062a\u0646\u0648\u0639\u0629', items:[]};
 
       list.forEach(function(a){
         var txt = ((a.title||'')+ ' '+(a.description||'')).toLowerCase();
         var found = false;
-        for(var i=0;i<defs.length;i++){
-          for(var k=0;k<defs[i].kw.length;k++){
-            if(txt.indexOf(defs[i].kw[k].toLowerCase())!==-1){ buckets[defs[i].id].items.push(a); found=true; break; }
+        for(var i=0;i<SECTIONS.length;i++){
+          for(var k=0;k<SECTIONS[i].kw.length;k++){
+            if(txt.indexOf(SECTIONS[i].kw[k].toLowerCase())!==-1){ buckets[SECTIONS[i].id].items.push(a); found=true; break; }
           }
           if(found) break;
         }
@@ -619,7 +594,7 @@
     }
 
     function fetchNews(initial) {
-      var params = new URLSearchParams({ lang: currentLang });
+      var params = new URLSearchParams();
       if (lastTimestamp && !initial) params.set('since', lastTimestamp);
       fetch('/api/news?' + params)
         .then(function(r){ if(!r.ok) throw new Error('err'); return r.json(); })
@@ -631,13 +606,13 @@
           if(initial){ articles=data.articles; renderFeed(); buildSourceFilters(); buildTicker(); }
           else if(nw.length>0){
             articles=nw.concat(articles); buildSourceFilters(); buildTicker();
-            if(window.scrollY>200){ pendingNewCount+=nw.length; newBanner.textContent=pendingNewCount+(currentLang==='ar'?' \u0645\u0642\u0627\u0644\u0627\u062a \u062c\u062f\u064a\u062f\u0629':' new articles'); newBanner.classList.add('visible'); }
+            if(window.scrollY>200){ pendingNewCount+=nw.length; newBanner.textContent=pendingNewCount+' \u0645\u0642\u0627\u0644\u0627\u062a \u062c\u062f\u064a\u062f\u0629'; newBanner.classList.add('visible'); }
             else renderFeed();
           }
         })
         .catch(function(e){
           console.error(e);
-          if(!articles.length){ feed.textContent=''; var d=document.createElement('div'); d.className='error-message'; d.textContent=currentLang==='ar'?'\u0641\u0634\u0644 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0623\u062e\u0628\u0627\u0631...':'Failed to load news...'; feed.appendChild(d); }
+          if(!articles.length){ feed.textContent=''; var d=document.createElement('div'); d.className='error-message'; d.textContent='\u0641\u0634\u0644 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0623\u062e\u0628\u0627\u0631...'; feed.appendChild(d); }
         });
     }
 
@@ -658,7 +633,7 @@
     function renderFeed() {
       var filtered = activeSource==='all' ? articles : articles.filter(function(a){ return a.source===activeSource; });
       heroArea.textContent=''; feed.textContent=''; sidebar.textContent='';
-      if(!filtered.length){ var d=document.createElement('div'); d.className='loading'; var p=document.createElement('p'); p.textContent=currentLang==='ar'?'\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0642\u0627\u0644\u0627\u062a.':'No articles found.'; d.appendChild(p); feed.appendChild(d); return; }
+      if(!filtered.length){ var d=document.createElement('div'); d.className='loading'; var p=document.createElement('p'); p.textContent='\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0642\u0627\u0644\u0627\u062a.'; d.appendChild(p); feed.appendChild(d); return; }
 
       // Lead story + sub-stories
       var lead=null, subStories=[], rest=[];
@@ -675,7 +650,7 @@
 
       // Sections
       var secs = categorize(rest);
-      var order = (SECTIONS[currentLang]||SECTIONS.en).map(function(s){return s.id;});
+      var order = SECTIONS.map(function(s){return s.id;});
       order.push('_other');
       order.forEach(function(id){
         var s=secs[id]; if(!s||!s.items.length) return;
@@ -732,7 +707,7 @@
       var hdr=document.createElement('div'); hdr.className='sidebar-header';
       var icon=document.createElement('span'); icon.className='sidebar-header-icon'; icon.textContent='\u{1F525}';
       hdr.appendChild(icon);
-      hdr.appendChild(document.createTextNode(currentLang==='ar'?'\u0627\u0644\u0623\u0643\u062b\u0631 \u0642\u0631\u0627\u0621\u0629':'Trending Now'));
+      hdr.appendChild(document.createTextNode('\u0627\u0644\u0623\u0643\u062b\u0631 \u0642\u0631\u0627\u0621\u0629'));
       box.appendChild(hdr);
 
       var list=document.createElement('div'); list.className='sidebar-list';
@@ -765,7 +740,7 @@
       var accent=document.createElement('div'); accent.className='section-accent';
       var name=document.createElement('div'); name.className='section-title'; name.textContent=title;
       var count=document.createElement('div'); count.className='section-count';
-      count.textContent=items.length+(currentLang==='ar'?' \u0645\u0642\u0627\u0644':' articles');
+      count.textContent=items.length+' \u0645\u0642\u0627\u0644';
       hdr.appendChild(accent); hdr.appendChild(name); hdr.appendChild(count);
       sec.appendChild(hdr);
 
@@ -849,13 +824,9 @@
 
     function getTimeAgo(d) {
       if(!d)return''; var diff=Date.now()-new Date(d).getTime(); var m=Math.floor(diff/60000);
-      if(currentLang==='ar'){
-        if(m<1)return'\u0627\u0644\u0622\u0646'; if(m<60)return'\u0645\u0646\u0630 '+m+' \u062f\u0642\u064a\u0642\u0629';
-        var h=Math.floor(m/60); if(h<24)return'\u0645\u0646\u0630 '+h+' \u0633\u0627\u0639\u0629';
-        return'\u0645\u0646\u0630 '+Math.floor(h/24)+' \u064a\u0648\u0645';
-      }
-      if(m<1)return'Just now'; if(m<60)return m+'m ago'; var h=Math.floor(m/60);
-      if(h<24)return h+'h ago'; return Math.floor(h/24)+'d ago';
+      if(m<1)return'\u0627\u0644\u0622\u0646'; if(m<60)return'\u0645\u0646\u0630 '+m+' \u062f\u0642\u064a\u0642\u0629';
+      var h=Math.floor(m/60); if(h<24)return'\u0645\u0646\u0630 '+h+' \u0633\u0627\u0639\u0629';
+      return'\u0645\u0646\u0630 '+Math.floor(h/24)+' \u064a\u0648\u0645';
     }
 
     function buildSourceFilters() {
@@ -870,32 +841,6 @@
 
     function scrollToTop() { window.scrollTo({top:0,behavior:'smooth'}); newBanner.classList.remove('visible'); setTimeout(function(){renderFeed();pendingNewCount=0;},400); }
     window.addEventListener('scroll',function(){ if(window.scrollY<200&&pendingNewCount>0){newBanner.classList.remove('visible');renderFeed();pendingNewCount=0;} });
-
-    function switchLang(lang) {
-      currentLang=lang;
-      document.getElementById('btnEn').classList.toggle('active',lang==='en');
-      document.getElementById('btnAr').classList.toggle('active',lang==='ar');
-      document.body.classList.toggle('arabic',lang==='ar');
-      document.documentElement.lang=lang;
-      document.documentElement.dir=lang==='ar'?'rtl':'ltr';
-      document.getElementById('dateStr').textContent=new Date().toLocaleDateString(lang==='ar'?'ar-SA':'en-US',dOpts);
-      document.querySelector('.live-badge span').textContent=lang==='ar'?'\u0645\u0628\u0627\u0634\u0631':'LIVE';
-      document.querySelector('.logo-sub').textContent=lang==='ar'?'\u0635\u0648\u062a \u0627\u0644\u0634\u0631\u0642 \u0627\u0644\u0623\u0648\u0633\u0637':'The Voice of the Middle East';
-      document.getElementById('tickerLabel').textContent=lang==='ar'?'\u0627\u0644\u0623\u0643\u062b\u0631 \u0642\u0631\u0627\u0621\u0629':'Trending';
-
-      articles=[];seenLinks.clear();sources.clear();lastTimestamp=null;pendingNewCount=0;activeSource='all';
-      while(sourceFilters.firstChild)sourceFilters.removeChild(sourceFilters.firstChild);
-      var ab=document.createElement('div');ab.className='nav-item active';ab.dataset.source='all';
-      ab.textContent=lang==='ar'?'\u062c\u0645\u064a\u0639 \u0627\u0644\u0645\u0635\u0627\u062f\u0631':'All Sources';
-      ab.onclick=function(){filterBySource('all');}; sourceFilters.appendChild(ab);
-
-      heroArea.textContent='';feed.textContent='';sidebar.textContent='';tickerTrack.textContent='';
-      var ld=document.createElement('div');ld.className='loading';
-      var sp=document.createElement('div');sp.className='spinner';
-      var lt=document.createElement('p');lt.textContent=lang==='ar'?'\u062c\u0627\u0631\u064a \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0623\u062e\u0628\u0627\u0631...':'Loading news...';
-      ld.appendChild(sp);ld.appendChild(lt);feed.appendChild(ld);
-      fetchNews(true);
-    }
 
     function toggleTheme() {
       var d=document.documentElement.getAttribute('data-theme')==='dark';
