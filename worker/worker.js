@@ -22,7 +22,13 @@ const RSS_FEEDS = [
   { url: 'https://arabic.cnn.com/api/v1/rss/rss.xml', source: 'CNN \u0639\u0631\u0628\u064a' },
   { url: 'https://rss.dw.com/rdf/rss-ar-all', source: 'DW \u0639\u0631\u0628\u064a' },
   { url: 'https://www.alhurra.com/feed', source: '\u0627\u0644\u062d\u0631\u0629' },
-  { url: 'https://www.alaraby.co.uk/rss', source: '\u0627\u0644\u0639\u0631\u0628\u064a \u0627\u0644\u062c\u062f\u064a\u062f' },
+  { url: 'https://www.alaraby.co.uk/rss', source: 'العربي الجديد' },
+  { url: 'https://www.alsumaria.tv/rss', source: 'السومرية' },
+  { url: 'https://alkhaleejonline.net/rss.xml', source: 'الخليج أونلاين' },
+  { url: 'https://www.alquds.co.uk/feed/', source: 'القدس العربي' },
+  { url: 'https://www.france24.com/ar/moyen-orient/rss', source: 'فرانس 24 عربي' },
+  { url: 'https://www.almasryalyoum.com/rss/rssfeeds', source: 'المصري اليوم' },
+  { url: 'https://www.spa.gov.sa/rss/allnews/ar', source: 'واس' },
 ];
 
 // Fetch og:image from an article page when RSS has no image
