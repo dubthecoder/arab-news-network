@@ -85,7 +85,7 @@ app.get('/api/news', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`ME News server running at http://localhost:${PORT}`);
+  console.log(`Arab News Network server running at http://localhost:${PORT}`);
   fetchAllFeeds('en'); // pre-warm English cache
   fetchAllFeeds('ar'); // pre-warm Arabic cache
 });
