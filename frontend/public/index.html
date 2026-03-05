@@ -1011,16 +1011,6 @@
     </div>
   </div>
 
-  <!-- Header -->
-  <div class="header">
-    <div class="header-inner">
-      <div>
-        <div class="logo-ar">شبكة الأخبار العربية</div>
-        <div class="logo"><span class="word-arab">ARAB</span> <span class="word-news">NEWS</span> <span class="word-network">NETWORK</span></div>
-        <div class="logo-sub">مُجمّع الأخبار المباشر</div>
-      </div>
-    </div>
-  </div>
 
   <!-- Navigation: Sources -->
   <div class="nav-bar">
@@ -1248,8 +1238,13 @@
       }
       buildSidebar(opinionPicks);
 
-      // Sections
-      var secs = categorize(rest);
+      // Sections — exclude hero and sidebar articles to avoid duplicates
+      var usedLinks = new Set();
+      if(lead) usedLinks.add(lead.link);
+      subStories.forEach(function(a){ usedLinks.add(a.link); });
+      opinionPicks.forEach(function(a){ usedLinks.add(a.link); });
+      var secSource = filtered.filter(function(a){ return !usedLinks.has(a.link); });
+      var secs = categorize(secSource);
       var order = SECTIONS.map(function(s){return s.id;});
       order.push('_other');
       order.forEach(function(id){

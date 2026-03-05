@@ -117,45 +117,68 @@ async function updateFeeds() {
   }
 }
 
-// Arab stock exchange indices (Yahoo Finance symbols)
+// Arab stock exchange indices (Google Finance tickers)
 const STOCK_INDICES = [
-  { symbol: '^TASI', name: 'تاسي', exchange: 'السعودية' },
-  { symbol: '^ADI', name: 'أبوظبي', exchange: 'الإمارات' },
-  { symbol: '^DFMGI', name: 'دبي', exchange: 'الإمارات' },
-  { symbol: '^EGX30', name: 'EGX 30', exchange: 'مصر' },
-  { symbol: '^QSI', name: 'قطر', exchange: 'قطر' },
-  { symbol: '^CASE30', name: 'مصر 30', exchange: 'مصر' },
+  { ticker: 'TASI', market: 'TADAWUL', name: 'تاسي', exchange: 'السعودية' },
+  { ticker: 'ADI', market: 'ADX', name: 'أبوظبي', exchange: 'الإمارات' },
+  { ticker: 'DFMGI', market: 'DFM', name: 'دبي', exchange: 'الإمارات' },
+  { ticker: 'EGX30', market: 'EGX', name: 'EGX 30', exchange: 'مصر' },
+  { ticker: 'QSI', market: 'QSE', name: 'قطر', exchange: 'قطر' },
 ];
+
+async function fetchSingleStock(index, prevPrices) {
+  const url = `https://www.google.com/finance/quote/${index.ticker}:${index.market}`;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' },
+    });
+    clearTimeout(timeout);
+    if (!res.ok) return null;
+    const html = await res.text();
+    const priceMatch = html.match(/data-last-price="([^"]+)"/);
+    if (!priceMatch) return null;
+    const price = parseFloat(priceMatch[1]);
+    const key = `${index.ticker}:${index.market}`;
+    const prev = prevPrices[key] || price;
+    const change = price - prev;
+    const changePercent = prev ? (change / prev) * 100 : 0;
+
+    return {
+      symbol: key,
+      name: index.name,
+      exchange: index.exchange,
+      price,
+      change,
+      changePercent,
+    };
+  } catch {
+    clearTimeout(timeout);
+    return null;
+  }
+}
 
 async function fetchStocks() {
   console.log('Fetching stock data...');
   try {
-    const symbols = STOCK_INDICES.map(s => s.symbol).join(',');
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
-    const res = await fetch(
-      `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(symbols)}&fields=symbol,regularMarketPrice,regularMarketChange,regularMarketChangePercent`,
-      {
-        signal: controller.signal,
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; NewsBot/1.0)' },
-      }
-    );
-    clearTimeout(timeout);
-    if (!res.ok) { console.error(`Stock fetch failed: ${res.status}`); return; }
-    const data = await res.json();
-    const quotes = (data.quoteResponse?.result || []).map(q => {
-      const meta = STOCK_INDICES.find(s => s.symbol === q.symbol);
-      return {
-        symbol: q.symbol,
-        name: meta?.name || q.symbol,
-        exchange: meta?.exchange || '',
-        price: q.regularMarketPrice || 0,
-        change: q.regularMarketChange || 0,
-        changePercent: q.regularMarketChangePercent || 0,
-      };
-    });
-    await redis.set('stocks:ar', JSON.stringify(quotes), 'EX', TTL);
-    console.log(`Updated: ${quotes.length} stock indices`);
+    // Load previous prices for change calculation
+    const prevRaw = await redis.get('stocks:ar');
+    const prevPrices = {};
+    if (prevRaw) {
+      JSON.parse(prevRaw).forEach(s => { prevPrices[s.symbol] = s.price; });
+    }
+    const results = await Promise.allSettled(STOCK_INDICES.map(i => fetchSingleStock(i, prevPrices)));
+    const quotes = results
+      .filter(r => r.status === 'fulfilled' && r.value)
+      .map(r => r.value);
+    if (quotes.length > 0) {
+      await redis.set('stocks:ar', JSON.stringify(quotes), 'EX', 600);
+      console.log(`Updated: ${quotes.length} stock indices`);
+    } else {
+      console.error('No stock data fetched');
+    }
   } catch (err) {
     console.error('Stock fetch error:', err.message);
   }
