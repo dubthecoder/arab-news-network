@@ -11,7 +11,6 @@ const RSS_FEEDS = [
   { url: 'https://www.aljazeera.com/xml/rss/all.xml', source: 'Al Jazeera' },
   { url: 'https://rss.nytimes.com/services/xml/rss/nyt/MiddleEast.xml', source: 'NY Times' },
   { url: 'https://www.theguardian.com/world/middleeast/rss', source: 'The Guardian' },
-  { url: 'https://english.alarabiya.net/tools/rss', source: 'Al Arabiya' },
 ];
 
 const ARABIC_RSS_FEEDS = [
@@ -19,7 +18,6 @@ const ARABIC_RSS_FEEDS = [
   { url: 'https://feeds.bbci.co.uk/arabic/rss.xml', source: '\u0628\u064a \u0628\u064a \u0633\u064a \u0639\u0631\u0628\u064a' },
   { url: 'https://www.france24.com/ar/rss', source: '\u0641\u0631\u0627\u0646\u0633 24' },
   { url: 'https://arabic.rt.com/rss/', source: '\u0622\u0631 \u062a\u064a \u0639\u0631\u0628\u064a' },
-  { url: 'https://www.alhurra.com/api/ziqiiqpm_qie', source: '\u0627\u0644\u062d\u0631\u0629' },
 ];
 
 async function fetchFeeds(feeds) {
