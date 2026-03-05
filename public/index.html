@@ -380,15 +380,18 @@
 <body>
   <header>
     <div class="header-content">
-      <div class="logo"><span>ME</span><span> News</span></div>
-      <div class="lang-toggle">
-        <button id="btnEn" class="active" onclick="switchLang('en')">EN</button>
-        <button id="btnAr" onclick="switchLang('ar')">عربي</button>
-      </div>
-      <div class="live-indicator">
-        <div class="live-dot"></div>
-        <span>LIVE</span>
-        <span id="lastUpdate"></span>
+      <div class="logo">ME<span class="accent"> News</span></div>
+      <div class="header-controls">
+        <div class="live-indicator">
+          <div class="live-dot"></div>
+          <span>LIVE</span>
+          <span id="lastUpdate"></span>
+        </div>
+        <div class="lang-toggle">
+          <button id="btnEn" class="active" onclick="switchLang('en')">EN</button>
+          <button id="btnAr" onclick="switchLang('ar')">عربي</button>
+        </div>
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
       </div>
     </div>
   </header>
@@ -401,11 +404,23 @@
     New articles available
   </div>
 
-  <div class="feed-container" id="feed">
-    <div class="loading">
-      <div class="spinner"></div>
-      <p>Loading Middle East news...</p>
-    </div>
+  <div class="page-wrapper">
+    <main>
+      <div class="section-heading" id="feedHeading">Latest News</div>
+      <div id="feed">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading Middle East news...</p>
+        </div>
+      </div>
+    </main>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Most Recent</div>
+        <div id="sidebarList"></div>
+      </div>
+    </aside>
   </div>
 
   <script>
