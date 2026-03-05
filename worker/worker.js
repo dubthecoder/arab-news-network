@@ -119,7 +119,6 @@ async function updateFeeds() {
 
 // Arab market data (Google Finance paths)
 const STOCK_INDICES = [
-  { path: 'TASI:TADAWUL', name: 'تاسي', exchange: 'السعودية' },
   { path: 'USD-SAR', name: 'دولار/ريال', exchange: 'عملات' },
   { path: 'USD-EGP', name: 'دولار/جنيه', exchange: 'عملات' },
   { path: 'USD-IQD', name: 'دولار/دينار عراقي', exchange: 'عملات' },
