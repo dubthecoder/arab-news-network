@@ -117,17 +117,22 @@ async function updateFeeds() {
   }
 }
 
-// Arab stock exchange indices (Google Finance tickers)
+// Arab market data (Google Finance paths)
 const STOCK_INDICES = [
-  { ticker: 'TASI', market: 'TADAWUL', name: 'تاسي', exchange: 'السعودية' },
-  { ticker: 'ADI', market: 'ADX', name: 'أبوظبي', exchange: 'الإمارات' },
-  { ticker: 'DFMGI', market: 'DFM', name: 'دبي', exchange: 'الإمارات' },
-  { ticker: 'EGX30', market: 'EGX', name: 'EGX 30', exchange: 'مصر' },
-  { ticker: 'QSI', market: 'QSE', name: 'قطر', exchange: 'قطر' },
+  { path: 'TASI:TADAWUL', name: 'تاسي', exchange: 'السعودية' },
+  { path: 'USD-SAR', name: 'دولار/ريال', exchange: 'عملات' },
+  { path: 'USD-EGP', name: 'دولار/جنيه', exchange: 'عملات' },
+  { path: 'USD-IQD', name: 'دولار/دينار عراقي', exchange: 'عملات' },
+  { path: 'USD-KWD', name: 'دولار/دينار كويتي', exchange: 'عملات' },
+  { path: 'USD-QAR', name: 'دولار/ريال قطري', exchange: 'عملات' },
+  { path: 'USD-JOD', name: 'دولار/دينار أردني', exchange: 'عملات' },
+  { path: 'USD-LBP', name: 'دولار/ليرة لبنانية', exchange: 'عملات' },
+  { path: 'EUR-USD', name: 'يورو/دولار', exchange: 'عملات' },
+  { path: 'BTC-USD', name: 'بتكوين', exchange: 'رقمية' },
 ];
 
 async function fetchSingleStock(index, prevPrices) {
-  const url = `https://www.google.com/finance/quote/${index.ticker}:${index.market}`;
+  const url = `https://www.google.com/finance/quote/${index.path}`;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
   try {
@@ -141,13 +146,12 @@ async function fetchSingleStock(index, prevPrices) {
     const priceMatch = html.match(/data-last-price="([^"]+)"/);
     if (!priceMatch) return null;
     const price = parseFloat(priceMatch[1]);
-    const key = `${index.ticker}:${index.market}`;
-    const prev = prevPrices[key] || price;
+    const prev = prevPrices[index.path] || price;
     const change = price - prev;
     const changePercent = prev ? (change / prev) * 100 : 0;
 
     return {
-      symbol: key,
+      symbol: index.path,
       name: index.name,
       exchange: index.exchange,
       price,
