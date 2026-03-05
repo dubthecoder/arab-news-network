@@ -17,7 +17,6 @@ const OG_FETCH_TIMEOUT = 4000; // 4s timeout per article
 const RSS_FEEDS = [
   { url: 'https://www.aljazeera.net/aljazeerarss/ar/rss.xml', source: '\u0627\u0644\u062c\u0632\u064a\u0631\u0629' },
   { url: 'https://feeds.bbci.co.uk/arabic/rss.xml', source: '\u0628\u064a \u0628\u064a \u0633\u064a \u0639\u0631\u0628\u064a' },
-  { url: 'https://arabic.rt.com/rss/', source: '\u0622\u0631 \u062a\u064a \u0639\u0631\u0628\u064a' },
   { url: 'https://www.skynewsarabia.com/web/rss/middle-east.xml', source: '\u0633\u0643\u0627\u064a \u0646\u064a\u0648\u0632 \u0639\u0631\u0628\u064a\u0629' },
   { url: 'https://aawsat.com/feed', source: '\u0627\u0644\u0634\u0631\u0642 \u0627\u0644\u0623\u0648\u0633\u0637' },
   { url: 'https://arabic.cnn.com/api/v1/rss/rss.xml', source: 'CNN \u0639\u0631\u0628\u064a' },
