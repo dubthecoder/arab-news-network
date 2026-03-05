@@ -481,6 +481,19 @@
       }
     }
 
+    function updateSidebar() {
+      const sidebarList = document.getElementById('sidebarList');
+      if (!sidebarList) return;
+      const recent = articles.slice(0, 8);
+      const rows = recent.map(function(a) {
+        const t = (a.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const s = (a.source || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return '<div class="sidebar-item"><a href="' + a.link + '" target="_blank" rel="noopener noreferrer">' + t + '</a>' +
+          '<div class="sidebar-meta">' + s + ' &middot; ' + getTimeAgo(a.pubDate) + '</div></div>';
+      });
+      sidebarList.innerHTML = rows.join('');
+    }
+
     function renderFeed() {
       const filtered = activeSource === 'all'
         ? articles
@@ -493,6 +506,7 @@
 
       feed.innerHTML = `<div class="article-count">${filtered.length} articles</div>` +
         filtered.map(a => createCardHTML(a, false)).join('');
+      updateSidebar();
     }
 
     function prependArticles(newArticles) {
@@ -536,18 +550,22 @@
         : '';
       const title = (article.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       const source = (article.source || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const imageHtml = article.image
+        ? '<img class="card-image" src="' + article.image + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">'
+        : '';
 
-      return `
-        <a class="news-card ${isNew ? 'new-item' : ''}"
-           href="${article.link}" target="_blank" rel="noopener noreferrer">
-          <div class="card-meta">
-            <span class="card-source">${source}</span>
-            <span class="card-time">${timeAgo}</span>
-            ${isNew ? '<span class="card-new-badge">New</span>' : ''}
-          </div>
-          <h2 class="card-title">${title}</h2>
-          ${desc ? `<p class="card-description">${desc}</p>` : ''}
-        </a>`;
+      return '<a class="news-card ' + (isNew ? 'new-item' : '') + '" href="' + article.link + '" target="_blank" rel="noopener noreferrer">' +
+        '<div class="card-body">' +
+        '<div class="card-meta">' +
+        '<span class="card-source">' + source + '</span>' +
+        '<span class="card-time">' + timeAgo + '</span>' +
+        (isNew ? '<span class="card-new-badge">New</span>' : '') +
+        '</div>' +
+        '<h2 class="card-title">' + title + '</h2>' +
+        (desc ? '<p class="card-description">' + desc + '</p>' : '') +
+        '</div>' +
+        imageHtml +
+        '</a>';
     }
 
     function getTimeAgo(dateStr) {
@@ -658,6 +676,21 @@
 
       fetchNews(true);
     }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      document.getElementById('themeToggle').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', newTheme);
+    }
+
+    (function initTheme() {
+      const saved = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+      const btn = document.getElementById('themeToggle');
+      if (btn) btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+    })();
 
     // Initial load
     fetchNews(true);
