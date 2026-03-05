@@ -271,18 +271,23 @@
     }
 
     .stock-ticker-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0.35rem 1.5rem;
       display: flex;
       align-items: center;
       gap: 1.8rem;
-      overflow-x: auto;
-      scrollbar-width: none;
+      padding: 0.35rem 1.5rem;
+      white-space: nowrap;
       direction: rtl;
+      animation: stock-scroll 30s linear infinite;
     }
 
-    .stock-ticker-inner::-webkit-scrollbar { display: none; }
+    .stock-ticker:hover .stock-ticker-inner {
+      animation-play-state: paused;
+    }
+
+    @keyframes stock-scroll {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
 
     .stock-item {
       display: flex;
