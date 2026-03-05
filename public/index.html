@@ -89,6 +89,49 @@
       background: rgba(233, 69, 96, 0.1);
     }
 
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .lang-toggle button {
+      background: transparent;
+      border: 1px solid #444;
+      color: #aaa;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .lang-toggle button.active {
+      background: #e94560;
+      border-color: #e94560;
+      color: #fff;
+    }
+
+    .lang-toggle button:hover:not(.active) {
+      border-color: #e94560;
+      color: #e94560;
+    }
+
+    body.arabic {
+      direction: rtl;
+      font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+    }
+
+    body.arabic .news-card:hover {
+      transform: translateX(-4px);
+    }
+
+    body.arabic .news-card::before {
+      left: auto;
+      right: 0;
+    }
+
     .feed-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -275,6 +318,10 @@
   <header>
     <div class="header-content">
       <div class="logo"><span>ME</span><span> News</span></div>
+      <div class="lang-toggle">
+        <button id="btnEn" class="active" onclick="switchLang('en')">EN</button>
+        <button id="btnAr" onclick="switchLang('ar')">عربي</button>
+      </div>
       <div class="live-indicator">
         <div class="live-dot"></div>
         <span>LIVE</span>
@@ -309,14 +356,15 @@
     let activeSource = 'all';
     let lastTimestamp = null;
     let pendingNewCount = 0;
+    let currentLang = 'en';
     const POLL_INTERVAL = 30000; // 30 seconds
     const sources = new Set();
 
     async function fetchNews(initial = false) {
       try {
-        const url = lastTimestamp && !initial
-          ? `/api/news?since=${encodeURIComponent(lastTimestamp)}`
-          : '/api/news';
+        const params = new URLSearchParams({ lang: currentLang });
+        if (lastTimestamp && !initial) params.set('since', lastTimestamp);
+        const url = `/api/news?${params}`;
 
         const res = await fetch(url);
         if (!res.ok) throw new Error('Network error');
@@ -492,6 +540,46 @@
         pendingNewCount = 0;
       }
     });
+
+    function switchLang(lang) {
+      currentLang = lang;
+      document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+      document.getElementById('btnAr').classList.toggle('active', lang === 'ar');
+      document.body.classList.toggle('arabic', lang === 'ar');
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      // Reset state for fresh fetch
+      articles = [];
+      seenLinks.clear();
+      sources.clear();
+      lastTimestamp = null;
+      pendingNewCount = 0;
+      activeSource = 'all';
+
+      // Reset source filters
+      while (sourceFilters.children.length > 0) sourceFilters.removeChild(sourceFilters.firstChild);
+      const allBadge = document.createElement('div');
+      allBadge.className = 'source-badge active';
+      allBadge.dataset.source = 'all';
+      allBadge.textContent = lang === 'ar' ? 'جميع المصادر' : 'All Sources';
+      allBadge.onclick = () => filterBySource('all');
+      sourceFilters.appendChild(allBadge);
+
+      // Show loading
+      while (feed.children.length > 0) feed.removeChild(feed.firstChild);
+      const loadingDiv = document.createElement('div');
+      loadingDiv.className = 'loading';
+      const spinner = document.createElement('div');
+      spinner.className = 'spinner';
+      const loadingText = document.createElement('p');
+      loadingText.textContent = lang === 'ar' ? 'جاري تحميل الأخبار...' : 'Loading Middle East news...';
+      loadingDiv.appendChild(spinner);
+      loadingDiv.appendChild(loadingText);
+      feed.appendChild(loadingDiv);
+
+      fetchNews(true);
+    }
 
     // Initial load
     fetchNews(true);

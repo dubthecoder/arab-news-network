@@ -14,18 +14,30 @@ const RSS_FEEDS = [
   { url: 'https://english.alarabiya.net/tools/rss', source: 'Al Arabiya' },
 ];
 
-let cachedNews = [];
-let lastFetch = 0;
+const ARABIC_RSS_FEEDS = [
+  { url: 'https://www.aljazeera.net/aljazeerarss/ar/rss.xml', source: 'الجزيرة' },
+  { url: 'https://feeds.bbci.co.uk/arabic/rss.xml', source: 'بي بي سي عربي' },
+  { url: 'https://www.france24.com/ar/rss', source: 'فرانس 24' },
+  { url: 'https://arabic.rt.com/rss/', source: 'آر تي عربي' },
+  { url: 'https://www.alhurra.com/api/ziqiiqpm_qie', source: 'الحرة' },
+];
+
+const cache = {
+  en: { news: [], lastFetch: 0 },
+  ar: { news: [], lastFetch: 0 },
+};
 const CACHE_DURATION = 2 * 60 * 1000; // 2 minutes
 
-async function fetchAllFeeds() {
+async function fetchAllFeeds(lang = 'en') {
+  const feeds = lang === 'ar' ? ARABIC_RSS_FEEDS : RSS_FEEDS;
+  const c = cache[lang];
   const now = Date.now();
-  if (now - lastFetch < CACHE_DURATION && cachedNews.length > 0) {
-    return cachedNews;
+  if (now - c.lastFetch < CACHE_DURATION && c.news.length > 0) {
+    return c.news;
   }
 
   const results = await Promise.allSettled(
-    RSS_FEEDS.map(async (feed) => {
+    feeds.map(async (feed) => {
       try {
         const parsed = await parser.parseURL(feed.url);
         return parsed.items.map((item) => ({
@@ -48,8 +60,8 @@ async function fetchAllFeeds() {
     .flatMap((r) => r.value)
     .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
 
-  cachedNews = allItems;
-  lastFetch = now;
+  c.news = allItems;
+  c.lastFetch = now;
   return allItems;
 }
 
@@ -57,8 +69,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/api/news', async (req, res) => {
   try {
+    const lang = req.query.lang === 'ar' ? 'ar' : 'en';
     const since = req.query.since ? new Date(req.query.since) : null;
-    let news = await fetchAllFeeds();
+    let news = await fetchAllFeeds(lang);
 
     if (since) {
       news = news.filter((item) => new Date(item.pubDate) > since);
@@ -73,5 +86,6 @@ app.get('/api/news', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`ME News server running at http://localhost:${PORT}`);
-  fetchAllFeeds(); // pre-warm cache
+  fetchAllFeeds('en'); // pre-warm English cache
+  fetchAllFeeds('ar'); // pre-warm Arabic cache
 });
