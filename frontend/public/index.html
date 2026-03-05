@@ -77,9 +77,6 @@
       position: relative;
     }
 
-    .top-editions { min-height: 1rem; }
-    .top-social { display: flex; align-items: center; gap: 0.55rem; }
-
     .top-bar-controls {
       position: absolute;
       left: 1.5rem;
@@ -128,83 +125,10 @@
       color: var(--accent);
     }
 
-    .header {
-      background: var(--panel);
-      border-bottom: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      position: relative;
-      z-index: 5;
-    }
-
-    .header-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 1.1rem 1.5rem 0.95rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-
-    .logo-ar {
-      font-family: 'Noto Naskh Arabic', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--ink);
-      text-align: center;
-      line-height: 1.1;
-      margin-bottom: 0.1rem;
-    }
-
-    .logo {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 2.6rem;
-      line-height: 1;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .logo .word-arab { font-weight: 500; }
-    .logo .word-news { color: var(--accent); font-weight: 700; }
-    .logo .word-network { font-weight: 500; color: var(--ink-mid); font-size: 0.65em; letter-spacing: 0.25em; }
-
-    .logo-sub {
-      margin-top: 0.25rem;
-      color: var(--accent);
-      font-family: 'Noto Naskh Arabic', serif;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-align: center;
-    }
-
     .header-date {
       font-size: 0.75rem;
       color: var(--ink-mid);
       font-weight: 500;
-    }
-
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.22rem 0.62rem;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.66rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .live-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #fff;
     }
 
     .nav-bar {
@@ -476,7 +400,6 @@
     }
 
     .hero-main:hover img { transform: scale(1.015); }
-    .hero-overlay { display: none; }
 
     .hero-content {
       position: static;
@@ -883,12 +806,6 @@
       text-transform: uppercase;
     }
 
-    .new-banner {
-      display: none;
-    }
-
-    .new-banner.visible { display: none; }
-
     .error-message {
       text-align: center;
       color: var(--accent);
@@ -976,13 +893,10 @@
     }
 
     @media (max-width: 760px) {
-      .header-inner { padding: 0.95rem 1rem 0.8rem; }
       .top-bar-inner,
       .ticker-inner,
       .page,
       .footer-inner { padding-inline: 1rem; }
-      .logo { font-size: 2.15rem; }
-      .logo-sub { font-size: 0.62rem; letter-spacing: 0.11em; }
       .hero-content { padding: 1rem; }
       .hero-headline { font-size: clamp(1.5rem, 5.4vw, 2rem); }
       .hero-points { font-size: 0.84rem; }
@@ -1054,9 +968,6 @@
     <div class="stock-ticker-inner" id="stockTicker"></div>
   </div>
 
-  <!-- New articles banner -->
-  <div class="new-banner" id="newBanner" onclick="scrollToTop()">&#1605;&#1602;&#1575;&#1604;&#1575;&#1578; &#1580;&#1583;&#1610;&#1583;&#1577;</div>
-
   <!-- Main content -->
   <div class="page">
     <div id="heroArea"></div>
@@ -1083,7 +994,6 @@
     var feed = document.getElementById('feed');
     var heroArea = document.getElementById('heroArea');
     var lastUpdateEl = document.getElementById('lastUpdate');
-    var newBanner = document.getElementById('newBanner');
     var sourceFilters = document.getElementById('sourceFilters');
     var sidebar = document.getElementById('sidebar');
     var tickerTrack = document.getElementById('tickerTrack');
@@ -1115,7 +1025,6 @@
       return false;
     }
     var lastTimestamp = null;
-    var pendingNewCount = 0;
     var POLL_INTERVAL = 30000;
     var sources = new Set();
 
@@ -1267,7 +1176,6 @@
         img.onerror=function(){this.style.display='none';};
         main.appendChild(img);
       }
-      var ov=document.createElement('div'); ov.className='hero-overlay'; main.appendChild(ov);
       var content=document.createElement('div'); content.className='hero-content';
       var k=document.createElement('div'); k.className='hero-source'; k.textContent=a.source||''; content.appendChild(k);
       var h=document.createElement('h1'); h.className='hero-headline'; h.textContent=a.title||''; content.appendChild(h);
@@ -1592,9 +1500,6 @@
         renderFeed();
       };
     });
-
-    function scrollToTop() { window.scrollTo({top:0,behavior:'smooth'}); newBanner.classList.remove('visible'); setTimeout(function(){renderFeed();pendingNewCount=0;},400); }
-    window.addEventListener('scroll',function(){ if(window.scrollY<200&&pendingNewCount>0){newBanner.classList.remove('visible');renderFeed();pendingNewCount=0;} });
 
     function createSvg(paths, circles, lines) {
       var ns='http://www.w3.org/2000/svg';
