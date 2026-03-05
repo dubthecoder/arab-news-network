@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 const API_INTERNAL = process.env.API_URL || 'http://localhost:3001';
 
 // Proxy /api/* to internal API service
-app.get('/api/*', async (req, res) => {
+app.get('/api/{*splat}', async (req, res) => {
   try {
     const apiPath = req.originalUrl.replace(/^\/api/, '');
     const apiRes = await fetch(`${API_INTERNAL}${apiPath}`);
