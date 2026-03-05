@@ -946,13 +946,6 @@
   </div>
 
 
-  <!-- Navigation: Sources -->
-  <div class="nav-bar">
-    <div class="nav-inner" id="sourceFilters">
-      <div class="nav-item active" data-source="all">جميع المصادر</div>
-    </div>
-  </div>
-
   <!-- Navigation: Countries -->
   <div class="nav-bar country-bar">
     <div class="nav-inner" id="countryFilters">
@@ -1015,13 +1008,11 @@
     var feed = document.getElementById('feed');
     var heroArea = document.getElementById('heroArea');
     var lastUpdateEl = document.getElementById('lastUpdate');
-    var sourceFilters = document.getElementById('sourceFilters');
     var sidebar = document.getElementById('sidebar');
     var tickerTrack = document.getElementById('tickerTrack');
 
     var articles = [];
     var seenLinks = new Set();
-    var activeSource = 'all';
     var activeCountry = 'all';
     var COUNTRY_KW = {
       'فلسطين': ['فلسطين','غزة','الضفة','رام الله','القدس','حماس','الجهاد','فتح','نابلس','جنين','خان يونس','رفح'],
@@ -1047,7 +1038,6 @@
     }
     var lastTimestamp = null;
     var POLL_INTERVAL = 1200000; // 20 minutes
-    var sources = new Set();
 
     var SECTIONS = [
       { id:'politics', title:'\u0633\u064a\u0627\u0633\u0629 \u0648\u0635\u0631\u0627\u0639\u0627\u062a', kw:['\u0633\u064a\u0627\u0633','\u062d\u0643\u0648\u0645','\u0631\u0626\u064a\u0633','\u0648\u0632\u064a\u0631','\u0628\u0631\u0644\u0645\u0627\u0646','\u0627\u0646\u062a\u062e\u0627\u0628','\u062f\u0628\u0644\u0648\u0645\u0627\u0633','\u0633\u0641\u064a\u0631','\u062d\u0631\u0628','\u0639\u0633\u0643\u0631','\u062c\u064a\u0634','\u0642\u0635\u0641','\u063a\u0627\u0631\u0629','\u0647\u062c\u0648\u0645','\u0635\u0627\u0631\u0648\u062e','\u062f\u0641\u0627\u0639','\u0623\u0645\u0646','\u0625\u0631\u0647\u0627\u0628','\u0627\u062d\u062a\u0644\u0627\u0644','\u0645\u0642\u0627\u0648\u0645','\u0639\u0642\u0648\u0628','\u062d\u0635\u0627\u0631','\u0642\u0645\u0629','\u0645\u0641\u0627\u0648\u0636','\u0627\u062a\u0641\u0627\u0642','\u0633\u0644\u0627\u0645','\u062d\u0632\u0628'] },
@@ -1084,10 +1074,10 @@
           lastTimestamp = data.timestamp;
           lastUpdateEl.textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-EG-u-nu-latn', { hour:'2-digit', minute:'2-digit' });
           var nw = data.articles.filter(function(a){ return !seenLinks.has(a.link); });
-          nw.forEach(function(a){ seenLinks.add(a.link); sources.add(a.source); });
-          if(initial){ articles=data.articles; renderFeed(); buildSourceFilters(); buildTicker(); }
+          nw.forEach(function(a){ seenLinks.add(a.link); });
+          if(initial){ articles=data.articles; renderFeed(); buildTicker(); }
           else if(nw.length>0){
-            articles=nw.concat(articles); buildSourceFilters(); buildTicker();
+            articles=nw.concat(articles); buildTicker();
             updateHeroLive();
             renderFeed();
           }
@@ -1114,7 +1104,6 @@
 
     function renderFeed() {
       var filtered = articles;
-      if(activeSource!=='all') filtered=filtered.filter(function(a){ return a.source===activeSource; });
       if(activeCountry!=='all') filtered=filtered.filter(function(a){ return matchesCountry(a, activeCountry); });
       heroArea.textContent=''; feed.textContent=''; sidebar.textContent='';
       if(!filtered.length){ var d=document.createElement('div'); d.className='loading'; var p=document.createElement('p'); p.textContent='\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0642\u0627\u0644\u0627\u062a.'; d.appendChild(p); feed.appendChild(d); return; }
@@ -1503,16 +1492,6 @@
       var h=Math.floor(m/60); if(h<24)return'\u0645\u0646\u0630 '+h+' \u0633\u0627\u0639\u0629';
       return'\u0645\u0646\u0630 '+Math.floor(h/24)+' \u064a\u0648\u0645';
     }
-
-    function buildSourceFilters() {
-      var ex=sourceFilters.querySelectorAll('[data-source]'); var es=new Set();
-      ex.forEach(function(e){es.add(e.dataset.source);});
-      sources.forEach(function(s){ if(!es.has(s)){ var b=document.createElement('div'); b.className='nav-item'; b.dataset.source=s; b.textContent=s; b.onclick=function(){filterBySource(s);}; sourceFilters.appendChild(b); }});
-    }
-    function filterBySource(s) {
-      activeSource=s; document.querySelectorAll('.nav-item').forEach(function(e){e.classList.toggle('active',e.dataset.source===s);}); renderFeed();
-    }
-    document.querySelector('[data-source="all"]').onclick=function(){filterBySource('all');};
 
     document.querySelectorAll('#countryFilters .nav-item').forEach(function(el){
       el.onclick=function(){
