@@ -940,8 +940,8 @@
       .card-grid-3 { grid-template-columns: 1fr 1fr; }
     }
 
-    /* Mobile: full rebuild for small screens */
-    @media (max-width: 760px) {
+    /* Mobile/tablet touch layout, including modern iPad landscape widths */
+    @media (max-width: 1024px), (pointer: coarse) and (max-width: 1400px) {
       /* Bottom navigation bar */
       .mobile-bottom-nav {
         display: flex;
@@ -985,11 +985,10 @@
       }
 
       #app-wrap {
-        padding-bottom: 70px;
+        padding-bottom: calc(72px + env(safe-area-inset-bottom));
       }
 
       /* Hide desktop-only elements */
-      .top-bar-controls { display: none; }
       .ticker { display: none; }
       .nav-bar.country-bar { display: none; }
       .hero-live { display: none; }
@@ -998,8 +997,35 @@
 
       /* Simplify top bar for mobile */
       .top-bar-inner {
-        justify-content: center;
-        padding: 0.5rem 1rem;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.5rem 0.85rem;
+      }
+      .header-date {
+        display: none;
+      }
+      #lastUpdate {
+        flex: 1;
+        min-width: 0;
+        font-size: 0.7rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .top-bar-controls {
+        position: static;
+        transform: none;
+        display: flex;
+        gap: 0.35rem;
+        flex-shrink: 0;
+      }
+      .text-size-btn {
+        padding: 0.18rem 0.36rem;
+        font-size: 0.68rem;
+      }
+      .theme-btn {
+        width: 1.5rem;
+        height: 1.5rem;
       }
 
       /* Page: remove padding for full-bleed cards */
@@ -1046,6 +1072,13 @@
         position: relative;
         width: 100%;
         margin-bottom: 0.75rem;
+      }
+
+      .mobile-hero-fallback {
+        display: block;
+        margin-bottom: 0.75rem;
+        background: var(--panel);
+        border-bottom: 1px solid var(--line);
       }
 
       .carousel-track {
@@ -1383,6 +1416,143 @@
       .footer-logo { font-size: 1rem; }
     }
 
+    /* Tablet compact mode: keep mobile navigation, reduce article height */
+    @media (pointer: coarse) and (min-width: 768px) and (max-width: 1400px) and (min-height: 600px) {
+      .page {
+        padding: 0 0.75rem;
+      }
+
+      .mobile-carousel {
+        margin: 0.75rem 0 1rem;
+      }
+
+      .carousel-slide {
+        aspect-ratio: 16 / 7;
+      }
+
+      .carousel-slide-overlay {
+        padding: 1.6rem 1rem 0.85rem;
+      }
+
+      .carousel-slide-title {
+        font-size: 1.12rem;
+        line-height: 1.15;
+      }
+
+      .section {
+        margin-bottom: 1rem;
+      }
+
+      .section-header {
+        padding: 0.55rem 0.25rem 0;
+      }
+
+      .card-feat-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .card-feat-row > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .card-feat-row > div:last-child .card-hz + .card-hz {
+        margin-top: 0;
+      }
+
+      .card-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+      }
+
+      .card,
+      .card-big,
+      .card-hz,
+      .brief {
+        border: 1px solid var(--line);
+      }
+
+      .card-img {
+        height: 136px;
+        min-height: 136px;
+      }
+
+      .card-big .card-img {
+        height: 176px;
+        min-height: 176px;
+      }
+
+      .card-body,
+      .card-hz .card-body {
+        padding: 0.65rem 0.75rem 0.72rem;
+      }
+
+      .card-title {
+        font-size: 0.98rem;
+        line-height: 1.18;
+      }
+
+      .card-big .card-title {
+        font-size: 1.16rem;
+        line-height: 1.16;
+      }
+
+      .card-title,
+      .card-big .card-title,
+      .brief-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .card-time,
+      .brief-time {
+        font-size: 0.62rem;
+      }
+
+      .card-hz {
+        flex-direction: row;
+        gap: 0;
+      }
+
+      .card-hz .card-img-wrap {
+        width: 116px;
+        border-inline-start: 1px solid var(--line);
+      }
+
+      .card-hz .card-img {
+        width: 116px;
+        height: 100%;
+        min-height: 100px;
+      }
+
+      .brief-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+        background: transparent;
+        border: none;
+        padding: 0;
+      }
+
+      .brief {
+        padding: 0.75rem 0.8rem;
+        border-bottom: none;
+      }
+
+      .brief-title {
+        font-size: 1rem;
+        line-height: 1.15;
+        margin-bottom: 0.16rem;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1491,6 +1661,7 @@
     var articles = [];
     var seenLinks = new Set();
     var activeCountry = 'all';
+    var mobileHeroAutoAdvance = null;
     var COUNTRY_KW = {
       'فلسطين': ['فلسطين','غزة','الضفة','رام الله','القدس','حماس','الجهاد','فتح','نابلس','جنين','خان يونس','رفح'],
       'لبنان': ['لبنان','بيروت','حزب الله','طرابلس','صيدا'],
@@ -1506,6 +1677,12 @@
       'قطر': ['قطر','الدوحة','القطري'],
       'البحرين': ['البحرين','المنامة','البحريني']
     };
+    function clearMobileHeroAutoAdvance() {
+      if (mobileHeroAutoAdvance) {
+        clearInterval(mobileHeroAutoAdvance);
+        mobileHeroAutoAdvance = null;
+      }
+    }
     function matchesCountry(a, country) {
       if(country==='all') return true;
       var kws=COUNTRY_KW[country]; if(!kws) return false;
@@ -1582,6 +1759,7 @@
     function renderFeed() {
       var filtered = articles;
       if(activeCountry!=='all') filtered=filtered.filter(function(a){ return matchesCountry(a, activeCountry); });
+      clearMobileHeroAutoAdvance();
       heroArea.textContent=''; feed.textContent=''; sidebar.textContent='';
       if(!filtered.length){ var d=document.createElement('div'); d.className='loading'; var p=document.createElement('p'); p.textContent='\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0642\u0627\u0644\u0627\u062a.'; d.appendChild(p); feed.appendChild(d); return; }
 
@@ -1730,7 +1908,7 @@
 
     function buildMobileHero(lead, subs) {
       var items = [lead].concat(subs || []).filter(function(a) { return a && a.image; }).slice(0, 5);
-      if(!items.length) return document.createElement('div');
+      if(!items.length) return buildMobileHeroFallback(lead);
 
       var wrap = document.createElement('div');
       wrap.className = 'mobile-carousel';
@@ -1773,40 +1951,90 @@
 
       wrap.appendChild(track);
 
-      // Dots
-      var dots = document.createElement('div');
-      dots.className = 'carousel-dots';
-      items.forEach(function(_, i) {
-        var dot = document.createElement('button');
-        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-        dot.onclick = function() {
-          track.scrollTo({ left: track.offsetWidth * i, behavior: 'smooth' });
-        };
-        dots.appendChild(dot);
-      });
-      wrap.appendChild(dots);
-
-      // Update dots on scroll
-      track.addEventListener('scroll', function() {
-        var idx = Math.round(track.scrollLeft / track.offsetWidth);
-        dots.querySelectorAll('.carousel-dot').forEach(function(d, i) {
-          d.classList.toggle('active', i === idx);
+      if(items.length > 1) {
+        // Dots
+        var dots = document.createElement('div');
+        dots.className = 'carousel-dots';
+        items.forEach(function(_, i) {
+          var dot = document.createElement('button');
+          dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+          dot.onclick = function() {
+            track.scrollTo({ left: track.offsetWidth * i, behavior: 'smooth' });
+          };
+          dots.appendChild(dot);
         });
-      });
+        wrap.appendChild(dots);
 
-      // Auto-advance every 5s
-      var autoInterval = setInterval(function() {
-        var idx = Math.round(track.scrollLeft / track.offsetWidth);
-        var next = (idx + 1) % items.length;
-        track.scrollTo({ left: track.offsetWidth * next, behavior: 'smooth' });
-      }, 5000);
+        // Update dots on scroll
+        track.addEventListener('scroll', function() {
+          var idx = Math.round(track.scrollLeft / track.offsetWidth);
+          dots.querySelectorAll('.carousel-dot').forEach(function(d, i) {
+            d.classList.toggle('active', i === idx);
+          });
+        });
 
-      // Stop auto-advance on user interaction
-      track.addEventListener('touchstart', function() {
-        clearInterval(autoInterval);
-      }, { once: true });
+        // Auto-advance every 5s
+        mobileHeroAutoAdvance = setInterval(function() {
+          var idx = Math.round(track.scrollLeft / track.offsetWidth);
+          var next = (idx + 1) % items.length;
+          track.scrollTo({ left: track.offsetWidth * next, behavior: 'smooth' });
+        }, 5000);
+
+        // Stop auto-advance on user interaction
+        track.addEventListener('touchstart', clearMobileHeroAutoAdvance, { once: true });
+      }
 
       return wrap;
+    }
+
+    function buildMobileHeroFallback(a) {
+      if(!a) return document.createElement('div');
+
+      var story = document.createElement('a');
+      story.className = 'mobile-hero-fallback';
+      story.href = articleUrl(a);
+
+      var content = document.createElement('div');
+      content.className = 'hero-content';
+
+      var source = document.createElement('div');
+      source.className = 'hero-source';
+      source.textContent = a.source || '';
+      content.appendChild(source);
+
+      var title = document.createElement('h1');
+      title.className = 'hero-headline';
+      title.textContent = a.title || '';
+      content.appendChild(title);
+
+      var points = extractHeroPoints(a.description);
+      if(points.length) {
+        var list = document.createElement('ul');
+        list.className = 'hero-points';
+        points.forEach(function(point) {
+          var item = document.createElement('li');
+          item.textContent = point;
+          list.appendChild(item);
+        });
+        content.appendChild(list);
+      } else if(a.description) {
+        var excerpt = document.createElement('p');
+        excerpt.className = 'hero-excerpt';
+        excerpt.textContent = a.description;
+        content.appendChild(excerpt);
+      }
+
+      var meta = document.createElement('div');
+      var byline = [];
+      if(a.source) byline.push('\u0628\u0648\u0627\u0633\u0637\u0629 ' + a.source);
+      var absDate = formatStoryDate(a.pubDate);
+      if(absDate) byline.push(absDate);
+      meta.className = 'hero-meta';
+      meta.textContent = byline.length ? byline.join(' \u2022 ') : getTimeAgo(a.pubDate);
+      content.appendChild(meta);
+
+      story.appendChild(content);
+      return story;
     }
 
     var liveFeedLinks = new Set();
@@ -2085,43 +2313,52 @@
       if(theme==='dark') btn.appendChild(createSvg(null,[[12,12,5]],[[12,1,12,3],[12,21,12,23],[4.22,4.22,5.64,5.64],[18.36,18.36,19.78,19.78],[1,12,3,12],[21,12,23,12],[4.22,19.78,5.64,18.36],[18.36,5.64,19.78,4.22]]));
       else btn.appendChild(createSvg(['M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z']));
     }
+    function getStoredTheme() {
+      var stored = localStorage.getItem('theme');
+      return stored === 'dark' || stored === 'light' ? stored : '';
+    }
+    var colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    function getSystemTheme() {
+      return colorSchemeQuery.matches ? 'dark' : 'light';
+    }
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      setThemeIcon(theme);
+    }
     function toggleTheme() {
       var d=document.documentElement.getAttribute('data-theme')==='dark';
       var n=d?'light':'dark';
-      document.documentElement.setAttribute('data-theme',n);
-      setThemeIcon(n);
+      applyTheme(n);
       localStorage.setItem('theme',n);
     }
     (function(){
-      if(window.matchMedia('(max-width: 760px)').matches) {
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var theme = prefersDark ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', theme);
-        setThemeIcon(theme);
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-          if(!window.matchMedia('(max-width: 760px)').matches) return;
-          var t = e.matches ? 'dark' : 'light';
-          document.documentElement.setAttribute('data-theme', t);
-          setThemeIcon(t);
-        });
-      } else {
-        var s=localStorage.getItem('theme')||'light';
-        document.documentElement.setAttribute('data-theme',s);
-        setThemeIcon(s);
-      }
+      applyTheme(getStoredTheme() || getSystemTheme());
+      var handleThemeChange = function(e) {
+        if(getStoredTheme()) return;
+        applyTheme(e.matches ? 'dark' : 'light');
+      };
+      if(colorSchemeQuery.addEventListener) colorSchemeQuery.addEventListener('change', handleThemeChange);
+      else if(colorSchemeQuery.addListener) colorSchemeQuery.addListener(handleThemeChange);
     })();
 
     function isMobile() {
-      return window.matchMedia('(max-width: 760px)').matches;
+      return window.matchMedia('(max-width: 1024px), (pointer: coarse) and (max-width: 1400px)').matches;
     }
 
+    function setMobileNavActive(which) {
+      var home = document.getElementById('btnHome');
+      var countries = document.getElementById('btnCountries');
+      if(!home || !countries) return;
+      home.classList.toggle('active', which === 'home');
+      countries.classList.toggle('active', which === 'countries');
+    }
     function mobileNavHome() {
-      document.getElementById('btnHome').classList.add('active');
-      document.getElementById('btnCountries').classList.remove('active');
+      setMobileNavActive('home');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function mobileNavCountries() {
+      setMobileNavActive('countries');
       openCountrySheet();
     }
 
@@ -2156,6 +2393,7 @@
       document.getElementById('sheetOverlay').classList.remove('open');
       document.getElementById('countrySheet').classList.remove('open');
       document.body.style.overflow = '';
+      setMobileNavActive('home');
     }
 
     var textSizeLevel = parseInt(localStorage.getItem('textSize') || '0');
