@@ -83,7 +83,6 @@
       line-height: 1.45;
       -webkit-font-smoothing: antialiased;
       overflow-wrap: break-word;
-      word-break: break-word;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -934,19 +933,6 @@
 
     /* Mobile: full rebuild for small screens */
     @media (max-width: 760px) {
-      /* Force all top-level elements to stay within viewport */
-      .top-bar,
-      .nav-bar,
-      .country-bar,
-      .ticker,
-      .stock-ticker,
-      .page,
-      .footer {
-        width: 100%;
-        min-width: 0;
-        max-width: 100%;
-      }
-
       /* Top bar: stack controls inline, remove absolute positioning */
       .top-bar-inner {
         padding: 0.4rem 0.75rem;
