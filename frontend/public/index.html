@@ -1033,19 +1033,13 @@
 
       /* Hide desktop-only elements */
       .ticker { display: none; }
+      .stock-ticker { display: none; }
       .nav-bar.country-bar { display: none; }
       .hero-live { display: none; }
       .hero-sub { display: none; }
       .sidebar { display: none; }
-
-      .live-streams-section-row {
-        grid-template-columns: 1fr;
-      }
-
-      .mobile-live-streams {
-        padding: 0.8rem 1rem;
-        margin-bottom: 0.5rem;
-      }
+      .mobile-live-streams { display: none; }
+      .live-streams-section { display: none; }
 
       /* Simplify top bar for mobile */
       .top-bar-inner {
@@ -1101,14 +1095,6 @@
         font-size: 0.66rem;
         padding: 0.5rem 0.55rem 0.35rem;
       }
-
-      /* Stock ticker: smaller text */
-      .stock-ticker-half {
-        gap: 1rem;
-        padding: 0.3rem 0.75rem;
-      }
-      .stock-item { font-size: 0.62rem; }
-
 
       /* Hero carousel */
       .mobile-carousel {
