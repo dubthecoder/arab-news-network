@@ -338,50 +338,46 @@
       margin-bottom: 2rem;
       display: grid;
       grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-      grid-template-rows: auto 1fr;
+      grid-template-rows: 1fr;
       background: var(--panel);
       border: 1px solid var(--line);
       box-shadow: var(--shadow-strong);
     }
 
-    .hero-live-streams {
-      grid-column: 1;
-      grid-row: 1;
-      border-bottom: 1px solid var(--line);
-      padding: 0.8rem;
-    }
-
-    .hero-live-streams-title {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 0.6rem;
-    }
-
-    .hero-live-streams-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-    }
-
-    .hero-main-col {
-      min-height: 0;
-      grid-column: 1;
-      grid-row: 2;
-    }
+    .hero-main-col { min-height: 0; }
 
     .hero-live {
       border-inline-start: 1px solid var(--line);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      grid-column: 2;
-      grid-row: 1 / -1;
-      max-height: 600px;
+      height: 0;
+      min-height: 100%;
+    }
+
+    .live-streams-section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.7rem;
+    }
+
+    .live-streams-section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+    }
+
+    .live-streams-section-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
     }
 
     .hero-live-header {
@@ -970,10 +966,9 @@
 
     /* Tablet portrait */
     @media (max-width: 980px) {
-      .hero-wrap { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
-      .hero-live-streams { grid-column: 1; grid-row: 1; }
-      .hero-main-col { grid-column: 1; grid-row: 2; }
-      .hero-live { grid-column: 1; grid-row: 3; border-inline-start: none; border-top: 1px solid var(--line); max-height: 300px; }
+      .hero-wrap { grid-template-columns: 1fr; }
+      .hero-live { border-inline-start: none; border-top: 1px solid var(--line); max-height: 300px; }
+      .live-streams-section-row { grid-template-columns: 1fr 1fr; }
       .content-grid { grid-template-columns: 1fr; }
       .sidebar { position: static; }
       .opinion-box { margin-bottom: 1.6rem; }
@@ -1047,7 +1042,7 @@
       .hero-sub { display: none; }
       .sidebar { display: none; }
 
-      .hero-live-streams-row {
+      .live-streams-section-row {
         grid-template-columns: 1fr;
       }
 
@@ -1863,6 +1858,7 @@
         heroArea.appendChild(buildMobileHero(lead, subStories));
       } else {
         heroArea.appendChild(buildHero(lead, subStories));
+        heroArea.appendChild(buildLiveStreamsSection());
       }
 
       // Sidebar: opinion-style stories (diverse sources)
@@ -1893,16 +1889,6 @@
 
     function buildHero(a, subs) {
       var wrap=document.createElement('div'); wrap.className='hero-wrap';
-
-      // Live streams area (top-left)
-      var liveStreams=document.createElement('div'); liveStreams.className='hero-live-streams'; liveStreams.id='heroLiveStreams'; liveStreams.style.display='none';
-      var lsTitle=document.createElement('div'); lsTitle.className='hero-live-streams-title';
-      var dot=document.createElement('span'); dot.className='live-dot'; lsTitle.appendChild(dot);
-      lsTitle.appendChild(document.createTextNode(' بث مباشر'));
-      liveStreams.appendChild(lsTitle);
-      var lsRow=document.createElement('div'); lsRow.className='hero-live-streams-row'; lsRow.id='heroLiveChannelsRow';
-      liveStreams.appendChild(lsRow);
-      wrap.appendChild(liveStreams);
 
       // Main column (2/3)
       var col=document.createElement('div'); col.className='hero-main-col';
@@ -1975,13 +1961,24 @@
       return wrap;
     }
 
-    function buildMobileLiveStreams() {
-      var div=document.createElement('div'); div.className='mobile-live-streams'; div.id='mobileLiveStreams'; div.style.display='none';
-      var title=document.createElement('div'); title.className='hero-live-streams-title';
+    function buildLiveStreamsSection() {
+      var div=document.createElement('div'); div.className='live-streams-section'; div.id='liveStreamsSection'; div.style.display='none';
+      var title=document.createElement('div'); title.className='live-streams-section-title';
       var dot=document.createElement('span'); dot.className='live-dot'; title.appendChild(dot);
       title.appendChild(document.createTextNode(' بث مباشر'));
       div.appendChild(title);
-      var row=document.createElement('div'); row.className='hero-live-streams-row'; row.id='mobileLiveChannelsRow';
+      var row=document.createElement('div'); row.className='live-streams-section-row'; row.id='liveStreamsRow';
+      div.appendChild(row);
+      return div;
+    }
+
+    function buildMobileLiveStreams() {
+      var div=document.createElement('div'); div.className='mobile-live-streams'; div.id='mobileLiveStreams'; div.style.display='none';
+      var title=document.createElement('div'); title.className='live-streams-section-title';
+      var dot=document.createElement('span'); dot.className='live-dot'; title.appendChild(dot);
+      title.appendChild(document.createTextNode(' بث مباشر'));
+      div.appendChild(title);
+      var row=document.createElement('div'); row.className='live-streams-section-row'; row.id='mobileLiveChannelsRow';
       div.appendChild(row);
       return div;
     }
@@ -2526,7 +2523,7 @@
       var streams = _liveStreamsCache;
       if(!streams || !streams.length) return;
       var targets = [
-        { row: document.getElementById('heroLiveChannelsRow'), wrap: document.getElementById('heroLiveStreams') },
+        { row: document.getElementById('liveStreamsRow'), wrap: document.getElementById('liveStreamsSection') },
         { row: document.getElementById('mobileLiveChannelsRow'), wrap: document.getElementById('mobileLiveStreams') }
       ];
       targets.forEach(function(t){
