@@ -222,49 +222,21 @@ async function fetchStocks() {
   }
 }
 
-// Live stream video ID resolution
-const LIVE_CHANNELS = [
-  { label: 'الجزيرة', channelId: 'UCfiwzLy-8yKzIbsmZTzxDgw' },
-  { label: 'الحدث', channelId: 'UCrj5BGAhtWxDfqbza9T9hqA' },
+// Live stream configuration
+// These are long-running 24/7 streams that rarely change video IDs.
+// Update manually if a channel starts a new stream.
+const LIVE_STREAMS = [
+  { label: 'الجزيرة', channelId: 'UCfiwzLy-8yKzIbsmZTzxDgw', videoId: 'EzIc6z97mjQ' },
+  { label: 'الحدث', channelId: 'UCrj5BGAhtWxDfqbza9T9hqA', videoId: 'xWXpl7azI8k' },
 ];
 
-async function fetchLiveVideoId(channel) {
-  const url = `https://www.youtube.com/channel/${channel.channelId}/live`;
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000);
-  try {
-    const res = await fetch(url, {
-      signal: controller.signal,
-      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' },
-      redirect: 'follow',
-    });
-    clearTimeout(timeout);
-    if (!res.ok) return null;
-    const html = await res.text();
-    const match = html.match(/"videoId":"([a-zA-Z0-9_-]{11})"/);
-    return match ? match[1] : null;
-  } catch {
-    clearTimeout(timeout);
-    return null;
-  }
-}
-
 async function fetchLiveStreams() {
-  console.log('Fetching live stream IDs...');
+  console.log('Storing live stream config...');
   try {
-    const results = await Promise.allSettled(
-      LIVE_CHANNELS.map(async (ch) => {
-        const videoId = await fetchLiveVideoId(ch);
-        return { label: ch.label, channelId: ch.channelId, videoId };
-      })
-    );
-    const streams = results
-      .filter(r => r.status === 'fulfilled' && r.value.videoId)
-      .map(r => r.value);
-    await redis.set('live:streams', JSON.stringify(streams), 'EX', TTL);
-    console.log(`Updated: ${streams.length}/${LIVE_CHANNELS.length} live streams`);
+    await redis.set('live:streams', JSON.stringify(LIVE_STREAMS), 'EX', TTL);
+    console.log(`Updated: ${LIVE_STREAMS.length} live streams`);
   } catch (err) {
-    console.error('Live stream fetch error:', err.message);
+    console.error('Live stream store error:', err.message);
   }
 }
 
