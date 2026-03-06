@@ -990,15 +990,29 @@
         padding-bottom: 70px;
       }
 
-      /* Top bar: stack controls inline, remove absolute positioning */
+      /* Hide desktop-only elements */
+      .top-bar-controls { display: none; }
+      .ticker { display: none; }
+      .nav-bar.country-bar { display: none; }
+      .hero-live { display: none; }
+      .hero-sub { display: none; }
+      .sidebar { display: none; }
+
+      /* Simplify top bar for mobile */
       .top-bar-inner {
-        padding: 0.4rem 0.75rem;
-        gap: 0.5rem;
-        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0.5rem 1rem;
       }
-      .top-bar-controls {
-        position: static;
-        transform: none;
+
+      /* Page: remove padding for full-bleed cards */
+      .page {
+        padding: 0;
+        max-width: 100%;
+      }
+
+      /* Content grid: single column, no gap */
+      .content-grid {
+        display: block;
       }
 
       /* Navigation: scrollable row, left-aligned for RTL swipe */
@@ -1023,15 +1037,11 @@
 
       /* Stock ticker: smaller text */
       .stock-ticker-half {
-        gap: 1.2rem;
+        gap: 1rem;
         padding: 0.3rem 0.75rem;
       }
-      .stock-item { font-size: 0.65rem; }
+      .stock-item { font-size: 0.62rem; }
 
-      /* Page container: mobile padding */
-      .page {
-        padding: 1rem 0.75rem 0;
-      }
 
       /* Hero carousel */
       .mobile-carousel {
