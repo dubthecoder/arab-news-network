@@ -113,7 +113,7 @@ function renderArticlePage(article) {
 <head>
   <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'light')</script>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>المقال غير موجود | شبكة الأخبار العربية</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;600;700&display=swap" rel="stylesheet">
@@ -152,7 +152,7 @@ function renderArticlePage(article) {
 <head>
   <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'light')</script>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>${title} | شبكة الأخبار العربية</title>
   <meta name="description" content="${desc}">
   <link rel="canonical" href="${url}">
