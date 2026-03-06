@@ -1,5 +1,6 @@
 const RSSParser = require('rss-parser');
 const Redis = require('ioredis');
+const crypto = require('crypto');
 
 const parser = new RSSParser({
   customFields: {
@@ -66,18 +67,22 @@ async function fetchFeeds(feeds) {
     feeds.map(async (feed) => {
       try {
         const parsed = await parser.parseURL(feed.url);
-        return parsed.items.map((item) => ({
-          title: item.title || '',
-          link: item.link || '',
-          description: (item.contentSnippet || item.content || '').slice(0, 300),
-          pubDate: item.pubDate || item.isoDate || '',
-          source: feed.source,
-          image:
-            item.enclosure?.url ||
-            item.mediaContent?.$.url ||
-            item.mediaThumbnail?.$.url ||
-            '',
-        }));
+        return parsed.items.map((item) => {
+          const link = item.link || '';
+          return {
+            id: crypto.createHash('md5').update(link).digest('hex').slice(0, 8),
+            title: item.title || '',
+            link,
+            description: (item.contentSnippet || item.content || '').slice(0, 300),
+            pubDate: item.pubDate || item.isoDate || '',
+            source: feed.source,
+            image:
+              item.enclosure?.url ||
+              item.mediaContent?.$.url ||
+              item.mediaThumbnail?.$.url ||
+              '',
+          };
+        });
       } catch (err) {
         console.error(`Failed to fetch ${feed.source}: ${err.message}`);
         return [];

@@ -1191,7 +1191,7 @@
       var col=document.createElement('div'); col.className='hero-main-col';
 
       var main=document.createElement('a'); main.className='hero-main';
-      main.href=a.link; main.target='_blank'; main.rel='noopener noreferrer';
+      main.href=articleUrl(a);
       if(a.image){
         var img=document.createElement('img'); img.src=a.image; img.alt=a.title||'';
         img.onerror=function(){this.style.display='none';};
@@ -1229,7 +1229,7 @@
         var subRow=document.createElement('div'); subRow.className='hero-sub';
         subs.forEach(function(s){
           var item=document.createElement('a'); item.className='hero-sub-item';
-          item.href=s.link; item.target='_blank'; item.rel='noopener noreferrer';
+          item.href=articleUrl(s);
           if(s.image){
             var si=document.createElement('img'); si.className='hero-sub-img'; si.src=s.image; si.alt=s.title||''; si.loading='lazy';
             si.onerror=function(){this.style.display='none';};
@@ -1262,7 +1262,7 @@
 
     function createLiveItem(a, animate) {
       var item=document.createElement('a'); item.className='hero-live-item' + (animate ? ' new-item' : '');
-      item.href=a.link; item.target='_blank'; item.rel='noopener noreferrer';
+      item.href=articleUrl(a);
       item.dataset.link=a.link;
       var top=document.createElement('div');
       top.style.cssText='display:flex;justify-content:space-between;align-items:center;margin-bottom:0.15rem;';
@@ -1338,7 +1338,7 @@
       var list=document.createElement('div'); list.className='opinion-list';
       items.forEach(function(a){
         var item=document.createElement('a'); item.className='opinion-item';
-        item.href=a.link; item.target='_blank'; item.rel='noopener noreferrer';
+        item.href=articleUrl(a);
 
         var copy=document.createElement('div');
         var author=document.createElement('span'); author.className='opinion-author';
@@ -1454,7 +1454,7 @@
 
     function buildCard(a, big) {
       var el=document.createElement('a'); el.className='card'+(big?' card-big':'');
-      el.href=a.link; el.target='_blank'; el.rel='noopener noreferrer';
+      el.href=articleUrl(a);
       if(a.image){
         var wrap=document.createElement('div'); wrap.className='card-img-wrap';
         var img=document.createElement('img'); img.className='card-img'; img.src=a.image; img.alt=a.title||''; img.loading='lazy';
@@ -1472,7 +1472,7 @@
 
     function buildCardHz(a) {
       var el=document.createElement('a'); el.className='card-hz';
-      el.href=a.link; el.target='_blank'; el.rel='noopener noreferrer';
+      el.href=articleUrl(a);
       if(a.image){
         var wrap=document.createElement('div'); wrap.className='card-img-wrap';
         var img=document.createElement('img'); img.className='card-img'; img.src=a.image; img.alt=a.title||''; img.loading='lazy';
@@ -1489,13 +1489,15 @@
 
     function buildBriefCard(a) {
       var el=document.createElement('a'); el.className='brief';
-      el.href=a.link; el.target='_blank'; el.rel='noopener noreferrer';
+      el.href=articleUrl(a);
       var k=document.createElement('div'); k.className='brief-source'; k.textContent=a.source||''; el.appendChild(k);
       var t=document.createElement('h2'); t.className='brief-title'; t.textContent=a.title||''; el.appendChild(t);
       if(a.description){ var d=document.createElement('p'); d.className='brief-excerpt'; d.textContent=a.description; el.appendChild(d); }
       var m=document.createElement('div'); m.className='brief-time'; m.textContent=getTimeAgo(a.pubDate); el.appendChild(m);
       return el;
     }
+
+    function articleUrl(a) { return a.id ? '/article/' + a.id : a.link; }
 
     function getTimeAgo(d) {
       if(!d)return''; var diff=Date.now()-new Date(d).getTime(); var m=Math.floor(diff/60000);
