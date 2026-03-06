@@ -125,15 +125,34 @@ async function updateFeeds() {
 
 // Arab market data (Google Finance paths)
 const STOCK_INDICES = [
-  { path: 'USD-SAR', name: 'دولار/ريال', exchange: 'عملات' },
-  { path: 'USD-EGP', name: 'دولار/جنيه', exchange: 'عملات' },
+  // Arab currencies
+  { path: 'USD-SAR', name: 'دولار/ريال سعودي', exchange: 'عملات' },
+  { path: 'USD-AED', name: 'دولار/درهم إماراتي', exchange: 'عملات' },
+  { path: 'USD-EGP', name: 'دولار/جنيه مصري', exchange: 'عملات' },
   { path: 'USD-IQD', name: 'دولار/دينار عراقي', exchange: 'عملات' },
   { path: 'USD-KWD', name: 'دولار/دينار كويتي', exchange: 'عملات' },
   { path: 'USD-QAR', name: 'دولار/ريال قطري', exchange: 'عملات' },
+  { path: 'USD-BHD', name: 'دولار/دينار بحريني', exchange: 'عملات' },
+  { path: 'USD-OMR', name: 'دولار/ريال عماني', exchange: 'عملات' },
   { path: 'USD-JOD', name: 'دولار/دينار أردني', exchange: 'عملات' },
   { path: 'USD-LBP', name: 'دولار/ليرة لبنانية', exchange: 'عملات' },
-  { path: 'EUR-USD', name: 'يورو/دولار', exchange: 'عملات' },
+  { path: 'USD-TND', name: 'دولار/دينار تونسي', exchange: 'عملات' },
+  { path: 'USD-MAD', name: 'دولار/درهم مغربي', exchange: 'عملات' },
+  { path: 'USD-DZD', name: 'دولار/دينار جزائري', exchange: 'عملات' },
+  { path: 'USD-LYD', name: 'دولار/دينار ليبي', exchange: 'عملات' },
+  { path: 'USD-SYP', name: 'دولار/ليرة سورية', exchange: 'عملات' },
+  { path: 'USD-YER', name: 'دولار/ريال يمني', exchange: 'عملات' },
+  { path: 'USD-SDG', name: 'دولار/جنيه سوداني', exchange: 'عملات' },
+  // Major world currencies
+  { path: 'EUR-USD', name: 'يورو/دولار', exchange: 'عملات عالمية' },
+  { path: 'GBP-USD', name: 'جنيه إسترليني/دولار', exchange: 'عملات عالمية' },
+  { path: 'USD-JPY', name: 'دولار/ين ياباني', exchange: 'عملات عالمية' },
+  { path: 'USD-CNY', name: 'دولار/يوان صيني', exchange: 'عملات عالمية' },
+  { path: 'USD-TRY', name: 'دولار/ليرة تركية', exchange: 'عملات عالمية' },
+  { path: 'USD-INR', name: 'دولار/روبية هندية', exchange: 'عملات عالمية' },
+  // Crypto
   { path: 'BTC-USD', name: 'بتكوين', exchange: 'رقمية' },
+  { path: 'ETH-USD', name: 'إيثريوم', exchange: 'رقمية' },
 ];
 
 async function fetchSingleStock(index, prevPrices) {
