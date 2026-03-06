@@ -47,6 +47,7 @@ app.get('/sitemap.xml', async (req, res) => {
         <news:name>${escapeXml(a.source || '')}</news:name>
         <news:language>ar</news:language>
       </news:publication>
+      <news:publication_date>${a.pubDate ? new Date(a.pubDate).toISOString() : new Date().toISOString()}</news:publication_date>
       <news:title>${escapeXml(a.title || '')}</news:title>
     </news:news>
   </url>
