@@ -1054,6 +1054,7 @@
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        direction: ltr;
       }
 
       .carousel-track::-webkit-scrollbar { display: none; }
@@ -1080,6 +1081,8 @@
         background: linear-gradient(transparent 0%, rgba(0,0,0,0.75) 100%);
         padding: 2.5rem 1rem 1rem;
         color: #fff;
+        direction: rtl;
+        text-align: right;
       }
 
       .carousel-slide-source {
@@ -1284,22 +1287,11 @@
       .brief-title { font-size: 1.05rem; }
       .brief-excerpt { display: none; }
 
-      /* Sidebar / opinions: mobile compact */
-      .opinion-box {
-        padding: 1rem 0.85rem 0.2rem;
+      /* Touch feedback for cards */
+      .card:active, .card-hz:active, .brief:active {
+        background: var(--panel-soft);
+        transition: background 0.1s;
       }
-      .opinion-title { font-size: 1.2rem; margin-bottom: 0.75rem; }
-      .opinion-item {
-        grid-template-columns: minmax(0, 1fr) 50px;
-        gap: 0.6rem;
-        padding: 0.75rem 0;
-      }
-      .opinion-avatar, .opinion-avatar-fallback {
-        width: 50px;
-        height: 50px;
-      }
-      .opinion-author { font-size: 0.68rem; }
-      .opinion-headline { font-size: 0.92rem; }
 
       /* Country bottom sheet */
       .sheet-overlay {
