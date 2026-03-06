@@ -57,16 +57,19 @@ function renderArticlePage(article) {
     return `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'light')</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>المقال غير موجود | شبكة الأخبار العربية</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'IBM Plex Sans Arabic', sans-serif; background: #e8ede3; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: #1f2a33; }
+    :root { --page-bg: #e8ede3; --ink: #1f2a33; --accent: #d85229; }
+    [data-theme="dark"] { --page-bg: #101311; --ink: #f1efe9; --accent: #e1643d; }
+    body { font-family: 'IBM Plex Sans Arabic', sans-serif; background: var(--page-bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: var(--ink); }
     .msg { text-align: center; }
     .msg h1 { font-size: 1.5rem; margin-bottom: 1rem; }
-    .msg a { color: #d85229; text-decoration: none; font-weight: 600; }
+    .msg a { color: var(--accent); text-decoration: none; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -90,6 +93,7 @@ function renderArticlePage(article) {
   return `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'light')</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title} | شبكة الأخبار العربية</title>
@@ -134,6 +138,14 @@ function renderArticlePage(article) {
       --line: #d3d9cd;
       --sans: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
       --serif: 'Noto Naskh Arabic', serif;
+    }
+    [data-theme="dark"] {
+      --accent: #e1643d;
+      --ink: #f1efe9;
+      --ink-mid: #b1b9be;
+      --page-bg: #101311;
+      --panel: #171b18;
+      --line: #2d3531;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--sans); background: var(--page-bg); color: var(--ink); min-height: 100vh; }
