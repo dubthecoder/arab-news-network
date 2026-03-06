@@ -268,25 +268,31 @@
       background: #1f2a33;
       border-bottom: 1px solid rgba(255,255,255,0.1);
       overflow: hidden;
+      direction: rtl;
     }
 
-    .stock-ticker-inner {
+    .stock-ticker-track {
+      display: flex;
+      width: max-content;
+      animation: stock-scroll 60s linear infinite;
+    }
+
+    .stock-ticker:hover .stock-ticker-track {
+      animation-play-state: paused;
+    }
+
+    .stock-ticker-half {
       display: flex;
       align-items: center;
       gap: 1.8rem;
       padding: 0.35rem 1.5rem;
       white-space: nowrap;
-      direction: rtl;
-      animation: stock-scroll 30s linear infinite;
-    }
-
-    .stock-ticker:hover .stock-ticker-inner {
-      animation-play-state: paused;
+      flex-shrink: 0;
     }
 
     @keyframes stock-scroll {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(50%); }
     }
 
     .stock-item {
@@ -983,7 +989,7 @@
 
   <!-- Stock Ticker -->
   <div class="stock-ticker">
-    <div class="stock-ticker-inner" id="stockTicker"></div>
+    <div class="stock-ticker-track" id="stockTicker"></div>
   </div>
 
   <!-- Main content -->
@@ -1550,6 +1556,23 @@
     fetchNews(true);
     setInterval(function(){fetchNews(false);},POLL_INTERVAL);
 
+    function buildStockHalf(stocks) {
+      var half=document.createElement('div'); half.className='stock-ticker-half';
+      stocks.forEach(function(s){
+        var item=document.createElement('div'); item.className='stock-item';
+        var name=document.createElement('span'); name.className='stock-name'; name.textContent=s.name;
+        var price=document.createElement('span'); price.className='stock-price'; price.textContent=s.price.toLocaleString('ar-EG-u-nu-latn',{minimumFractionDigits:2,maximumFractionDigits:2});
+        var change=document.createElement('span');
+        var pct=s.changePercent;
+        var dir=pct>0?'up':pct<0?'down':'flat';
+        change.className='stock-change '+dir;
+        var arrow=pct>0?'▲':pct<0?'▼':'–';
+        change.textContent=arrow+' '+Math.abs(pct).toFixed(2)+'%';
+        item.appendChild(name); item.appendChild(price); item.appendChild(change);
+        half.appendChild(item);
+      });
+      return half;
+    }
     function fetchStocks() {
       fetch('/api/stocks')
         .then(function(r){ return r.json(); })
@@ -1557,19 +1580,8 @@
           var el=document.getElementById('stockTicker');
           if(!el || !data.stocks || !data.stocks.length) return;
           while(el.firstChild) el.removeChild(el.firstChild);
-          data.stocks.forEach(function(s){
-            var item=document.createElement('div'); item.className='stock-item';
-            var name=document.createElement('span'); name.className='stock-name'; name.textContent=s.name;
-            var price=document.createElement('span'); price.className='stock-price'; price.textContent=s.price.toLocaleString('ar-EG-u-nu-latn',{minimumFractionDigits:2,maximumFractionDigits:2});
-            var change=document.createElement('span');
-            var pct=s.changePercent;
-            var dir=pct>0?'up':pct<0?'down':'flat';
-            change.className='stock-change '+dir;
-            var arrow=pct>0?'▲':pct<0?'▼':'–';
-            change.textContent=arrow+' '+Math.abs(pct).toFixed(2)+'%';
-            item.appendChild(name); item.appendChild(price); item.appendChild(change);
-            el.appendChild(item);
-          });
+          el.appendChild(buildStockHalf(data.stocks));
+          el.appendChild(buildStockHalf(data.stocks));
         })
         .catch(function(e){ console.error('Stock fetch error:',e); });
     }
