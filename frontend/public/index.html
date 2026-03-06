@@ -1717,10 +1717,27 @@
       localStorage.setItem('theme',n);
     }
     (function(){
-      var s=localStorage.getItem('theme')||'light';
-      document.documentElement.setAttribute('data-theme',s);
-      setThemeIcon(s);
+      if(window.matchMedia('(max-width: 760px)').matches) {
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = prefersDark ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        setThemeIcon(theme);
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+          if(!window.matchMedia('(max-width: 760px)').matches) return;
+          var t = e.matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', t);
+          setThemeIcon(t);
+        });
+      } else {
+        var s=localStorage.getItem('theme')||'light';
+        document.documentElement.setAttribute('data-theme',s);
+        setThemeIcon(s);
+      }
     })();
+
+    function isMobile() {
+      return window.matchMedia('(max-width: 760px)').matches;
+    }
 
     var textSizeLevel = parseInt(localStorage.getItem('textSize') || '0');
     function adjustTextSize(dir) {
