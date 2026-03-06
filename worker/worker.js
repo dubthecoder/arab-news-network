@@ -30,6 +30,11 @@ const RSS_FEEDS = [
   { url: 'https://www.france24.com/ar/moyen-orient/rss', source: 'فرانس 24 عربي' },
   { url: 'https://www.almasryalyoum.com/rss/rssfeeds', source: 'المصري اليوم' },
   { url: 'https://www.spa.gov.sa/rss/allnews/ar', source: 'واس' },
+  { url: 'https://www.hespress.com/feed', source: 'هسبريس' },
+  { url: 'https://www.sana.sy/?feed=rss2&lang=ar', source: 'سانا' },
+  { url: 'https://www.ennaharonline.com/feed/', source: 'النهار أونلاين' },
+  { url: 'https://www.alquds.com/ar/rss.xml', source: 'جريدة القدس' },
+  { url: 'https://www.almanar.com.lb/rss', source: 'قناة المنار' },
 ];
 
 // Fetch og:image from an article page when RSS has no image
