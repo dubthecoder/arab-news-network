@@ -183,7 +183,7 @@ async function fetchStocks() {
       .filter(r => r.status === 'fulfilled' && r.value)
       .map(r => r.value);
     if (quotes.length > 0) {
-      await redis.set('stocks:ar', JSON.stringify(quotes), 'EX', 600);
+      await redis.set('stocks:ar', JSON.stringify(quotes), 'EX', TTL);
       console.log(`Updated: ${quotes.length} stock indices`);
     } else {
       console.error('No stock data fetched');
