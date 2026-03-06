@@ -222,6 +222,52 @@ async function fetchStocks() {
   }
 }
 
+// Live stream video ID resolution
+const LIVE_CHANNELS = [
+  { label: 'الجزيرة', channelId: 'UCfiwzLy-8yKzIbsmZTzxDgw' },
+  { label: 'الحدث', channelId: 'UCrj5BGAhtWxDfqbza9T9hqA' },
+];
+
+async function fetchLiveVideoId(channel) {
+  const url = `https://www.youtube.com/channel/${channel.channelId}/live`;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' },
+      redirect: 'follow',
+    });
+    clearTimeout(timeout);
+    if (!res.ok) return null;
+    const html = await res.text();
+    const match = html.match(/"videoId":"([a-zA-Z0-9_-]{11})"/);
+    return match ? match[1] : null;
+  } catch {
+    clearTimeout(timeout);
+    return null;
+  }
+}
+
+async function fetchLiveStreams() {
+  console.log('Fetching live stream IDs...');
+  try {
+    const results = await Promise.allSettled(
+      LIVE_CHANNELS.map(async (ch) => {
+        const videoId = await fetchLiveVideoId(ch);
+        return { label: ch.label, channelId: ch.channelId, videoId };
+      })
+    );
+    const streams = results
+      .filter(r => r.status === 'fulfilled' && r.value.videoId)
+      .map(r => r.value);
+    await redis.set('live:streams', JSON.stringify(streams), 'EX', TTL);
+    console.log(`Updated: ${streams.length}/${LIVE_CHANNELS.length} live streams`);
+  } catch (err) {
+    console.error('Live stream fetch error:', err.message);
+  }
+}
+
 // Minimal HTTP server for Railway health checks
 const http = require('http');
 const PORT = process.env.PORT || 3002;
@@ -235,5 +281,7 @@ http.createServer((req, res) => {
 // Run immediately, then on interval
 updateFeeds();
 fetchStocks();
+fetchLiveStreams();
 setInterval(updateFeeds, FETCH_INTERVAL);
 setInterval(fetchStocks, FETCH_INTERVAL);
+setInterval(fetchLiveStreams, FETCH_INTERVAL);

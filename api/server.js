@@ -21,7 +21,8 @@ app.get('/news', async (req, res) => {
       articles = articles.filter((item) => new Date(item.pubDate) > since);
     }
 
-    res.json({ articles, timestamp: new Date().toISOString() });
+    const lastUpdate = await redis.get('news:lastUpdate') || new Date().toISOString();
+    res.json({ articles, timestamp: lastUpdate });
   } catch (err) {
     console.error('Error reading news:', err);
     res.status(500).json({ error: 'Failed to fetch news' });
@@ -36,6 +37,17 @@ app.get('/stocks', async (req, res) => {
   } catch (err) {
     console.error('Error reading stocks:', err);
     res.status(500).json({ error: 'Failed to fetch stocks' });
+  }
+});
+
+app.get('/live-streams', async (req, res) => {
+  try {
+    const raw = await redis.get('live:streams');
+    const streams = raw ? JSON.parse(raw) : [];
+    res.json({ streams });
+  } catch (err) {
+    console.error('Error reading live streams:', err);
+    res.status(500).json({ error: 'Failed to fetch live streams' });
   }
 });
 
