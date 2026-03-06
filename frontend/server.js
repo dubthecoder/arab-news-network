@@ -11,6 +11,11 @@ app.get('/api/{*splat}', async (req, res) => {
   try {
     const apiPath = req.originalUrl.replace(/^\/api/, '');
     const apiRes = await fetch(`${API_INTERNAL}${apiPath}`);
+    const contentType = apiRes.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      console.error('API proxy error: expected JSON, got', contentType);
+      return res.status(502).json({ error: 'API unavailable' });
+    }
     const data = await apiRes.json();
     res.status(apiRes.status).json(data);
   } catch (err) {
