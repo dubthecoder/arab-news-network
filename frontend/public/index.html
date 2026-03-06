@@ -1033,10 +1033,96 @@
         padding: 1rem 0.75rem 0;
       }
 
-      /* Hero: single column, compact */
-      .hero-wrap {
-        margin-bottom: 1.2rem;
+      /* Hero carousel */
+      .mobile-carousel {
+        position: relative;
+        width: 100%;
+        margin-bottom: 0.75rem;
       }
+
+      .carousel-track {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .carousel-track::-webkit-scrollbar { display: none; }
+
+      .carousel-slide {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+        position: relative;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+      }
+
+      .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .carousel-slide-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent 0%, rgba(0,0,0,0.75) 100%);
+        padding: 2.5rem 1rem 1rem;
+        color: #fff;
+      }
+
+      .carousel-slide-source {
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 0.3rem;
+      }
+
+      .carousel-slide-title {
+        font-family: var(--serif);
+        font-size: 1.3rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 0.3rem;
+      }
+
+      .carousel-slide-time {
+        font-size: 0.65rem;
+        color: rgba(255,255,255,0.7);
+      }
+
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 0.4rem;
+        padding: 0.6rem 0;
+      }
+
+      .carousel-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--ink-light);
+        opacity: 0.3;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: opacity 0.2s, transform 0.2s;
+      }
+
+      .carousel-dot.active {
+        opacity: 1;
+        background: var(--accent);
+        transform: scale(1.3);
+      }
+
+      /* Hide desktop hero on mobile */
+      .hero-wrap { display: none; }
       .hero-main img {
         aspect-ratio: 16 / 9;
         max-height: 220px;
@@ -1484,7 +1570,11 @@
         rest=rest2;
       }
       if(!lead){ lead=filtered[0]; rest=filtered.slice(1); subStories=[]; }
-      heroArea.appendChild(buildHero(lead, subStories));
+      if(isMobile()) {
+        heroArea.appendChild(buildMobileHero(lead, subStories));
+      } else {
+        heroArea.appendChild(buildHero(lead, subStories));
+      }
 
       // Sidebar: opinion-style stories (diverse sources)
       var opinionSeed = rest.length ? rest : filtered.slice(1);
@@ -1582,6 +1672,87 @@
       wrap.appendChild(live);
 
       populateLiveList(liveList);
+      return wrap;
+    }
+
+    function buildMobileHero(lead, subs) {
+      var items = [lead].concat(subs || []).filter(function(a) { return a && a.image; }).slice(0, 5);
+      if(!items.length) return document.createElement('div');
+
+      var wrap = document.createElement('div');
+      wrap.className = 'mobile-carousel';
+
+      var track = document.createElement('div');
+      track.className = 'carousel-track';
+
+      items.forEach(function(a) {
+        var slide = document.createElement('a');
+        slide.className = 'carousel-slide';
+        slide.href = articleUrl(a);
+
+        var img = document.createElement('img');
+        img.src = a.image;
+        img.alt = a.title || '';
+        img.onerror = function() { this.style.display = 'none'; };
+        slide.appendChild(img);
+
+        var overlay = document.createElement('div');
+        overlay.className = 'carousel-slide-overlay';
+
+        var src = document.createElement('div');
+        src.className = 'carousel-slide-source';
+        src.textContent = a.source || '';
+        overlay.appendChild(src);
+
+        var title = document.createElement('div');
+        title.className = 'carousel-slide-title';
+        title.textContent = a.title || '';
+        overlay.appendChild(title);
+
+        var time = document.createElement('div');
+        time.className = 'carousel-slide-time';
+        time.textContent = getTimeAgo(a.pubDate);
+        overlay.appendChild(time);
+
+        slide.appendChild(overlay);
+        track.appendChild(slide);
+      });
+
+      wrap.appendChild(track);
+
+      // Dots
+      var dots = document.createElement('div');
+      dots.className = 'carousel-dots';
+      items.forEach(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = function() {
+          track.scrollTo({ left: track.offsetWidth * i, behavior: 'smooth' });
+        };
+        dots.appendChild(dot);
+      });
+      wrap.appendChild(dots);
+
+      // Update dots on scroll
+      track.addEventListener('scroll', function() {
+        var idx = Math.round(track.scrollLeft / track.offsetWidth);
+        dots.querySelectorAll('.carousel-dot').forEach(function(d, i) {
+          d.classList.toggle('active', i === idx);
+        });
+      });
+
+      // Auto-advance every 5s
+      var autoInterval = setInterval(function() {
+        var idx = Math.round(track.scrollLeft / track.offsetWidth);
+        var next = (idx + 1) % items.length;
+        track.scrollTo({ left: track.offsetWidth * next, behavior: 'smooth' });
+      }, 5000);
+
+      // Stop auto-advance on user interaction
+      track.addEventListener('touchstart', function() {
+        clearInterval(autoInterval);
+      }, { once: true });
+
       return wrap;
     }
 
