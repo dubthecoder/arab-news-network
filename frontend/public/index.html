@@ -69,12 +69,12 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html {
-      overflow-x: clip;
+    html, body {
       width: 100%;
     }
-    body {
-      overflow-x: hidden;
+
+    #app-wrap {
+      overflow-x: clip;
       width: 100%;
     }
 
@@ -1115,6 +1115,7 @@
   </style>
 </head>
 <body>
+<div id="app-wrap">
   <!-- Top dark bar -->
   <div class="top-bar">
     <div class="top-bar-inner">
@@ -1182,6 +1183,8 @@
       <span>A project by <a href="https://teclara.tech" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">Teclara Technologies Inc</a></span>
     </div>
   </div>
+
+</div><!-- /app-wrap -->
 
   <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
