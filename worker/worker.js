@@ -226,7 +226,7 @@ async function fetchStocks() {
 // These are long-running 24/7 streams that rarely change video IDs.
 // Update manually if a channel starts a new stream.
 const LIVE_STREAMS = [
-  { label: 'الجزيرة', channelId: 'UCfiwzLy-8yKzIbsmZTzxDgw', videoId: 'EzIc6z97mjQ' },
+  { label: 'الجزيرة', channelId: 'UCfiwzLy-8yKzIbsmZTzxDgw', videoId: 'bNyUyrR0PHo' },
   { label: 'الحدث', channelId: 'UCrj5BGAhtWxDfqbza9T9hqA', videoId: 'xWXpl7azI8k' },
 ];
 
