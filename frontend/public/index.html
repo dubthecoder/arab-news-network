@@ -905,6 +905,8 @@
     }
 
 
+    .mobile-bottom-nav { display: none; }
+
     /* Tablet landscape */
     @media (max-width: 1180px) {
       .content-grid { grid-template-columns: minmax(0, 1fr) 350px; gap: 1.5rem; }
@@ -937,6 +939,56 @@
 
     /* Mobile: full rebuild for small screens */
     @media (max-width: 760px) {
+      /* Bottom navigation bar */
+      .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        justify-content: space-around;
+        align-items: center;
+        background: rgba(255,255,255, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--line);
+        padding: 0.4rem 0 calc(0.4rem + env(safe-area-inset-bottom));
+      }
+
+      [data-theme="dark"] .mobile-bottom-nav {
+        background: rgba(16,19,17, 0.85);
+      }
+
+      .bottom-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.15rem;
+        background: none;
+        border: none;
+        color: var(--ink-mid);
+        font-family: var(--sans);
+        font-size: 0.6rem;
+        font-weight: 600;
+        padding: 0.3rem 1.5rem;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      .bottom-nav-item svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .bottom-nav-item.active {
+        color: var(--accent);
+      }
+
+      #app-wrap {
+        padding-bottom: 70px;
+      }
+
       /* Top bar: stack controls inline, remove absolute positioning */
       .top-bar-inner {
         padding: 0.4rem 0.75rem;
@@ -1183,6 +1235,18 @@
       <span>A project by <a href="https://teclara.tech" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">Teclara Technologies Inc</a></span>
     </div>
   </div>
+
+<!-- Mobile bottom nav -->
+<nav class="mobile-bottom-nav" id="mobileBottomNav">
+  <button class="bottom-nav-item active" id="btnHome" onclick="mobileNavHome()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>الرئيسية</span>
+  </button>
+  <button class="bottom-nav-item" id="btnCountries" onclick="mobileNavCountries()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    <span>الدول</span>
+  </button>
+</nav>
 
 </div><!-- /app-wrap -->
 
@@ -1737,6 +1801,16 @@
 
     function isMobile() {
       return window.matchMedia('(max-width: 760px)').matches;
+    }
+
+    function mobileNavHome() {
+      document.getElementById('btnHome').classList.add('active');
+      document.getElementById('btnCountries').classList.remove('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function mobileNavCountries() {
+      // Will be implemented in Task 3 (country sheet)
     }
 
     var textSizeLevel = parseInt(localStorage.getItem('textSize') || '0');
