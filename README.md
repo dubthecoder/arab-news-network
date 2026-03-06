@@ -119,7 +119,7 @@ Returns `200 OK` if the API is running.
 
 ## Deployment
 
-Each service has a `railway.toml` configured for [Railway](https://railway.app) deployment with NIXPACKS. Add a Redis instance to your Railway project and link the services via environment variables.
+Each service has a `railway.toml` configured for [Railway](https://railway.app) deployment with Railpack. Add a Redis instance to your Railway project and link the services via environment variables.
 
 ## Tech Stack
 
@@ -128,7 +128,7 @@ Each service has a `railway.toml` configured for [Railway](https://railway.app) 
 - **RSS Parsing:** rss-parser
 - **Cache:** Redis (ioredis)
 - **Frontend:** Vanilla HTML/CSS/JS
-- **Deployment:** Railway + NIXPACKS
+- **Deployment:** Railway + Railpack
 
 ## License
 
