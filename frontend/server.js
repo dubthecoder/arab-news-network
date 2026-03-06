@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,53 @@ app.get('/api/{*splat}', async (req, res) => {
     res.status(502).json({ error: 'API unavailable' });
   }
 });
+
+// XML Sitemap (dynamic from article data)
+app.get('/sitemap.xml', async (req, res) => {
+  try {
+    const apiRes = await fetch(`${API_INTERNAL}/news`);
+    const data = await apiRes.json();
+    const articles = data.articles || [];
+
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <url>
+    <loc>https://arabnews.network/</loc>
+    <changefreq>always</changefreq>
+    <priority>1.0</priority>
+  </url>
+`;
+    articles.forEach(a => {
+      if (!a.id) return;
+      const loc = `https://arabnews.network/article/${a.id}`;
+      const date = a.pubDate ? new Date(a.pubDate).toISOString().split('T')[0] : '';
+      xml += `  <url>
+    <loc>${loc}</loc>${date ? `\n    <lastmod>${date}</lastmod>` : ''}
+    <changefreq>never</changefreq>
+    <news:news>
+      <news:publication>
+        <news:name>${escapeXml(a.source || '')}</news:name>
+        <news:language>ar</news:language>
+      </news:publication>
+      <news:title>${escapeXml(a.title || '')}</news:title>
+    </news:news>
+  </url>
+`;
+    });
+    xml += '</urlset>';
+
+    res.set('Content-Type', 'application/xml');
+    res.send(xml);
+  } catch (err) {
+    console.error('Sitemap error:', err.message);
+    res.status(500).send('<?xml version="1.0"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
+  }
+});
+
+function escapeXml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+}
 
 // Article preview page (server-rendered for SEO)
 app.get('/article/:id', async (req, res) => {
@@ -39,6 +87,11 @@ app.get('/article/:id', async (req, res) => {
 function escapeHtml(str) {
   if (!str) return '';
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function escapeJsonLd(str) {
+  if (!str) return '';
+  return str.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '');
 }
 
 function getTimeAgo(dateStr) {
@@ -87,6 +140,9 @@ function renderArticlePage(article) {
   const source = escapeHtml(article.source);
   const image = escapeHtml(article.image);
   const link = escapeHtml(article.link);
+  const jTitle = escapeJsonLd(article.title);
+  const jDesc = escapeJsonLd(article.description);
+  const jSource = escapeJsonLd(article.source);
   const url = `https://arabnews.network/article/${article.id}`;
   const timeAgo = getTimeAgo(article.pubDate);
 
@@ -115,14 +171,14 @@ function renderArticlePage(article) {
   {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "headline": "${title.replace(/"/g, '\\"')}",
-    "description": "${desc.replace(/"/g, '\\"')}",
+    "headline": "${jTitle}",
+    "description": "${jDesc}",
     "url": "${url}",
-    ${image ? `"image": "${image}",` : ''}
-    "datePublished": "${article.pubDate || ''}",
+    ${image ? `"image": "${escapeJsonLd(article.image)}",` : ''}
+    "datePublished": "${article.pubDate ? new Date(article.pubDate).toISOString() : ''}",
     "publisher": {
       "@type": "Organization",
-      "name": "${source.replace(/"/g, '\\"')}"
+      "name": "${jSource}"
     },
     "mainEntityOfPage": "${url}"
   }
@@ -190,6 +246,44 @@ function renderArticlePage(article) {
 </body>
 </html>`;
 }
+
+// Homepage with server-rendered headlines for SEO
+const indexHtml = fs.readFileSync(path.join(__dirname, 'public', 'index.html'), 'utf8');
+
+app.get('/', async (req, res) => {
+  try {
+    const apiRes = await fetch(`${API_INTERNAL}/news`);
+    const data = await apiRes.json();
+    const articles = (data.articles || []).slice(0, 20);
+
+    if (articles.length === 0) {
+      return res.send(indexHtml);
+    }
+
+    const headlines = articles.map(a => {
+      const href = a.id ? `/article/${a.id}` : '#';
+      const t = escapeHtml(a.title);
+      const s = escapeHtml(a.source);
+      return `<li><a href="${href}">${t}</a> <span>${s}</span></li>`;
+    }).join('\n      ');
+
+    const seoBlock = `
+  <div id="seo-headlines" style="position:absolute;left:-9999px;overflow:hidden;width:1px;height:1px;">
+    <h1>شبكة الأخبار العربية - آخر أخبار الشرق الأوسط</h1>
+    <nav aria-label="آخر الأخبار">
+      <ul>
+      ${headlines}
+      </ul>
+    </nav>
+  </div>`;
+
+    const html = indexHtml.replace('</body>', seoBlock + '\n</body>');
+    res.send(html);
+  } catch (err) {
+    console.error('Homepage SSR error:', err.message);
+    res.send(indexHtml);
+  }
+});
 
 // Serve static assets
 app.use(express.static(path.join(__dirname, 'public')));
