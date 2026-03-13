@@ -98,9 +98,15 @@ async function fetchFeeds(feeds) {
     })
   );
 
+  const seen = new Set();
   const articles = results
     .filter((r) => r.status === 'fulfilled')
     .flatMap((r) => r.value)
+    .filter((a) => {
+      if (!a.link || seen.has(a.link)) return false;
+      seen.add(a.link);
+      return true;
+    })
     .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
 
   // Fetch og:image for articles missing images (in parallel)
