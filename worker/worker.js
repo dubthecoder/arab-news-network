@@ -13,8 +13,8 @@ const parser = new RSSParser({
 const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
 const FETCH_INTERVAL = 20 * 60 * 1000; // 20 minutes
 const TTL = 25 * 60; // 25 minutes
-const ARTICLE_MAX_AGE_MS = 24 * 60 * 60 * 1000; // keep articles for 24 hours
-const MAX_ARTICLES = 500; // cap total stored articles
+const ARTICLE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // keep articles for 7 days
+const MAX_ARTICLES = 2000; // cap total stored articles
 const OG_FETCH_TIMEOUT = 4000; // 4s timeout per article
 
 const RSS_FEEDS = [
