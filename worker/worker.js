@@ -48,7 +48,10 @@ async function fetchOgImage(url) {
       redirect: 'follow',
     });
     clearTimeout(timeout);
-    if (!res.ok) return '';
+    if (!res.ok) {
+      await res.body?.cancel();
+      return '';
+    }
     const reader = res.body.getReader();
     const decoder = new TextDecoder();
     let html = '';
@@ -58,7 +61,7 @@ async function fetchOgImage(url) {
       html += decoder.decode(value, { stream: true });
       if (html.includes('</head>')) break;
     }
-    reader.cancel();
+    await reader.cancel();
     const match = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
       || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
     return match ? match[1] : '';
@@ -175,7 +178,10 @@ async function fetchSingleStock(index, prevPrices) {
       headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' },
     });
     clearTimeout(timeout);
-    if (!res.ok) return null;
+    if (!res.ok) {
+      await res.body?.cancel();
+      return null;
+    }
     const html = await res.text();
     const priceMatch = html.match(/data-last-price="([^"]+)"/);
     if (!priceMatch) return null;
