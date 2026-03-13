@@ -13,6 +13,8 @@ const parser = new RSSParser({
 const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
 const FETCH_INTERVAL = 20 * 60 * 1000; // 20 minutes
 const TTL = 25 * 60; // 25 minutes
+const ARTICLE_MAX_AGE_MS = 24 * 60 * 60 * 1000; // keep articles for 24 hours
+const MAX_ARTICLES = 500; // cap total stored articles
 const OG_FETCH_TIMEOUT = 4000; // 4s timeout per article
 
 const RSS_FEEDS = [
@@ -131,12 +133,29 @@ async function fetchFeeds(feeds) {
 async function updateFeeds() {
   console.log('Fetching feeds...');
   try {
-    const articles = await fetchFeeds(RSS_FEEDS);
+    const freshArticles = await fetchFeeds(RSS_FEEDS);
+
+    // Load existing articles from Redis and merge with fresh ones
+    const existingRaw = await redis.get('news:ar');
+    const existing = existingRaw ? JSON.parse(existingRaw) : [];
+
+    // Merge: fresh articles take priority (by id), then keep old ones
+    const byId = new Map();
+    for (const a of existing) byId.set(a.id, a);
+    for (const a of freshArticles) byId.set(a.id, a);
+
+    // Drop articles older than 24 hours
+    const cutoff = Date.now() - ARTICLE_MAX_AGE_MS;
+    const merged = Array.from(byId.values())
+      .filter((a) => !a.pubDate || new Date(a.pubDate).getTime() > cutoff)
+      .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate))
+      .slice(0, MAX_ARTICLES);
+
     await Promise.all([
-      redis.set('news:ar', JSON.stringify(articles), 'EX', TTL),
+      redis.set('news:ar', JSON.stringify(merged), 'EX', TTL),
       redis.set('news:lastUpdate', new Date().toISOString()),
     ]);
-    console.log(`Updated: ${articles.length} articles`);
+    console.log(`Updated: ${freshArticles.length} new, ${merged.length} total (kept from ${existing.length} existing)`);
   } catch (err) {
     console.error('Feed update error:', err);
   }
