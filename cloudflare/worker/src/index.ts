@@ -1,5 +1,4 @@
 import { fetchFeeds, type Article } from './feeds';
-import { fetchStocks } from './stocks';
 
 export interface Env {
   DB: D1Database;
@@ -13,8 +12,7 @@ export default {
   async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
     console.log(`Cron triggered at ${new Date(event.scheduledTime).toISOString()}`);
 
-    // Run feeds and stocks in parallel
-    const [articles] = await Promise.all([fetchFeeds(), fetchStocks(env.DB)]);
+    const articles = await fetchFeeds();
 
     // Send articles to queue in batches
     if (articles.length > 0) {

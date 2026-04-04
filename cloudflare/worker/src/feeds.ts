@@ -36,7 +36,7 @@ const RSS_FEEDS = [
 const parser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: '@_',
-  maxEntitiesLimit: 5000,
+  processEntities: false,
 });
 
 async function hashId(url: string): Promise<string> {

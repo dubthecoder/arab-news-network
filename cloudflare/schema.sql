@@ -12,16 +12,6 @@ CREATE TABLE IF NOT EXISTS articles (
 CREATE INDEX IF NOT EXISTS idx_articles_pub_date ON articles(pub_date DESC);
 CREATE INDEX IF NOT EXISTS idx_articles_source ON articles(source);
 
-CREATE TABLE IF NOT EXISTS stocks (
-  symbol TEXT PRIMARY KEY,
-  name TEXT NOT NULL,
-  exchange TEXT NOT NULL,
-  price REAL,
-  change REAL DEFAULT 0,
-  change_percent REAL DEFAULT 0,
-  updated_at TEXT DEFAULT (datetime('now'))
-);
-
 CREATE TABLE IF NOT EXISTS live_streams (
   label TEXT PRIMARY KEY,
   channel_id TEXT NOT NULL,

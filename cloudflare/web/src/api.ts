@@ -35,18 +35,6 @@ export async function handleNews(url: URL, env: Env): Promise<Response> {
   }
 }
 
-export async function handleStocks(env: Env): Promise<Response> {
-  try {
-    const stocks = await env.DB.prepare(
-      'SELECT symbol, name, exchange, price, change, change_percent AS changePercent FROM stocks ORDER BY symbol'
-    ).all();
-    return json({ stocks: stocks.results });
-  } catch (err) {
-    console.error('Error reading stocks:', err);
-    return json({ error: 'Failed to fetch stocks' }, 500);
-  }
-}
-
 export async function handleLiveStreams(env: Env): Promise<Response> {
   try {
     const streams = await env.DB.prepare(

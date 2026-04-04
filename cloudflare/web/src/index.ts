@@ -1,4 +1,4 @@
-import { handleNews, handleStocks, handleLiveStreams, handleCors } from './api';
+import { handleNews, handleLiveStreams, handleCors } from './api';
 import { handleArticlePage, handleSitemap } from './ssr';
 import { handleHomepage } from './seo';
 
@@ -31,7 +31,6 @@ export default {
 
     // API routes
     if (path === '/api/news') return handleNews(url, env);
-    if (path === '/api/stocks') return handleStocks(env);
     if (path === '/api/live-streams') return handleLiveStreams(env);
     if (path === '/api/health') {
       return new Response(JSON.stringify({ status: 'ok', service: 'arab-news-web' }), {
