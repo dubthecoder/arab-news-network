@@ -1,0 +1,19 @@
+name = "arab-news-web"
+main = "src/index.ts"
+compatibility_date = "2026-04-04"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+html_handling = "none"
+not_found_handling = "none"
+
+[[queues.consumers]]
+queue = "arab-news-articles"
+max_batch_size = 100
+max_batch_timeout = 30
+
+[[d1_databases]]
+binding = "DB"
+database_name = "arab-news-db"
+database_id = "dfba27fd-01fe-4e7d-af43-ca0bc800c6f2"

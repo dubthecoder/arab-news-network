@@ -1,0 +1,16 @@
+name = "arab-news-worker"
+main = "src/index.ts"
+compatibility_date = "2026-04-04"
+compatibility_flags = ["nodejs_compat"]
+
+[triggers]
+crons = ["*/20 * * * *"]
+
+[[queues.producers]]
+queue = "arab-news-articles"
+binding = "ARTICLE_QUEUE"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "arab-news-db"
+database_id = "dfba27fd-01fe-4e7d-af43-ca0bc800c6f2"

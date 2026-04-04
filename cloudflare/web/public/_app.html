@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>شبكة الأخبار العربية | آخر أخبار الشرق الأوسط والعالم العربي</title>
+  <meta name="description" content="شبكة الأخبار العربية - آخر الأخبار والتحديثات من الشرق الأوسط والعالم العربي. سياسة، اقتصاد، رياضة، تكنولوجيا وثقافة من مصادر متعددة.">
+  <meta name="keywords" content="أخبار عربية, أخبار الشرق الأوسط, آخر الأخبار, أخبار اليوم, سياسة, اقتصاد, رياضة, تكنولوجيا, أخبار عاجلة">
+  <link rel="canonical" href="https://arabnews.network/">
+  <link rel="alternate" hreflang="ar" href="https://arabnews.network/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="شبكة الأخبار العربية | آخر أخبار الشرق الأوسط">
+  <meta property="og:description" content="مجمع أخبار عربي يقدم آخر الأخبار والتحديثات من الشرق الأوسط والعالم العربي. سياسة، اقتصاد، رياضة، تكنولوجيا وثقافة.">
+  <meta property="og:url" content="https://arabnews.network/">
+  <meta property="og:site_name" content="شبكة الأخبار العربية">
+  <meta property="og:locale" content="ar_AR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="شبكة الأخبار العربية | آخر أخبار الشرق الأوسط">
+  <meta name="twitter:description" content="مجمع أخبار عربي يقدم آخر الأخبار والتحديثات من الشرق الأوسط والعالم العربي.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "شبكة الأخبار العربية",
+    "alternateName": "Arab News Network",
+    "url": "https://arabnews.network/",
+    "inLanguage": "ar",
+    "description": "مجمع أخبار عربي يقدم آخر الأخبار من مصادر متعددة تشمل السياسة والاقتصاد والرياضة والتكنولوجيا والثقافة"
+  }
+  </script>
+  <script defer src="https://umami.teclara.cloud/script.js" data-website-id="6e11251b-248b-4a62-b3e3-20b9da1dbc00"></script>
+  <style>
+    :root {
+      --accent: #d85229;
+      --accent-strong: #b94725;
+      --ink: #1f2a33;
+      --ink-mid: #5f6a71;
+      --ink-light: #8e9598;
+      --page-bg: #e8ede3;
+      --panel: #ffffff;
+      --panel-soft: #f7f8f3;
+      --line: #d3d9cd;
+      --line-strong: #c1c9bb;
+      --shadow: 0 6px 18px rgba(22, 30, 35, 0.08);
+      --shadow-strong: 0 12px 28px rgba(22, 30, 35, 0.12);
+      --serif: 'Cormorant Garamond', 'Noto Naskh Arabic', serif;
+      --sans: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+      --max-w: 1320px;
+    }
+
+    [data-theme="dark"] {
+      --accent: #e1643d;
+      --accent-strong: #f17a56;
+      --ink: #f1efe9;
+      --ink-mid: #b1b9be;
+      --ink-light: #8f979b;
+      --page-bg: #101311;
+      --panel: #171b18;
+      --panel-soft: #1d2220;
+      --line: #2d3531;
+      --line-strong: #3b433f;
+      --shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+      --shadow-strong: 0 12px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    #app-wrap {
+      overflow-x: clip;
+      width: 100%;
+    }
+
+    body {
+      direction: rtl;
+      font-family: var(--sans);
+      background: var(--page-bg);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      overflow-wrap: break-word;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    .top-bar {
+      background: var(--panel-soft);
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-mid);
+    }
+
+    .top-bar-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0.45rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      position: relative;
+    }
+
+    .top-bar-controls {
+      position: absolute;
+      left: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-btn {
+      background: transparent;
+      border: none;
+      color: var(--ink-mid);
+      width: 1.6rem;
+      height: 1.6rem;
+      padding: 0;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .theme-btn svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .theme-btn:hover {
+      color: var(--accent);
+    }
+
+    .header-date {
+      font-size: 0.75rem;
+      color: var(--ink-mid);
+      font-weight: 500;
+    }
+
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 12;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 0 0.8rem;
+    }
+
+    .nav-inner::-webkit-scrollbar { display: none; }
+
+    .nav-item {
+      white-space: nowrap;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-mid);
+      padding: 0.88rem 0.9rem 0.7rem;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .nav-item:hover { color: var(--ink); }
+    .nav-item.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .country-bar {
+      position: static;
+      background: var(--panel-soft);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .country-bar .nav-item {
+      font-size: 0.7rem;
+      padding: 0.6rem 0.7rem 0.45rem;
+      letter-spacing: 0.04em;
+    }
+
+    .ticker {
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .ticker-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0.5rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .ticker-label {
+      flex-shrink: 0;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.65rem;
+    }
+
+    .ticker-scroll {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 2.25rem;
+      animation: ticker-scroll 40s linear infinite;
+    }
+
+    .ticker-item {
+      color: var(--ink-mid);
+      font-size: 0.74rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 0.15s;
+    }
+
+    .ticker-item::before {
+      content: '\2022';
+      color: var(--accent);
+      margin-inline-end: 0.4rem;
+      font-size: 0.9em;
+    }
+
+    .ticker-item:hover { color: var(--accent); }
+
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(50%); }
+    }
+
+    .stock-ticker {
+      background: #1f2a33;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+      direction: rtl;
+    }
+
+    .stock-ticker-track {
+      display: flex;
+      width: max-content;
+      animation: stock-scroll 40s linear infinite;
+    }
+
+    .stock-ticker:hover .stock-ticker-track {
+      animation-play-state: paused;
+    }
+
+    .stock-ticker-half {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      padding: 0.35rem 1.5rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    @keyframes stock-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(50%); }
+    }
+
+    .stock-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-size: 0.72rem;
+    }
+
+    .stock-name {
+      color: rgba(255,255,255,0.6);
+      font-weight: 600;
+    }
+
+    .stock-price {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .stock-change {
+      font-weight: 700;
+      font-size: 0.68rem;
+      direction: ltr;
+    }
+
+    .stock-change.up { color: #22c55e; }
+    .stock-change.down { color: #ef4444; }
+    .stock-change.flat { color: rgba(255,255,255,0.5); }
+
+    .page {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 1.7rem 1.5rem 0;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 400px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .hero-wrap {
+      margin-bottom: 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      grid-template-rows: 1fr;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .hero-main-col { min-height: 0; }
+
+    .hero-live {
+      border-inline-start: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: 0;
+      min-height: 100%;
+    }
+
+    .live-streams-section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.7rem;
+    }
+
+    .live-streams-section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+    }
+
+    .live-streams-section-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .hero-live-header {
+      padding: 0.6rem 0.8rem;
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      border-bottom: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+
+    .hero-live-list {
+      overflow-y: auto;
+      flex: 1;
+      scrollbar-width: thin;
+    }
+
+    .hero-live-item {
+      display: block;
+      padding: 0.55rem 0.8rem;
+      border-bottom: 1px solid var(--line);
+      transition: background 0.15s;
+    }
+
+    .hero-live-item:hover { background: var(--panel-soft); }
+
+    .hero-live-time {
+      font-size: 0.72rem;
+      color: var(--ink-light);
+      margin-bottom: 0.15rem;
+    }
+
+    .hero-live-source {
+      font-size: 0.68rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-live-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.2;
+      color: var(--ink);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .hero-live-item:hover .hero-live-title { color: var(--accent-strong); }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(-100%); max-height: 0; }
+      to { opacity: 1; transform: translateY(0); max-height: 120px; }
+    }
+
+    .hero-live-item.new-item {
+      animation: slide-in 0.4s ease-out forwards;
+    }
+
+    .hero-main {
+      display: block;
+      background: var(--panel);
+      color: var(--ink);
+    }
+
+    .hero-main img {
+      width: 100%;
+      aspect-ratio: 16 / 6;
+      max-height: 360px;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .hero-main:hover img { transform: scale(1.015); }
+
+    .hero-content {
+      position: static;
+      padding: 0.95rem 1.1rem 1rem;
+    }
+
+    .hero-source {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 0.66rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.55rem;
+    }
+
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 2.7vw, 2.75rem);
+      line-height: 1.02;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.65rem;
+    }
+
+    .hero-main:hover .hero-headline { color: var(--accent-strong); }
+
+    .hero-points {
+      margin: 0 0 0.65rem;
+      padding-inline-start: 1.05rem;
+      color: var(--ink-mid);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .hero-points li { margin-bottom: 0.22rem; }
+    .hero-points li:last-child { margin-bottom: 0; }
+
+    .hero-excerpt {
+      color: var(--ink-mid);
+      font-size: 0.9rem;
+      line-height: 1.45;
+      margin-bottom: 0.55rem;
+    }
+
+    .hero-meta {
+      color: var(--ink-light);
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .hero-sub {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-sub-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.7rem 0.8rem 1.3rem;
+      border-inline-start: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      transition: background 0.15s;
+    }
+
+    .hero-sub-item:nth-child(3n+1) { border-inline-start: none; }
+    .hero-sub-item:hover { background: var(--panel-soft); }
+
+    .hero-sub-img {
+      width: 78px;
+      height: 56px;
+      object-fit: cover;
+      flex-shrink: 0;
+      filter: saturate(0.92);
+    }
+
+    .hero-sub-text { min-width: 0; }
+
+    .hero-sub-source {
+      color: var(--accent);
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.15rem;
+    }
+
+    .hero-sub-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.1;
+      color: var(--ink);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .hero-sub-item:hover .hero-sub-title { color: var(--accent); }
+
+    .section { margin-bottom: 2.2rem; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding-top: 0.75rem;
+      margin-bottom: 1rem;
+      border-top: 2px solid var(--line-strong);
+    }
+
+    .section-accent {
+      width: 52px;
+      height: 3px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: 2rem;
+      line-height: 0.95;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .section-count {
+      margin-inline-start: auto;
+      color: var(--ink-light);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+    }
+
+    .card-feat-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: stretch;
+    }
+
+    .card-feat-row > .card-big {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-feat-row > .card-big .card-img-wrap { flex: 1; min-height: 0; }
+    .card-feat-row > .card-big .card-img { height: 100%; }
+
+    .card-feat-row > div:last-child {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-feat-row > div:last-child .card-hz {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .card-feat-row > div:last-child .card-hz + .card-hz {
+      margin-top: 0.78rem;
+    }
+
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      display: block;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .card-img-wrap {
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      transition: transform 0.25s;
+    }
+
+    .card:hover .card-img { transform: scale(1.02); }
+
+    .card-body { padding: 0.95rem 1rem 1rem; }
+
+    .card-source {
+      color: var(--accent);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      margin-bottom: 0.28rem;
+    }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      line-height: 1.08;
+      color: var(--ink);
+      margin-bottom: 0.42rem;
+      transition: color 0.15s;
+    }
+
+    .card:hover .card-title { color: var(--accent); }
+
+    .card-excerpt {
+      color: var(--ink-mid);
+      font-size: 0.92rem;
+      line-height: 1.45;
+      margin-bottom: 0.42rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-time {
+      color: var(--ink-light);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .card-big .card-img { height: 100%; min-height: 200px; }
+    .card-big .card-title { font-size: 1.9rem; line-height: 0.98; }
+
+    .card-hz {
+      display: flex;
+      gap: 0.75rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      margin-bottom: 0.78rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card-hz:last-child { margin-bottom: 0; }
+
+    .card-hz:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .card-hz .card-img-wrap {
+      width: 138px;
+      flex-shrink: 0;
+      border-bottom: none;
+      border-inline-start: 1px solid var(--line);
+    }
+
+    .card-hz .card-img { width: 138px; height: 100%; min-height: 112px; }
+    .card-hz .card-body { flex: 1; padding: 0.7rem 0.75rem; }
+    .card-hz .card-title { font-size: 1.06rem; margin-bottom: 0.35rem; }
+
+    .brief-list {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 0 1rem;
+    }
+
+    .brief {
+      display: block;
+      padding: 0.92rem 0;
+      border-bottom: 1px solid var(--line);
+      transition: background 0.15s;
+    }
+
+    .brief:last-child { border-bottom: none; }
+    .brief:hover { background: var(--panel-soft); }
+
+    .brief-source {
+      color: var(--accent);
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      margin-bottom: 0.18rem;
+    }
+
+    .brief-title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      line-height: 1.08;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+      transition: color 0.15s;
+    }
+
+    .brief:hover .brief-title { color: var(--accent); }
+
+    .brief-excerpt {
+      color: var(--ink-mid);
+      font-size: 0.9rem;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 0.25rem;
+    }
+
+    .brief-time {
+      color: var(--ink-light);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 5.1rem;
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      background: #e53e3e;
+      border-radius: 50%;
+      animation: live-pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes live-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .live-channel-label {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink-mid);
+      margin-bottom: 0.3rem;
+    }
+
+    .live-player {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: #000;
+    }
+
+    .live-player iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .opinion-box {
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      padding: 1.4rem 1.45rem 0.3rem;
+      box-shadow: var(--shadow);
+    }
+
+    .opinion-title {
+      text-align: center;
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .opinion-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 68px;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--line);
+      transition: transform 0.2s;
+    }
+
+    .opinion-item:first-child { border-top: none; padding-top: 0; }
+    .opinion-item:hover { transform: translateX(-2px); }
+
+    .opinion-author {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.75rem;
+      margin-bottom: 0.3rem;
+      display: block;
+      line-height: 1.3;
+    }
+
+    .opinion-headline {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      line-height: 1.25;
+      color: var(--ink);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .opinion-item:hover .opinion-headline { color: var(--accent-strong); }
+
+    .opinion-avatar, .opinion-avatar-fallback {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: #dde1d6;
+      border: 1px solid var(--line-strong);
+      justify-self: center;
+    }
+
+    .opinion-avatar {
+      object-fit: cover;
+      filter: grayscale(1);
+      opacity: 0.92;
+    }
+
+    .opinion-avatar-fallback {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-mid);
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: var(--sans);
+      text-transform: uppercase;
+    }
+
+    .error-message {
+      text-align: center;
+      color: var(--accent);
+      font-size: 1rem;
+      padding: 2rem 0;
+      font-weight: 600;
+    }
+
+    .loading {
+      text-align: center;
+      color: var(--ink-light);
+      padding: 3.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .loading .spinner {
+      width: 28px;
+      height: 28px;
+      margin: 0 auto 0.75rem;
+      border: 2.5px solid var(--line);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .footer {
+      margin-top: 2rem;
+      background: var(--panel-soft);
+      border-top: 1px solid var(--line);
+      color: var(--ink-mid);
+    }
+
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 1.2rem 1.5rem 1.4rem;
+      display: flex;
+      direction: ltr;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .footer-logo {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* Tablet landscape */
+    @media (max-width: 1180px) {
+      .content-grid { grid-template-columns: minmax(0, 1fr) 350px; gap: 1.5rem; }
+      .opinion-title { font-size: 1.4rem; }
+      .opinion-headline { font-size: 1rem; }
+      .hero-headline { font-size: clamp(2rem, 3vw, 3.2rem); }
+    }
+
+    /* Tablet portrait */
+    @media (max-width: 980px) {
+      .hero-wrap { grid-template-columns: 1fr; }
+      .hero-live { border-inline-start: none; border-top: 1px solid var(--line); max-height: 300px; }
+      .live-streams-section-row { grid-template-columns: 1fr 1fr; }
+      .content-grid { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .opinion-box { margin-bottom: 1.6rem; }
+      .opinion-item {
+        grid-template-columns: minmax(0, 1fr) 60px;
+      }
+      .opinion-avatar, .opinion-avatar-fallback {
+        width: 60px;
+        height: 60px;
+      }
+      .hero-sub { grid-template-columns: 1fr; }
+      .hero-sub-item {
+        border-inline-start: none;
+      }
+      .hero-sub-item:last-child { border-bottom: none; }
+      .card-grid-3 { grid-template-columns: 1fr 1fr; }
+      .card-feat-row { grid-template-columns: 1fr; }
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .page { padding: 1rem 0.75rem 0; }
+      .card-grid-3 { grid-template-columns: 1fr; }
+      .live-streams-section-row { grid-template-columns: 1fr; }
+      .card-hz .card-img-wrap { width: 96px; }
+      .card-hz .card-img { width: 96px; min-height: 88px; }
+      .card-big .card-title { font-size: 1.45rem; }
+      .footer-inner { flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+    }
+
+  </style>
+</head>
+<body>
+<div id="app-wrap">
+  <!-- Top dark bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <span class="header-date" id="dateStr"></span>
+      <span id="lastUpdate"></span>
+      <div class="top-bar-controls">
+
+        <button class="theme-btn" id="themeToggle" onclick="toggleTheme()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Navigation: Countries -->
+  <div class="nav-bar country-bar">
+    <div class="nav-inner" id="countryFilters">
+      <div class="nav-item active" data-country="all">الكل</div>
+      <div class="nav-item" data-country="فلسطين">فلسطين</div>
+      <div class="nav-item" data-country="لبنان">لبنان</div>
+      <div class="nav-item" data-country="سوريا">سوريا</div>
+      <div class="nav-item" data-country="العراق">العراق</div>
+      <div class="nav-item" data-country="مصر">مصر</div>
+      <div class="nav-item" data-country="السعودية">السعودية</div>
+      <div class="nav-item" data-country="الإمارات">الإمارات</div>
+      <div class="nav-item" data-country="الأردن">الأردن</div>
+      <div class="nav-item" data-country="اليمن">اليمن</div>
+      <div class="nav-item" data-country="ليبيا">ليبيا</div>
+      <div class="nav-item" data-country="الكويت">الكويت</div>
+      <div class="nav-item" data-country="قطر">قطر</div>
+      <div class="nav-item" data-country="البحرين">البحرين</div>
+    </div>
+  </div>
+
+  <!-- Trending Ticker -->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <div class="ticker-label" id="tickerLabel">&#1570;&#1582;&#1585; &#1575;&#1604;&#1571;&#1582;&#1576;&#1575;&#1585;</div>
+      <div class="ticker-scroll">
+        <div class="ticker-track" id="tickerTrack"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stock Ticker -->
+  <div class="stock-ticker">
+    <div class="stock-ticker-track" id="stockTicker"></div>
+  </div>
+
+  <!-- Main content -->
+  <div class="page">
+    <div id="heroArea"></div>
+    <div class="content-grid">
+      <div id="feed"><div class="loading"><div class="spinner"></div><p>&#1580;&#1575;&#1585;&#1610; &#1578;&#1581;&#1605;&#1610;&#1604; &#1575;&#1604;&#1571;&#1582;&#1576;&#1575;&#1585;...</p></div></div>
+      <aside class="sidebar" id="sidebar"></aside>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">ArabNews.network</div>
+      <span>&copy; <span id="yr"></span> &mdash; LIVE MIDDLE EAST NEWS AGGREGATOR</span>
+      <a href="mailto:hello@arabnews.network" style="color:var(--ink-light);font-size:0.75rem;">hello@arabnews.network</a>
+      <span>A project by <a href="https://teclara.tech" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">Teclara Technologies Inc</a></span>
+      <a href="https://github.com/dubthecoder/arab-news-network" target="_blank" rel="noopener noreferrer" style="color:var(--ink-light);font-size:0.75rem;display:inline-flex;align-items:center;gap:0.3rem;"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+    </div>
+  </div>
+
+</div><!-- /app-wrap -->
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    var dOpts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+    document.getElementById('dateStr').textContent = new Date().toLocaleDateString('ar-EG-u-nu-latn', dOpts);
+
+    var feed = document.getElementById('feed');
+    var heroArea = document.getElementById('heroArea');
+    var lastUpdateEl = document.getElementById('lastUpdate');
+    var sidebar = document.getElementById('sidebar');
+    var tickerTrack = document.getElementById('tickerTrack');
+
+    var articles = [];
+    var seenLinks = new Set();
+    var activeCountry = 'all';
+    var COUNTRY_KW = {
+      'فلسطين': ['فلسطين','غزة','الضفة','رام الله','القدس','حماس','الجهاد','فتح','نابلس','جنين','خان يونس','رفح'],
+      'لبنان': ['لبنان','بيروت','حزب الله','طرابلس','صيدا'],
+      'سوريا': ['سوريا','دمشق','حلب','إدلب','الأسد'],
+      'العراق': ['العراق','بغداد','أربيل','كردستان','البصرة','الموصل'],
+      'مصر': ['مصر','القاهرة','السيسي','الإسكندرية','سيناء'],
+      'السعودية': ['السعودية','الرياض','جدة','مكة','المدينة','ولي العهد','محمد بن سلمان'],
+      'الإمارات': ['الإمارات','أبوظبي','دبي','الشارقة'],
+      'الأردن': ['الأردن','عمان الأردن','الأردني'],
+      'اليمن': ['اليمن','صنعاء','عدن','الحوثي','أنصار الله','مأرب'],
+      'ليبيا': ['ليبيا','الليبي','الليبية','بنغازي','حفتر','الدبيبة','مصراتة','سرت','درنة','المنفي'],
+      'الكويت': ['الكويت','الكويتي'],
+      'قطر': ['قطر','الدوحة','القطري'],
+      'البحرين': ['البحرين','المنامة','البحريني']
+    };
+    function matchesCountry(a, country) {
+      if(country==='all') return true;
+      var kws=COUNTRY_KW[country]; if(!kws) return false;
+      var txt=((a.title||'')+' '+(a.description||'')).toLowerCase();
+      for(var i=0;i<kws.length;i++){ if(txt.indexOf(kws[i])!==-1) return true; }
+      return false;
+    }
+    var lastTimestamp = null;
+    var POLL_INTERVAL = 1200000; // 20 minutes
+
+    var SECTIONS = [
+      { id:'politics', title:'\u0633\u064a\u0627\u0633\u0629 \u0648\u0635\u0631\u0627\u0639\u0627\u062a', kw:['\u0633\u064a\u0627\u0633','\u062d\u0643\u0648\u0645','\u0631\u0626\u064a\u0633','\u0648\u0632\u064a\u0631','\u0628\u0631\u0644\u0645\u0627\u0646','\u0627\u0646\u062a\u062e\u0627\u0628','\u062f\u0628\u0644\u0648\u0645\u0627\u0633','\u0633\u0641\u064a\u0631','\u062d\u0631\u0628','\u0639\u0633\u0643\u0631','\u062c\u064a\u0634','\u0642\u0635\u0641','\u063a\u0627\u0631\u0629','\u0647\u062c\u0648\u0645','\u0635\u0627\u0631\u0648\u062e','\u062f\u0641\u0627\u0639','\u0623\u0645\u0646','\u0625\u0631\u0647\u0627\u0628','\u0627\u062d\u062a\u0644\u0627\u0644','\u0645\u0642\u0627\u0648\u0645','\u0639\u0642\u0648\u0628','\u062d\u0635\u0627\u0631','\u0642\u0645\u0629','\u0645\u0641\u0627\u0648\u0636','\u0627\u062a\u0641\u0627\u0642','\u0633\u0644\u0627\u0645','\u062d\u0632\u0628'] },
+      { id:'economy', title:'\u0627\u0642\u062a\u0635\u0627\u062f \u0648\u0623\u0639\u0645\u0627\u0644', kw:['\u0627\u0642\u062a\u0635\u0627\u062f','\u0645\u0627\u0644','\u0628\u0646\u0643','\u0628\u0648\u0631\u0635\u0629','\u0633\u0648\u0642','\u0646\u0641\u0637','\u0623\u0633\u0639\u0627\u0631','\u062a\u062c\u0627\u0631','\u0627\u0633\u062a\u062b\u0645\u0627\u0631','\u0634\u0631\u0643\u0629','\u0623\u0631\u0628\u0627\u062d','\u0639\u0645\u0644\u0629','\u062f\u0648\u0644\u0627\u0631','\u0631\u064a\u0627\u0644','\u062a\u0636\u062e\u0645','\u0645\u064a\u0632\u0627\u0646\u064a','\u0636\u0631\u064a\u0628'] },
+      { id:'sports', title:'\u0631\u064a\u0627\u0636\u0629', kw:['\u0631\u064a\u0627\u0636','\u0643\u0631\u0629','\u0644\u0627\u0639\u0628','\u0645\u0628\u0627\u0631\u0627\u0629','\u0628\u0637\u0648\u0644\u0629','\u062f\u0648\u0631\u064a','\u0641\u0631\u064a\u0642','\u0645\u062f\u0631\u0628','\u0647\u062f\u0641','\u0641\u0648\u0632','\u0643\u0623\u0633','\u0645\u0646\u062a\u062e\u0628','\u0646\u0627\u062f\u064a'] },
+      { id:'tech', title:'\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627 \u0648\u0639\u0644\u0648\u0645', kw:['\u062a\u0643\u0646\u0648\u0644\u0648\u062c','\u062a\u0642\u0646','\u0630\u0643\u0627\u0621 \u0627\u0635\u0637\u0646\u0627\u0639','\u0631\u0642\u0645','\u0625\u0646\u062a\u0631\u0646\u062a','\u062a\u0637\u0628\u064a\u0642','\u0647\u0627\u062a\u0641','\u0628\u0631\u0645\u062c','\u0628\u064a\u0627\u0646\u0627\u062a','\u0641\u0636\u0627\u0621','\u0646\u0627\u0633\u0627'] },
+      { id:'culture', title:'\u062b\u0642\u0627\u0641\u0629 \u0648\u0645\u062c\u062a\u0645\u0639', kw:['\u062b\u0642\u0627\u0641','\u0641\u0646','\u0633\u064a\u0646\u0645\u0627','\u0645\u0633\u0631\u062d','\u0645\u0648\u0633\u064a\u0642','\u0623\u062f\u0628','\u0631\u0648\u0627\u064a','\u0634\u0639\u0631','\u0645\u0639\u0631\u0636','\u0645\u0647\u0631\u062c\u0627\u0646','\u062a\u0631\u0627\u062b','\u062a\u0639\u0644\u064a\u0645','\u062c\u0627\u0645\u0639','\u0635\u062d\u0629','\u0645\u0633\u062a\u0634\u0641','\u0637\u0628','\u0648\u0641\u0627\u0629','\u0648\u0641\u064a'] },
+    ];
+
+    function categorize(list) {
+      var buckets = {}; SECTIONS.forEach(function(s){ buckets[s.id]={title:s.title,items:[]}; });
+      buckets._other = {title: '\u0623\u062e\u0628\u0627\u0631 \u0645\u062a\u0646\u0648\u0639\u0629', items:[]};
+
+      list.forEach(function(a){
+        var txt = ((a.title||'')+ ' '+(a.description||'')).toLowerCase();
+        var found = false;
+        for(var i=0;i<SECTIONS.length;i++){
+          for(var k=0;k<SECTIONS[i].kw.length;k++){
+            if(txt.indexOf(SECTIONS[i].kw[k].toLowerCase())!==-1){ buckets[SECTIONS[i].id].items.push(a); found=true; break; }
+          }
+          if(found) break;
+        }
+        if(!found) buckets._other.items.push(a);
+      });
+      return buckets;
+    }
+
+    function fetchNews(initial) {
+      var params = new URLSearchParams();
+      if (lastTimestamp && !initial) params.set('since', lastTimestamp);
+      fetch('/api/news?' + params)
+        .then(function(r){ if(!r.ok) throw new Error('err'); return r.json(); })
+        .then(function(data){
+          lastTimestamp = data.timestamp;
+          lastUpdateEl.textContent = 'آخر تحديث: ' + new Date(data.timestamp).toLocaleTimeString('ar-EG-u-nu-latn', { hour:'2-digit', minute:'2-digit' });
+          var nw = data.articles.filter(function(a){ return !seenLinks.has(a.link); });
+          nw.forEach(function(a){ seenLinks.add(a.link); });
+          if(initial){ articles=data.articles; renderFeed(); buildTicker(); }
+          else if(nw.length>0){
+            articles=nw.concat(articles); buildTicker();
+            updateHeroLive();
+            renderFeed();
+          }
+        })
+        .catch(function(e){
+          console.error(e);
+          if(!articles.length){ feed.textContent=''; var d=document.createElement('div'); d.className='error-message'; d.textContent='\u0641\u0634\u0644 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0623\u062e\u0628\u0627\u0631...'; feed.appendChild(d); }
+        });
+    }
+
+    function buildTicker() {
+      tickerTrack.textContent = '';
+      var tickerItems = articles.slice(0, 10);
+      // Duplicate for infinite scroll effect
+      var allItems = tickerItems.concat(tickerItems);
+      allItems.forEach(function(a) {
+        var span = document.createElement('a');
+        span.className = 'ticker-item';
+        span.href = a.link; span.target = '_blank'; span.rel = 'noopener noreferrer';
+        span.textContent = a.title || '';
+        tickerTrack.appendChild(span);
+      });
+    }
+
+    function renderFeed() {
+      var filtered = articles;
+      if(activeCountry!=='all') filtered=filtered.filter(function(a){ return matchesCountry(a, activeCountry); });
+      heroArea.textContent=''; feed.textContent=''; sidebar.textContent='';
+      if(!filtered.length){ var d=document.createElement('div'); d.className='loading'; var p=document.createElement('p'); p.textContent='\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0642\u0627\u0644\u0627\u062a.'; d.appendChild(p); feed.appendChild(d); return; }
+
+      // Lead story + sub-stories (prioritize politics/conflict, with source diversity)
+      var politicsKw = SECTIONS[0].kw;
+      function isPolitical(a) {
+        var txt = ((a.title||'')+' '+(a.description||'')).toLowerCase();
+        for(var k=0;k<politicsKw.length;k++){ if(txt.indexOf(politicsKw[k].toLowerCase())!==-1) return true; }
+        return false;
+      }
+      // Sort candidates: political+image first, then image-only, then rest — stable within each group by original order
+      var candidates = filtered.map(function(a,i){ return {a:a, idx:i, pol:isPolitical(a)}; });
+      candidates.sort(function(x,y){
+        var xScore = (x.a.image?2:0) + (x.pol?1:0);
+        var yScore = (y.a.image?2:0) + (y.pol?1:0);
+        if(xScore!==yScore) return yScore-xScore;
+        return x.idx-y.idx;
+      });
+
+      var lead=null, subStories=[], rest=[];
+      var heroSources={};
+      for(var i=0;i<candidates.length;i++){
+        var a=candidates[i].a, src=a.source||'';
+        if(!lead && a.image){ lead=a; heroSources[src]=1; }
+        else if(lead && subStories.length<6 && a.image){
+          var uniqueCount=Object.keys(heroSources).length;
+          if(!heroSources[src] || uniqueCount>=3){ subStories.push(a); heroSources[src]=(heroSources[src]||0)+1; }
+          else { rest.push(a); }
+        }
+        else { rest.push(a); }
+      }
+      // If we couldn't fill 6 sub-stories with diversity, do a second pass
+      if(subStories.length<6){
+        var rest2=[];
+        for(var i=0;i<rest.length;i++){
+          if(subStories.length<6 && rest[i].image){ subStories.push(rest[i]); }
+          else { rest2.push(rest[i]); }
+        }
+        rest=rest2;
+      }
+      if(!lead){ lead=filtered[0]; rest=filtered.slice(1); subStories=[]; }
+      heroArea.appendChild(buildHero(lead, subStories));
+      heroArea.appendChild(buildLiveStreamsSection());
+
+      // Sidebar: opinion-style stories (diverse sources)
+      var opinionSeed = rest.length ? rest : filtered.slice(1);
+      var opinionPicks=[], opSources={};
+      for(var i=0;i<opinionSeed.length && opinionPicks.length<10;i++){
+        var os=opinionSeed[i].source||'';
+        if(!opSources[os] || Object.keys(opSources).length>=4){ opinionPicks.push(opinionSeed[i]); opSources[os]=(opSources[os]||0)+1; }
+      }
+      buildSidebar(opinionPicks);
+      renderLiveStreams();
+
+      // Sections — exclude hero and sidebar articles to avoid duplicates
+      var usedLinks = new Set();
+      if(lead) usedLinks.add(lead.link);
+      subStories.forEach(function(a){ usedLinks.add(a.link); });
+      opinionPicks.forEach(function(a){ usedLinks.add(a.link); });
+      var secSource = filtered.filter(function(a){ return !usedLinks.has(a.link); });
+      var secs = categorize(secSource);
+      var order = SECTIONS.map(function(s){return s.id;});
+      order.push('_other');
+      order.forEach(function(id){
+        var s=secs[id]; if(!s||!s.items.length) return;
+        s.items = s.items.slice(0, 20);
+        feed.appendChild(buildSection(s.title, s.items));
+      });
+    }
+
+    function buildHero(a, subs) {
+      var wrap=document.createElement('div'); wrap.className='hero-wrap';
+
+      // Main column (2/3)
+      var col=document.createElement('div'); col.className='hero-main-col';
+
+      var main=document.createElement('a'); main.className='hero-main';
+      main.href=articleUrl(a);
+      if(a.image){
+        var img=document.createElement('img'); img.src=a.image; img.alt=a.title||'';
+        img.onerror=function(){this.style.display='none';};
+        main.appendChild(img);
+      }
+      var content=document.createElement('div'); content.className='hero-content';
+      var k=document.createElement('div'); k.className='hero-source'; k.textContent=a.source||''; content.appendChild(k);
+      var h=document.createElement('h1'); h.className='hero-headline'; h.textContent=a.title||''; content.appendChild(h);
+
+      var points = extractHeroPoints(a.description);
+      if(points.length){
+        var ul=document.createElement('ul'); ul.className='hero-points';
+        points.forEach(function(point){
+          var li=document.createElement('li');
+          li.textContent=point;
+          ul.appendChild(li);
+        });
+        content.appendChild(ul);
+      } else if(a.description){
+        var d=document.createElement('p'); d.className='hero-excerpt'; d.textContent=a.description; content.appendChild(d);
+      }
+
+      var m=document.createElement('div');
+      var byline = [];
+      if(a.source) byline.push('\u0628\u0648\u0627\u0633\u0637\u0629 ' + a.source);
+      var absDate = formatStoryDate(a.pubDate);
+      if(absDate) byline.push(absDate);
+      m.className='hero-meta';
+      m.textContent=byline.length ? byline.join(' \u2022 ') : getTimeAgo(a.pubDate);
+      content.appendChild(m);
+      main.appendChild(content);
+      col.appendChild(main);
+
+      if(subs && subs.length>0){
+        var subRow=document.createElement('div'); subRow.className='hero-sub';
+        subs.forEach(function(s){
+          var item=document.createElement('a'); item.className='hero-sub-item';
+          item.href=articleUrl(s);
+          if(s.image){
+            var si=document.createElement('img'); si.className='hero-sub-img'; si.src=s.image; si.alt=s.title||''; si.loading='lazy';
+            si.onerror=function(){this.style.display='none';};
+            item.appendChild(si);
+          }
+          var txt=document.createElement('div'); txt.className='hero-sub-text';
+          var sk=document.createElement('div'); sk.className='hero-sub-source'; sk.textContent=s.source||''; txt.appendChild(sk);
+          var st=document.createElement('div'); st.className='hero-sub-title'; st.textContent=s.title||''; txt.appendChild(st);
+          item.appendChild(txt);
+          subRow.appendChild(item);
+        });
+        col.appendChild(subRow);
+      }
+      wrap.appendChild(col);
+
+      // Live feed column (1/3)
+      var live=document.createElement('div'); live.className='hero-live'; live.id='heroLiveFeed';
+      var liveHdr=document.createElement('div'); liveHdr.className='hero-live-header';
+      liveHdr.textContent='آخر الأخبار';
+      live.appendChild(liveHdr);
+      var liveList=document.createElement('div'); liveList.className='hero-live-list'; liveList.id='heroLiveList';
+      live.appendChild(liveList);
+      wrap.appendChild(live);
+
+      populateLiveList(liveList);
+      return wrap;
+    }
+
+    function buildLiveStreamsSection() {
+      var div=document.createElement('div'); div.className='live-streams-section'; div.id='liveStreamsSection'; div.style.display='none';
+      var title=document.createElement('div'); title.className='live-streams-section-title';
+      var dot=document.createElement('span'); dot.className='live-dot'; title.appendChild(dot);
+      title.appendChild(document.createTextNode(' بث مباشر'));
+      div.appendChild(title);
+      var row=document.createElement('div'); row.className='live-streams-section-row'; row.id='liveStreamsRow';
+      div.appendChild(row);
+      return div;
+    }
+
+    var liveFeedLinks = new Set();
+
+    function createLiveItem(a, animate) {
+      var item=document.createElement('a'); item.className='hero-live-item' + (animate ? ' new-item' : '');
+      item.href=articleUrl(a);
+      item.dataset.link=a.link;
+      var top=document.createElement('div');
+      top.style.cssText='display:flex;justify-content:space-between;align-items:center;margin-bottom:0.15rem;';
+      var src=document.createElement('span'); src.className='hero-live-source'; src.textContent=a.source||'';
+      var time=document.createElement('span'); time.className='hero-live-time'; time.textContent=getTimeAgo(a.pubDate);
+      top.appendChild(src); top.appendChild(time);
+      item.appendChild(top);
+      var title=document.createElement('div'); title.className='hero-live-title'; title.textContent=a.title||'';
+      item.appendChild(title);
+      if(animate){
+        item.addEventListener('animationend', function(){ item.classList.remove('new-item'); });
+      }
+      return item;
+    }
+
+    function updateHeroLive() {
+      var list=document.getElementById('heroLiveList');
+      if(!list) return;
+      var items=articles.slice(0, 20);
+      // Find new articles not yet in the live feed
+      var newItems=[];
+      items.forEach(function(a){
+        if(!liveFeedLinks.has(a.link)) newItems.push(a);
+      });
+      // Prepend new items with animation
+      for(var i=newItems.length-1;i>=0;i--){
+        var el=createLiveItem(newItems[i], true);
+        list.insertBefore(el, list.firstChild);
+        liveFeedLinks.add(newItems[i].link);
+      }
+      // Trim excess items from bottom
+      while(list.children.length>20){
+        var last=list.lastChild;
+        if(last.dataset && last.dataset.link) liveFeedLinks.delete(last.dataset.link);
+        list.removeChild(last);
+      }
+    }
+
+    function diversifyList(source, max) {
+      var picks=[], srcCount={};
+      for(var i=0;i<source.length && picks.length<max;i++){
+        var s=source[i].source||'';
+        var unique=Object.keys(srcCount).length;
+        if(!srcCount[s] || unique>=5){ picks.push(source[i]); srcCount[s]=(srcCount[s]||0)+1; }
+      }
+      // Second pass if not enough
+      if(picks.length<max){
+        var pickLinks=new Set(picks.map(function(a){return a.link;}));
+        for(var i=0;i<source.length && picks.length<max;i++){
+          if(!pickLinks.has(source[i].link)) picks.push(source[i]);
+        }
+      }
+      return picks;
+    }
+
+    function populateLiveList(list) {
+      while(list.firstChild) list.removeChild(list.firstChild);
+      liveFeedLinks.clear();
+      var items=diversifyList(articles, 20);
+      items.forEach(function(a){
+        list.appendChild(createLiveItem(a, false));
+        liveFeedLinks.add(a.link);
+      });
+    }
+
+    function buildSidebar(items) {
+      if(!items || !items.length) return;
+      var box=document.createElement('div'); box.className='opinion-box';
+      var hdr=document.createElement('div'); hdr.className='opinion-title';
+      hdr.textContent='آراء';
+      box.appendChild(hdr);
+
+      var list=document.createElement('div'); list.className='opinion-list';
+      items.forEach(function(a){
+        var item=document.createElement('a'); item.className='opinion-item';
+        item.href=articleUrl(a);
+
+        var copy=document.createElement('div');
+        var author=document.createElement('span'); author.className='opinion-author';
+        author.textContent=getOpinionAuthor(a);
+        copy.appendChild(author);
+
+        var t=document.createElement('div'); t.className='opinion-headline'; t.textContent=a.title||'';
+        copy.appendChild(t);
+        item.appendChild(copy);
+
+        item.appendChild(buildOpinionAvatar(a));
+
+        list.appendChild(item);
+      });
+      box.appendChild(list);
+      sidebar.appendChild(box);
+    }
+
+    function extractHeroPoints(text) {
+      if(!text) return [];
+      var normalized = text.replace(/\s+/g, ' ').trim();
+      if(!normalized) return [];
+
+      var pieces = normalized.split(/[.!?\u061f]\s+/).map(function(x){ return x.trim(); }).filter(function(x){ return x.length > 20; });
+      if(pieces.length < 2){
+        pieces = normalized.split(/[\u060c;,]\s*/).map(function(x){ return x.trim(); }).filter(function(x){ return x.length > 20; });
+      }
+      return pieces.slice(0, 2);
+    }
+
+    function formatStoryDate(d) {
+      if(!d) return '';
+      var date = new Date(d);
+      if(isNaN(date.getTime())) return '';
+      return date.toLocaleDateString('ar-SA-u-nu-latn', { day:'2-digit', month:'long', year:'numeric' });
+    }
+
+    function getOpinionAuthor(a) {
+      var name = (a && (a.author || a.source) ? (a.author || a.source) : '').toString().trim();
+      return name || 'Arab News Network';
+    }
+
+    function buildOpinionAvatar(a) {
+      if(a && a.image){
+        var img=document.createElement('img');
+        img.className='opinion-avatar';
+        img.src=a.image;
+        img.alt=a.title||'';
+        img.loading='lazy';
+        img.onerror=function(){ this.replaceWith(buildOpinionAvatarFallback(getOpinionAuthor(a))); };
+        return img;
+      }
+      return buildOpinionAvatarFallback(getOpinionAuthor(a));
+    }
+
+    function buildOpinionAvatarFallback(name) {
+      var fallback=document.createElement('div');
+      fallback.className='opinion-avatar-fallback';
+      fallback.textContent=getAuthorInitials(name);
+      return fallback;
+    }
+
+    function getAuthorInitials(name) {
+      var parts = (name || '').split(/\s+/).filter(Boolean);
+      if(!parts.length) return 'AN';
+      if(parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+      return (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase();
+    }
+
+    function buildSection(title, items) {
+      var sec=document.createElement('div'); sec.className='section';
+      // Header
+      var hdr=document.createElement('div'); hdr.className='section-header';
+      var accent=document.createElement('div'); accent.className='section-accent';
+      var name=document.createElement('div'); name.className='section-title'; name.textContent=title;
+      var count=document.createElement('div'); count.className='section-count';
+      count.textContent=items.length+' \u0645\u0642\u0627\u0644';
+      hdr.appendChild(accent); hdr.appendChild(name); hdr.appendChild(count);
+      sec.appendChild(hdr);
+
+      var withImg=items.filter(function(a){return !!a.image;});
+      var noImg=items.filter(function(a){return !a.image;});
+
+      // Featured row: big card + stacked horizontal cards
+      if(withImg.length>=1){
+        var row=document.createElement('div'); row.className='card-feat-row';
+        row.appendChild(buildCard(withImg[0],true));
+        var side=document.createElement('div');
+        var sideItems = withImg.slice(1,4);
+        sideItems.forEach(function(a){ side.appendChild(buildCardHz(a)); });
+        row.appendChild(side);
+        sec.appendChild(row);
+      }
+
+      // Remaining image cards in 3-col grid (cap at 6)
+      var remainImg = withImg.slice(withImg.length>=1 ? 4 : 0, withImg.length>=1 ? 10 : 6);
+      if(remainImg.length>0){
+        var grid=document.createElement('div'); grid.className='card-grid-3';
+        remainImg.forEach(function(a){ grid.appendChild(buildCard(a,false)); });
+        sec.appendChild(grid);
+      }
+
+      // Text-only briefs in a clean list card (cap at 8)
+      var briefItems = noImg.slice(0, 8);
+      if(briefItems.length>0){
+        var list=document.createElement('div'); list.className='brief-list';
+        briefItems.forEach(function(a){ list.appendChild(buildBriefCard(a)); });
+        sec.appendChild(list);
+      }
+
+      return sec;
+    }
+
+    function buildCard(a, big) {
+      var el=document.createElement('a'); el.className='card'+(big?' card-big':'');
+      el.href=articleUrl(a);
+      if(a.image){
+        var wrap=document.createElement('div'); wrap.className='card-img-wrap';
+        var img=document.createElement('img'); img.className='card-img'; img.src=a.image; img.alt=a.title||''; img.loading='lazy';
+        img.onerror=function(){this.parentElement.style.display='none';};
+        wrap.appendChild(img); el.appendChild(wrap);
+      }
+      var body=document.createElement('div'); body.className='card-body';
+      var k=document.createElement('div'); k.className='card-source'; k.textContent=a.source||''; body.appendChild(k);
+      var t=document.createElement('h2'); t.className='card-title'; t.textContent=a.title||''; body.appendChild(t);
+      if(a.description){ var d=document.createElement('p'); d.className='card-excerpt'; d.textContent=a.description; body.appendChild(d); }
+      var m=document.createElement('div'); m.className='card-time'; m.textContent=getTimeAgo(a.pubDate); body.appendChild(m);
+      el.appendChild(body);
+      return el;
+    }
+
+    function buildCardHz(a) {
+      var el=document.createElement('a'); el.className='card-hz';
+      el.href=articleUrl(a);
+      if(a.image){
+        var wrap=document.createElement('div'); wrap.className='card-img-wrap';
+        var img=document.createElement('img'); img.className='card-img'; img.src=a.image; img.alt=a.title||''; img.loading='lazy';
+        img.onerror=function(){this.parentElement.style.display='none';};
+        wrap.appendChild(img); el.appendChild(wrap);
+      }
+      var body=document.createElement('div'); body.className='card-body';
+      var k=document.createElement('div'); k.className='card-source'; k.textContent=a.source||''; body.appendChild(k);
+      var t=document.createElement('h2'); t.className='card-title'; t.textContent=a.title||''; body.appendChild(t);
+      var m=document.createElement('div'); m.className='card-time'; m.textContent=getTimeAgo(a.pubDate); body.appendChild(m);
+      el.appendChild(body);
+      return el;
+    }
+
+    function buildBriefCard(a) {
+      var el=document.createElement('a'); el.className='brief';
+      el.href=articleUrl(a);
+      var k=document.createElement('div'); k.className='brief-source'; k.textContent=a.source||''; el.appendChild(k);
+      var t=document.createElement('h2'); t.className='brief-title'; t.textContent=a.title||''; el.appendChild(t);
+      if(a.description){ var d=document.createElement('p'); d.className='brief-excerpt'; d.textContent=a.description; el.appendChild(d); }
+      var m=document.createElement('div'); m.className='brief-time'; m.textContent=getTimeAgo(a.pubDate); el.appendChild(m);
+      return el;
+    }
+
+    function articleUrl(a) { return a.id ? '/article/' + a.id : a.link; }
+
+    function getTimeAgo(d) {
+      if(!d)return''; var diff=Date.now()-new Date(d).getTime(); var m=Math.floor(diff/60000);
+      if(m<1)return'\u0627\u0644\u0622\u0646'; if(m<60)return'\u0645\u0646\u0630 '+m+' \u062f\u0642\u064a\u0642\u0629';
+      var h=Math.floor(m/60); if(h<24)return'\u0645\u0646\u0630 '+h+' \u0633\u0627\u0639\u0629';
+      return'\u0645\u0646\u0630 '+Math.floor(h/24)+' \u064a\u0648\u0645';
+    }
+
+    document.querySelectorAll('#countryFilters .nav-item').forEach(function(el){
+      el.onclick=function(){
+        activeCountry=el.dataset.country;
+        document.querySelectorAll('#countryFilters .nav-item').forEach(function(e){e.classList.toggle('active',e.dataset.country===activeCountry);});
+        renderFeed();
+      };
+    });
+
+    function createSvg(paths, circles, lines) {
+      var ns='http://www.w3.org/2000/svg';
+      var svg=document.createElementNS(ns,'svg');
+      svg.setAttribute('viewBox','0 0 24 24');
+      svg.setAttribute('fill','none');
+      svg.setAttribute('stroke','currentColor');
+      svg.setAttribute('stroke-width','2');
+      svg.setAttribute('stroke-linecap','round');
+      svg.setAttribute('stroke-linejoin','round');
+      (paths||[]).forEach(function(d){ var p=document.createElementNS(ns,'path'); p.setAttribute('d',d); svg.appendChild(p); });
+      (circles||[]).forEach(function(c){ var el=document.createElementNS(ns,'circle'); el.setAttribute('cx',c[0]); el.setAttribute('cy',c[1]); el.setAttribute('r',c[2]); svg.appendChild(el); });
+      (lines||[]).forEach(function(l){ var el=document.createElementNS(ns,'line'); el.setAttribute('x1',l[0]); el.setAttribute('y1',l[1]); el.setAttribute('x2',l[2]); el.setAttribute('y2',l[3]); svg.appendChild(el); });
+      return svg;
+    }
+    function setThemeIcon(theme){
+      var btn=document.getElementById('themeToggle');
+      while(btn.firstChild) btn.removeChild(btn.firstChild);
+      if(theme==='dark') btn.appendChild(createSvg(null,[[12,12,5]],[[12,1,12,3],[12,21,12,23],[4.22,4.22,5.64,5.64],[18.36,18.36,19.78,19.78],[1,12,3,12],[21,12,23,12],[4.22,19.78,5.64,18.36],[18.36,5.64,19.78,4.22]]));
+      else btn.appendChild(createSvg(['M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z']));
+    }
+    function getStoredTheme() {
+      var stored = localStorage.getItem('theme');
+      return stored === 'dark' || stored === 'light' ? stored : '';
+    }
+    var colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    function getSystemTheme() {
+      return colorSchemeQuery.matches ? 'dark' : 'light';
+    }
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      setThemeIcon(theme);
+    }
+    function toggleTheme() {
+      var d=document.documentElement.getAttribute('data-theme')==='dark';
+      var n=d?'light':'dark';
+      applyTheme(n);
+      localStorage.setItem('theme',n);
+    }
+    (function(){
+      applyTheme(getStoredTheme() || getSystemTheme());
+      var handleThemeChange = function(e) {
+        if(getStoredTheme()) return;
+        applyTheme(e.matches ? 'dark' : 'light');
+      };
+      colorSchemeQuery.addEventListener('change', handleThemeChange);
+    })();
+
+    fetchNews(true);
+    setInterval(function(){fetchNews(false);},POLL_INTERVAL);
+
+    function buildStockHalf(stocks) {
+      var half=document.createElement('div'); half.className='stock-ticker-half';
+      stocks.forEach(function(s){
+        var item=document.createElement('div'); item.className='stock-item';
+        var name=document.createElement('span'); name.className='stock-name'; name.textContent=s.name;
+        var price=document.createElement('span'); price.className='stock-price'; price.textContent=s.price.toLocaleString('ar-EG-u-nu-latn',{minimumFractionDigits:2,maximumFractionDigits:2});
+        var change=document.createElement('span');
+        var pct=s.changePercent;
+        var dir=pct>0?'up':pct<0?'down':'flat';
+        change.className='stock-change '+dir;
+        var arrow=pct>0?'▲':pct<0?'▼':'–';
+        change.textContent=arrow+' '+Math.abs(pct).toFixed(2)+'%';
+        item.appendChild(name); item.appendChild(price); item.appendChild(change);
+        half.appendChild(item);
+      });
+      return half;
+    }
+    function fetchStocks() {
+      fetch('/api/stocks')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          var el=document.getElementById('stockTicker');
+          if(!el || !data.stocks || !data.stocks.length) return;
+          while(el.firstChild) el.removeChild(el.firstChild);
+          el.appendChild(buildStockHalf(data.stocks));
+          el.appendChild(buildStockHalf(data.stocks));
+        })
+        .catch(function(e){ console.error('Stock fetch error:',e); });
+    }
+    fetchStocks();
+    setInterval(fetchStocks, 1200000); // 20 minutes
+
+    var _liveStreamsCache = null;
+    function fetchLiveStreams() {
+      fetch('/api/live-streams')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          _liveStreamsCache = data.streams || [];
+          renderLiveStreams();
+        })
+        .catch(function(e){ console.error('Live streams fetch error:',e); });
+    }
+    function renderLiveStreams() {
+      var streams = _liveStreamsCache;
+      if(!streams || !streams.length) return;
+      var targets = [
+        { row: document.getElementById('liveStreamsRow'), wrap: document.getElementById('liveStreamsSection') }
+      ];
+      targets.forEach(function(t){
+        if(!t.row || !t.wrap) return;
+        while(t.row.firstChild) t.row.removeChild(t.row.firstChild);
+        streams.forEach(function(s){
+          var ch=document.createElement('div'); ch.className='live-channel';
+          var lbl=document.createElement('div'); lbl.className='live-channel-label'; lbl.textContent=s.label;
+          ch.appendChild(lbl);
+          var player=document.createElement('div'); player.className='live-player';
+          var iframe=document.createElement('iframe');
+          iframe.src='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(s.videoId)+'?autoplay=1&mute=1';
+          iframe.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+          iframe.setAttribute('allowfullscreen','');
+          iframe.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+          iframe.setAttribute('loading','lazy');
+          player.appendChild(iframe);
+          ch.appendChild(player);
+          t.row.appendChild(ch);
+        });
+        t.wrap.style.display='';
+      });
+    }
+    fetchLiveStreams();
+    setInterval(fetchLiveStreams, 1200000); // 20 minutes
+  </script>
+  <noscript>
+    <div style="text-align:center;padding:4rem 2rem;font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;">
+      <h1>شبكة الأخبار العربية</h1>
+      <p>مجمع أخبار عربي يقدم آخر الأخبار والتحديثات من الشرق الأوسط والعالم العربي، يشمل أخبار السياسة والاقتصاد والرياضة والتكنولوجيا والثقافة من مصادر متعددة.</p>
+      <p>يرجى تفعيل JavaScript لعرض الأخبار.</p>
+    </div>
+  </noscript>
+</body>
+</html>
